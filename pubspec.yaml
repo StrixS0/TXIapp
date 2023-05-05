@@ -110,7 +110,7 @@ flutter:
         # - asset: assets/fonts/raleway/Raleway-Black.ttf
         # - asset: assets/fonts/raleway/Raleway-Bold.ttf
         # - asset: assets/fonts/raleway/Raleway-ExtraBold.ttf
-        # - asset: assets/fonts/raleway/Raleway-Light.ttf
+        - asset: assets/fonts/raleway/Raleway-Light.ttf
         - asset: assets/fonts/raleway/Raleway-Medium.ttf
           weight: 700
         # - asset: assets/fonts/raleway/Raleway-Regular.ttf
