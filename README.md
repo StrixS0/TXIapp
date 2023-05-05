@@ -8,6 +8,9 @@ TXI Corporate Transportation is a mobile app built with Flutter that allows user
 - Secure payment: Users can securely pay for their rides within the app, using a variety of payment methods such as credit cards, PayPal, and more.
 - Customizable settings: Admins can customize the app settings, such as the types of vehicles available, the pricing, and the notification preferences.
 
+## Installation
+To run the app locally, you will need to have Flutter installed on your machine. Once you have Flutter installed, clone this repository and run flutter run to launch the app on your emulator or device.
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
