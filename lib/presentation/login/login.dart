@@ -63,7 +63,7 @@ class LoginPage extends StatelessWidget {
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: Color(0xFFD6AD67),
+                          color: Color.fromARGB(255, 221, 140, 0),
                           width: 1.0,
                         ),
                       ),
@@ -100,7 +100,7 @@ class LoginPage extends StatelessWidget {
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: Color(0xFFD6AD67),
+                          color: Color.fromARGB(255, 221, 140, 0),
                           width: 1.0,
                         ),
                       ),
@@ -121,6 +121,57 @@ class LoginPage extends StatelessWidget {
                     // Add your login logic here
                   },
                   text: 'Continue',
+                ),
+                const SizedBox(height: 30),
+                GestureDetector(
+                  onTap: () {
+                    // Add your forgot password logic here
+                  },
+                  child: const Text(
+                    'Forgot password?',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontFamily: 'Raleway',
+                      fontWeight: FontWeight.w100,
+                      color: Color(0xFFD6AD67),
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 30),
+                Container(
+                margin: const EdgeInsets.only(bottom: 10.0),
+                child: SvgPicture.asset(
+                  'assets/images/LineDot.svg',
+                  width: 300,
+                  height: 25,
+                  color: const Color(0xFFD6AD67),
+                ),
+              ),
+              const Text(
+                'New to TXI?',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontFamily: 'Raleway',
+                  fontWeight: FontWeight.w100,
+                  color: Colors.white,
+                ),
+              ),
+              const SizedBox(height: 10),
+                GestureDetector(
+                  onTap: () {
+                    // Add logic whatever
+                  },
+                  child: const Text(
+                    'Create an Account',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontFamily: 'Raleway',
+                      fontWeight: FontWeight.w100,
+                      color: Color(0xFFD6AD67),
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
                 ),
               ],
             ),
