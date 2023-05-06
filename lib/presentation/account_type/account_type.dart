@@ -2,7 +2,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:txiapp/presentation/login/login.dart';
+
+//
+import 'package:txiapp/presentation/login/login.dart'; 
+import 'package:txiapp/presentation/signup_personal/signup_personal.dart';
+import 'package:txiapp/presentation/signup_corporate.dart/signup_corporate.dart';
+
+//Components
+import 'package:txiapp/presentation/components/textfields.dart';
 import 'package:txiapp/presentation/components/buttons.dart';
 
 class AccountTypePage extends StatelessWidget {
@@ -60,14 +67,20 @@ class AccountTypePage extends StatelessWidget {
                 const SizedBox(height: 20),
                 PrimaryElevatedButton(
                   onPressed: () {
-                    // Add login logic
+                    Navigator.push(
+                      context, 
+                      MaterialPageRoute(builder: (context) => const SignUpPersonalPage()),
+                    );
                   },
                   text: 'PERSONAL',
                 ),
                 const SizedBox(height: 20),
                 PrimaryElevatedButton(
                   onPressed: () {
-                    // Add login logic
+                    Navigator.push(
+                      context, 
+                      MaterialPageRoute(builder: (context) => const SignUpCorporatePage()),
+                    );
                   },
                   text: 'CORPORATE',
                 ), 

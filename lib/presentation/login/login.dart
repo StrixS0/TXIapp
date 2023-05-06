@@ -2,8 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:txiapp/presentation/components/buttons.dart';
 import 'package:txiapp/presentation/account_type/account_type.dart';
+
+//Components
+import 'package:txiapp/presentation/components/textfields.dart';
+import 'package:txiapp/presentation/components/buttons.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -44,78 +47,18 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 20),
-                Container(
-                  constraints: const BoxConstraints(maxWidth: 300),
-                  child: const TextField(
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontFamily: 'Raleway',
-                      fontWeight: FontWeight.w100,
-                    ),
-                    decoration: InputDecoration(
-                      hintText: 'User name',
-                      hintStyle: TextStyle(color: Colors.white),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0xFFD6AD67),
-                          width: 1.0,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color.fromARGB(255, 221, 140, 0),
-                          width: 1.0,
-                        ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0xFFD6AD67),
-                          width: 1.0,
-                        ),
-                      ),
-                      filled: false, // Set filled to false
-                      fillColor: Colors.transparent, // Transparent background
-                    ),
-                  ),
+                PrimaryTextField(
+                  hintText: 'User name',
+                  onChanged: (value) {
+                    // Handle username input
+                  },
                 ),
                 const SizedBox(height: 10),
-                Container(
-                  constraints: const BoxConstraints(maxWidth: 300),
-                  child: const TextField(
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontFamily: 'Raleway',
-                      fontWeight: FontWeight.w100,
-                    ),
-                    decoration: InputDecoration(
-                      hintText: 'Password',
-                      hintStyle: TextStyle(color: Colors.white),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0xFFD6AD67),
-                          width: 1.0,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color.fromARGB(255, 221, 140, 0),
-                          width: 1.0,
-                        ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0xFFD6AD67),
-                          width: 1.0,
-                        ),
-                      ),
-                      filled: false, // Set filled to false
-                      fillColor: Colors.transparent, // Transparent background
-                    ),
-                  ),
+                PrimaryTextField(
+                  hintText: 'Password',
+                  onChanged: (value) {
+                    // Handle username input
+                  },
                 ),
                 const SizedBox(height: 20),
                 PrimaryElevatedButton(
@@ -162,10 +105,11 @@ class LoginPage extends StatelessWidget {
                 const SizedBox(height: 10),
                 GestureDetector(
                   onTap: () {
-                     Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const AccountTypePage()),
-                  );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const AccountTypePage()),
+                    );
                   },
                   child: const Text(
                     'Create an Account',
@@ -181,6 +125,45 @@ class LoginPage extends StatelessWidget {
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  Container ss() {
+    return Container(
+      constraints: const BoxConstraints(maxWidth: 300),
+      child: const TextField(
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 18,
+          fontFamily: 'Raleway',
+          fontWeight: FontWeight.w100,
+        ),
+        decoration: InputDecoration(
+          hintText: 'Password',
+          hintStyle: TextStyle(color: Colors.white),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Color(0xFFD6AD67),
+              width: 1.0,
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Color.fromARGB(255, 221, 140, 0),
+              width: 1.0,
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Color(0xFFD6AD67),
+              width: 1.0,
+            ),
+          ),
+          filled: false, // Set filled to false
+          fillColor: Colors.transparent, // Transparent background
         ),
       ),
     );
