@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:txiapp/presentation/components/buttons.dart';
+import 'package:txiapp/presentation/account_type/account_type.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -24,6 +25,7 @@ class LoginPage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                const SizedBox(height: 40),
                 SizedBox(
                   width: 300,
                   height: 300,
@@ -118,14 +120,14 @@ class LoginPage extends StatelessWidget {
                 const SizedBox(height: 20),
                 PrimaryElevatedButton(
                   onPressed: () {
-                    // Add your login logic here
+                    // Add login logic
                   },
                   text: 'Continue',
                 ),
                 const SizedBox(height: 30),
                 GestureDetector(
                   onTap: () {
-                    // Add your forgot password logic here
+                    // Add forgot password logic
                   },
                   child: const Text(
                     'Forgot password?',
@@ -140,27 +142,30 @@ class LoginPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 30),
                 Container(
-                margin: const EdgeInsets.only(bottom: 10.0),
-                child: SvgPicture.asset(
-                  'assets/images/LineDot.svg',
-                  width: 300,
-                  height: 25,
-                  color: const Color(0xFFD6AD67),
+                  margin: const EdgeInsets.only(bottom: 10.0),
+                  child: SvgPicture.asset(
+                    'assets/images/LineDot.svg',
+                    width: 300,
+                    height: 25,
+                    color: const Color(0xFFD6AD67),
+                  ),
                 ),
-              ),
-              const Text(
-                'New to TXI?',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontFamily: 'Raleway',
-                  fontWeight: FontWeight.w100,
-                  color: Colors.white,
+                const Text(
+                  'New to TXI?',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontFamily: 'Raleway',
+                    fontWeight: FontWeight.w100,
+                    color: Colors.white,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 10),
+                const SizedBox(height: 10),
                 GestureDetector(
                   onTap: () {
-                    // Add logic whatever
+                     Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const AccountTypePage()),
+                  );
                   },
                   child: const Text(
                     'Create an Account',

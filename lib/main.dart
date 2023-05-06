@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:txiapp/presentation/account_type/account_type.dart';
 import 'package:txiapp/presentation/components/buttons.dart';
 import 'package:txiapp/presentation/login/login.dart';
 
@@ -80,7 +81,10 @@ class _MyHomePageState extends State<MyHomePage> {
               const SizedBox(height: 20),
               PrimaryOutlinedButton(
                 onPressed: () {
-                  // Add your log in logic here
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const AccountTypePage()),
+                  );
                 },
                 text: 'SIGN UP',
               ),
