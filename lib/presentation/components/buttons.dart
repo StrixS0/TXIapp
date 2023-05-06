@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class primaryElavatedButton extends StatelessWidget {
+class PrimaryElevatedButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
 
-  const primaryElavatedButton({
+  const PrimaryElevatedButton({super.key, 
     required this.text,
     required this.onPressed,
   });
@@ -22,19 +22,19 @@ class primaryElavatedButton extends StatelessWidget {
         ),
       ),
       child: SizedBox(
-        width: 250,
+        width: 270,
         child: Padding(
-          padding: EdgeInsets.symmetric(
-            vertical: 10,
+          padding: const EdgeInsets.symmetric(
+            vertical: 15,
             horizontal: 20,
           ),
           child: Text(
             text,
             textAlign: TextAlign.center,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
+              fontWeight: FontWeight.normal,
+              color: Colors.black,
             ),
           ),
         ),
@@ -42,57 +42,13 @@ class primaryElavatedButton extends StatelessWidget {
     );
   }
 }
+ 
 
-
-class outlinedElevatedButton extends StatelessWidget {
+class PrimaryOutlinedButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
 
-  const outlinedElevatedButton({
-    required this.text,
-    required this.onPressed,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFFD6AD67)),
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(0),
-          ),
-        ),
-      ),
-      child: SizedBox(
-        width: 250,
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            vertical: 10,
-            horizontal: 20,
-          ),
-          child: Text(
-            text,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-
-class primaryOutlinedButton extends StatelessWidget {
-  final String text;
-  final VoidCallback onPressed;
-
-  const primaryOutlinedButton({
+  const PrimaryOutlinedButton({super.key, 
     required this.text,
     required this.onPressed,
   });
@@ -113,18 +69,18 @@ class primaryOutlinedButton extends StatelessWidget {
         ),
       ),
       child: SizedBox(
-        width: 250,
+        width: 270,
         child: Padding(
-          padding: EdgeInsets.symmetric(
-            vertical: 10,
+          padding: const EdgeInsets.symmetric(
+            vertical: 15,
             horizontal: 20,
           ),
           child: Text(
             text,
             textAlign: TextAlign.center,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 20,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.normal,
               color: Color(0xFFD6AD67),
             ),
           ),

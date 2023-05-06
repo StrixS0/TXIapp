@@ -1,6 +1,9 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:txiapp/components/buttons.dart'; 
+import 'package:txiapp/presentation/components/buttons.dart';
+import 'package:txiapp/presentation/login/login.dart';
 
 void main() {
   runApp(const MyApp());
@@ -40,8 +43,8 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                width: 300,
-                height: 300,
+                width: 250,
+                height: 250,
                 child: SvgPicture.asset(
                   'assets/images/LogoTXI.svg',
                   color: const Color(0xFFD6AD67),
@@ -50,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
               const Text(
                 'WELCOME',
                 style: TextStyle(
-                  fontSize: 34,
+                  fontSize: 27,
                   fontFamily: 'Raleway',
                   fontWeight: FontWeight.w100,
                   color: Colors.white,
@@ -65,14 +68,17 @@ class _MyHomePageState extends State<MyHomePage> {
                   color: const Color(0xFFD6AD67),
                 ),
               ),
-              primaryElavatedButton(
+              PrimaryElevatedButton(
                 onPressed: () {
-                  // Add your log in logic here
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const LoginPage()),
+                  );
                 },
                 text: 'LOG IN',
               ),
-              const SizedBox(height: 10),
-              primaryOutlinedButton(
+              const SizedBox(height: 20),
+              PrimaryOutlinedButton(
                 onPressed: () {
                   // Add your log in logic here
                 },
