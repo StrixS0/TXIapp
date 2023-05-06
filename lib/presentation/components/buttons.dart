@@ -4,7 +4,8 @@ class PrimaryElevatedButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
 
-  const PrimaryElevatedButton({super.key, 
+  const PrimaryElevatedButton({
+    super.key,
     required this.text,
     required this.onPressed,
   });
@@ -14,7 +15,8 @@ class PrimaryElevatedButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFFD6AD67)),
+        backgroundColor:
+            MaterialStateProperty.all<Color>(const Color(0xFFD6AD67)),
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(0),
@@ -42,13 +44,13 @@ class PrimaryElevatedButton extends StatelessWidget {
     );
   }
 }
- 
 
 class PrimaryOutlinedButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
 
-  const PrimaryOutlinedButton({super.key, 
+  const PrimaryOutlinedButton({
+    super.key,
     required this.text,
     required this.onPressed,
   });
