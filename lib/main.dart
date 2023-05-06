@@ -2,9 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:txiapp/presentation/account_type/account_type.dart';
-import 'package:txiapp/presentation/components/buttons.dart';
+import 'package:txiapp/presentation/account_type/account_type.dart'; 
 import 'package:txiapp/presentation/login/login.dart';
+
+//Components 
+import 'package:txiapp/presentation/components/buttons.dart';
 
 void main() {
   runApp(const MyApp());
