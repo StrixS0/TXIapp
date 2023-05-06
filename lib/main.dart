@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:txiapp/extensions/color_extension.dart';
+import 'package:txiapp/components/buttons.dart'; 
 
 void main() {
   runApp(const MyApp());
@@ -65,73 +65,18 @@ class _MyHomePageState extends State<MyHomePage> {
                   color: const Color(0xFFD6AD67),
                 ),
               ),
-              ElevatedButton(
+              primaryElavatedButton(
                 onPressed: () {
                   // Add your log in logic here
                 },
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(const Color(0xFFD6AD67)),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(0),
-                    ),
-                  ),
-                ),
-                child: const SizedBox(
-                  width: 250,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      vertical: 10,
-                      horizontal: 20,
-                    ),
-                    child: Text(
-                      'LOG IN',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
+                text: 'LOG IN',
               ),
               const SizedBox(height: 10),
-              OutlinedButton(
+              primaryOutlinedButton(
                 onPressed: () {
-                  // Add your sign up logic here
+                  // Add your log in logic here
                 },
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                      Colors.transparent), // transparent background
-                  side: MaterialStateProperty.all<BorderSide>(
-                    const BorderSide(color: Color(0xFFD6AD67)), // outline color
-                  ),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(0),
-                    ),
-                  ),
-                ),
-                child: const SizedBox(
-                  width: 250,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      vertical: 10,
-                      horizontal: 20,
-                    ),
-                    child: Text(
-                      'SIGN UP',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFFD6AD67), // text color
-                      ),
-                    ),
-                  ),
-                ),
+                text: 'SIGN UP',
               ),
             ],
           ),
