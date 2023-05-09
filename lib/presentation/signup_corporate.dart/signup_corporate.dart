@@ -64,6 +64,7 @@ class SignUpCorporatePage extends StatelessWidget {
               const SizedBox(height: 20),
                 PrimaryTextField(
                   hintText: "Company Name",
+                  inputType: TextInputType.name,  
                   onChanged: (value) {
                     //full name input
                   },
@@ -71,6 +72,7 @@ class SignUpCorporatePage extends StatelessWidget {
                 const SizedBox(height: 10),
                 PrimaryTextField(
                   hintText: "Full Name",
+                  inputType: TextInputType.name,  
                   onChanged: (value) {
                     //full name input
                   },
@@ -78,6 +80,7 @@ class SignUpCorporatePage extends StatelessWidget {
                 const SizedBox(height: 10),
                 PrimaryTextField(
                   hintText: "Email Address",
+                  inputType: TextInputType.emailAddress,  
                   onChanged: (value) {
                     //full name input
                   },
@@ -85,6 +88,7 @@ class SignUpCorporatePage extends StatelessWidget {
                 const SizedBox(height: 10),
                 PrimaryTextField(
                   hintText: "Phone Number",
+                  inputType: TextInputType.phone,  
                   onChanged: (value) {
                     //full name input
                   },
@@ -94,6 +98,7 @@ class SignUpCorporatePage extends StatelessWidget {
                 const SizedBox(height: 10),
                 PrimaryTextField(
                   hintText: "Address",
+                  inputType: TextInputType.streetAddress,  
                   onChanged: (value) {
                     //full name input
                   },
@@ -107,6 +112,7 @@ class SignUpCorporatePage extends StatelessWidget {
                       Expanded(
                         child: PrimaryTextField(
                           hintText: "Zip Code",
+                          inputType: TextInputType.number,  
                           onChanged: (value) {
                             //zip code input
                           },

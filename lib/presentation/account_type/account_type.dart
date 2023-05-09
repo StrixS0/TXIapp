@@ -34,8 +34,8 @@ class AccountTypePage extends StatelessWidget {
               children: [
                 const SizedBox(height: 40),
                 SizedBox(
-                  width: 300,
-                  height: 300,
+                  width: 250,
+                height: 250,
                   child: SvgPicture.asset(
                     'assets/images/LogoTXI.svg',
                     color: const Color(0xFFD6AD67),
