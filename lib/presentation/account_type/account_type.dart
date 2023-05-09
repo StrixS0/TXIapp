@@ -8,8 +8,7 @@ import 'package:txiapp/presentation/login/login.dart';
 import 'package:txiapp/presentation/signup_personal/signup_personal.dart';
 import 'package:txiapp/presentation/signup_corporate.dart/signup_corporate.dart';
 
-//Components
-import 'package:txiapp/presentation/components/textfields.dart';
+//Components 
 import 'package:txiapp/presentation/components/buttons.dart';
 
 class AccountTypePage extends StatelessWidget {
@@ -122,6 +121,7 @@ class AccountTypePage extends StatelessWidget {
                     ),
                   ),
                 ),
+                 const SizedBox(height: 80),
               ],
             ),
           ),
