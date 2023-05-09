@@ -49,6 +49,7 @@ class LoginPage extends StatelessWidget {
                 const SizedBox(height: 20),
                 PrimaryTextField(
                   hintText: 'User name',
+                  inputType: TextInputType.emailAddress,  
                   onChanged: (value) {
                     // Handle username input
                   },
@@ -56,8 +57,9 @@ class LoginPage extends StatelessWidget {
                 const SizedBox(height: 10),
                 PrimaryTextField(
                   hintText: 'Password',
+                  isPassword: true,
                   onChanged: (value) {
-                    // Handle username input
+                    // Handle password input
                   },
                 ),
                 const SizedBox(height: 20),
@@ -130,42 +132,5 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  Container ss() {
-    return Container(
-      constraints: const BoxConstraints(maxWidth: 300),
-      child: const TextField(
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 18,
-          fontFamily: 'Raleway',
-          fontWeight: FontWeight.w100,
-        ),
-        decoration: InputDecoration(
-          hintText: 'Password',
-          hintStyle: TextStyle(color: Colors.white),
-          border: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Color(0xFFD6AD67),
-              width: 1.0,
-            ),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Color.fromARGB(255, 221, 140, 0),
-              width: 1.0,
-            ),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Color(0xFFD6AD67),
-              width: 1.0,
-            ),
-          ),
-          filled: false, // Set filled to false
-          fillColor: Colors.transparent, // Transparent background
-        ),
-      ),
-    );
-  }
+   
 }

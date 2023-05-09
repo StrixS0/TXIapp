@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 
 class PrimaryTextField extends StatelessWidget {
   final String hintText;
+  final bool isPassword;
+  final TextInputType? inputType; 
   final ValueChanged<String>? onChanged;
 
   const PrimaryTextField({
     Key? key,
     required this.hintText,
+    this.isPassword = false,
+    this.inputType,  
     this.onChanged,
   }) : super(key: key);
 
@@ -23,6 +27,8 @@ class PrimaryTextField extends StatelessWidget {
           fontWeight: FontWeight.w100,
         ),
         onChanged: onChanged,
+        obscureText: isPassword,
+        keyboardType: inputType,  
         decoration: InputDecoration(
           hintText: hintText,
           hintStyle: const TextStyle(color: Colors.white),
