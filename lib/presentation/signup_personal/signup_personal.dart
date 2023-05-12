@@ -115,7 +115,28 @@ class SignUpPersonalPage extends StatelessWidget {
                       ),
                     ],
                   ),
-                ),
+                ), 
+                Container(
+                  constraints: const BoxConstraints(maxWidth: 280),
+                  child: const Text(
+                    '\n - Full name is required.' + 
+                    '\n - Email address is required.' +
+                    '\n - Email address is invalid.' +
+                    '\n - Phone Number is required.' +
+                    '\n - Select year of birth.' +
+                    '\n - Address is required.' +
+                    '\n - Zip code is required.' +
+                    '\n - Select state' 
+                    ,
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontFamily: 'Raleway',
+                      fontWeight: FontWeight.w100,
+                      color: Color.fromARGB(255, 251, 137, 137),
+                    ),
+                  ),
+                ), 
                 const SizedBox(height: 30),
                 PrimaryElevatedButton(
                   onPressed: () {

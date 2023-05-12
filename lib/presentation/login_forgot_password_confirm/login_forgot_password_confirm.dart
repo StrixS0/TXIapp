@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 //
 import 'package:txiapp/presentation/components/textfields.dart';
-import 'package:txiapp/presentation/login/login.dart';
+import 'package:txiapp/presentation/signup_confirm_password/signup_confirm_password.dart';
 
 //Components
 import 'package:txiapp/presentation/components/buttons.dart';
@@ -43,7 +43,7 @@ class LoginForgotPasswordConfirm extends StatelessWidget {
                 Container(
                   constraints: const BoxConstraints(maxWidth: 300),
                   child: const Text(
-                    'WE JUST EMAIL YOU A CONFIRMATION CODE',
+                    'WE JUST EMAILED YOU A CONFIRMATION CODE',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 20,
@@ -75,13 +75,27 @@ class LoginForgotPasswordConfirm extends StatelessWidget {
                     //full name input
                   },
                 ), 
+                const SizedBox(height: 20),
+                Container(
+                  constraints: const BoxConstraints(maxWidth: 280),
+                  child: const Text(
+                    '⚠️ It seems like you entered an invalid code. You may opt to resend the code and try again.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontFamily: 'Raleway',
+                      fontWeight: FontWeight.w100,
+                      color: Color.fromARGB(255, 251, 137, 137),
+                    ),
+                  ),
+                ), 
                 const SizedBox(height: 30),
                 PrimaryElevatedButton(
                   onPressed: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const LoginPage()),
+                          builder: (context) => const SignupConfirmPassword()),
                     );
                   },
                   text: 'Confirm',

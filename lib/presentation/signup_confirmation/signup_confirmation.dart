@@ -86,6 +86,20 @@ class SignUpConfirmationPage extends StatelessWidget {
                   },
                   text: 'Confirm',
                 ),
+                const SizedBox(height: 20),
+                Container(
+                  constraints: const BoxConstraints(maxWidth: 280),
+                  child: const Text(
+                    '⚠️ It seems like you entered an invalid code. You may opt to resend the code and try again.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontFamily: 'Raleway',
+                      fontWeight: FontWeight.w100,
+                      color: Color.fromARGB(255, 251, 137, 137),
+                    ),
+                  ),
+                ), 
                 const SizedBox(height: 30),
                 Container(
                   margin: const EdgeInsets.only(bottom: 10.0),
