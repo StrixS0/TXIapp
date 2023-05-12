@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 //
 import 'package:txiapp/presentation/login/login.dart';
-import 'package:txiapp/presentation/add_payment_method/add_payment_method.dart'; 
+import 'package:txiapp/presentation/signup_confirm_password/signup_confirm_password.dart';
 import 'package:txiapp/presentation/components/textfields.dart'; 
 
 //Components
@@ -122,7 +122,7 @@ class SignUpPersonalPage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const AddPaymentMethod()),
+                          builder: (context) => const SignupConfirmPassword()),
                     );
                   },
                   text: 'Continue',
@@ -152,7 +152,7 @@ class SignUpPersonalPage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const AddPaymentMethod()),
+                          builder: (context) => const LoginPage()),
                     );
                   },
                   child: const Text(

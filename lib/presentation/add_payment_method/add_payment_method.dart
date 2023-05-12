@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 //
-import 'package:txiapp/presentation/signup_confirmation/signup_confirmation.dart';
+import 'package:txiapp/presentation/login/login.dart';
 import 'package:txiapp/presentation/components/textfields.dart'; 
 
 //Components
@@ -135,7 +135,7 @@ class AddPaymentMethod extends StatelessWidget {
                      Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const SignUpConfirmationPage()),
+                          builder: (context) => const LoginPage()),
                     );
                   },
                   text: 'Continue',

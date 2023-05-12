@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 //
 import 'package:txiapp/presentation/login/login.dart';
 import 'package:txiapp/presentation/components/textfields.dart'; 
+import 'package:txiapp/presentation/signup_confirm_password/signup_confirm_password.dart';
 
 //Components
 import 'package:txiapp/presentation/components/buttons.dart'; 
@@ -126,7 +127,11 @@ class SignUpCorporatePage extends StatelessWidget {
                 const SizedBox(height: 30),
                 PrimaryElevatedButton(
                   onPressed: () {
-                    // Add login logic
+                     Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SignupConfirmPassword()),
+                    );
                   },
                   text: 'Continue',
                 ), 
