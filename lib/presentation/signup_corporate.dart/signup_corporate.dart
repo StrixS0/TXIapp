@@ -5,12 +5,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 //
 import 'package:txiapp/presentation/login/login.dart';
-import 'package:txiapp/presentation/components/textfields.dart';
-import 'package:txiapp/presentation/account_type/account_type.dart';
+import 'package:txiapp/presentation/components/textfields.dart'; 
 
 //Components
-import 'package:txiapp/presentation/components/buttons.dart';
-import 'package:txiapp/presentation/components/decorations.dart';
+import 'package:txiapp/presentation/components/buttons.dart'; 
 import 'package:txiapp/presentation/components/state_dropdown.dart';
 import 'package:txiapp/presentation/components/birthyear_dropdown.dart';
 

@@ -3,21 +3,23 @@ import 'package:flutter/material.dart';
 class PrimaryTextField extends StatelessWidget {
   final String hintText;
   final bool isPassword;
-  final TextInputType? inputType; 
+  final TextInputType? inputType;
+  final int? maxLength;  
   final ValueChanged<String>? onChanged;
 
   const PrimaryTextField({
     Key? key,
     required this.hintText,
     this.isPassword = false,
-    this.inputType,  
+    this.inputType,
+    this.maxLength,  
     this.onChanged,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: const BoxConstraints(maxWidth: 300, maxHeight: 55),
+      constraints: const BoxConstraints(maxWidth: 300, minHeight: 55),
       child: TextField(
         textAlign: TextAlign.center,
         style: const TextStyle(
@@ -28,7 +30,8 @@ class PrimaryTextField extends StatelessWidget {
         ),
         onChanged: onChanged,
         obscureText: isPassword,
-        keyboardType: inputType,  
+        keyboardType: inputType,
+        maxLength: maxLength,  
         decoration: InputDecoration(
           hintText: hintText,
           hintStyle: const TextStyle(color: Colors.white),

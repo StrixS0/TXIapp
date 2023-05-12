@@ -5,12 +5,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 //
 import 'package:txiapp/presentation/login/login.dart';
-import 'package:txiapp/presentation/components/textfields.dart';
-import 'package:txiapp/presentation/account_type/account_type.dart';
+import 'package:txiapp/presentation/add_payment_method/add_payment_method.dart'; 
+import 'package:txiapp/presentation/components/textfields.dart'; 
 
 //Components
-import 'package:txiapp/presentation/components/buttons.dart';
-import 'package:txiapp/presentation/components/decorations.dart';
+import 'package:txiapp/presentation/components/buttons.dart'; 
 import 'package:txiapp/presentation/components/state_dropdown.dart';
 import 'package:txiapp/presentation/components/birthyear_dropdown.dart';
 
@@ -120,7 +119,11 @@ class SignUpPersonalPage extends StatelessWidget {
                 const SizedBox(height: 30),
                 PrimaryElevatedButton(
                   onPressed: () {
-                    // Add login logic
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const AddPaymentMethod()),
+                    );
                   },
                   text: 'Continue',
                 ), 
@@ -149,7 +152,7 @@ class SignUpPersonalPage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const LoginPage()),
+                          builder: (context) => const AddPaymentMethod()),
                     );
                   },
                   child: const Text(
