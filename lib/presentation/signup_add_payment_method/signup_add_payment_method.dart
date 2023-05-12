@@ -10,8 +10,8 @@ import 'package:txiapp/presentation/components/textfields.dart';
 //Components
 import 'package:txiapp/presentation/components/buttons.dart';  
 
-class AddPaymentMethod extends StatelessWidget {
-  const AddPaymentMethod({Key? key}) : super(key: key);
+class SignupAddPaymentMethod extends StatelessWidget {
+  const SignupAddPaymentMethod({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +81,7 @@ class AddPaymentMethod extends StatelessWidget {
                     children: [
                       Expanded(
                         child: PrimaryTextField(
-                          hintText: "Month (MM)",
+                          hintText: "Month",
                           inputType: TextInputType.number,  
                           onChanged: (value) {
                             
@@ -91,7 +91,7 @@ class AddPaymentMethod extends StatelessWidget {
                       const SizedBox(width: 10),
                       Expanded(
                         child: PrimaryTextField(
-                          hintText: "Year (YY)",
+                          hintText: "Year",
                           inputType: TextInputType.number,  
                           onChanged: (value) {
                             
@@ -127,6 +127,20 @@ class AddPaymentMethod extends StatelessWidget {
                         ),
                       ),
                     ],
+                  ),
+                ), 
+                const SizedBox(height: 20),
+                Container(
+                  constraints: const BoxConstraints(maxWidth: 300),
+                  child: const Text(
+                    '⚠️ Something went wrong. Check your details and try again.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontFamily: 'Raleway',
+                      fontWeight: FontWeight.w100,
+                      color: Color.fromARGB(255, 251, 137, 137),
+                    ),
                   ),
                 ), 
                 const SizedBox(height: 30),

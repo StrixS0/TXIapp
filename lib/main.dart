@@ -3,8 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:txiapp/presentation/account_type/account_type.dart'; 
-import 'package:txiapp/presentation/login/login.dart';
-import 'package:txiapp/presentation/add_payment_method/add_payment_method.dart';
+import 'package:txiapp/presentation/login/login.dart'; 
 
 
 //Components 
