@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:txiapp/presentation/account_type/account_type.dart'; 
+import 'package:txiapp/presentation/signup_account_type/signup_account_type.dart'; 
 import 'package:txiapp/presentation/login/login.dart'; 
 
 
@@ -86,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const AccountTypePage()),
+                    MaterialPageRoute(builder: (context) => const SignupAccountTypePage()),
                   );
                 },
                 text: 'SIGN UP',

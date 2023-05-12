@@ -11,8 +11,8 @@ import 'package:txiapp/presentation/signup_corporate.dart/signup_corporate.dart'
 //Components 
 import 'package:txiapp/presentation/components/buttons.dart';
 
-class AccountTypePage extends StatelessWidget {
-  const AccountTypePage({Key? key}) : super(key: key);
+class SignupAccountTypePage extends StatelessWidget {
+  const SignupAccountTypePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:txiapp/presentation/account_type/account_type.dart';
+import 'package:txiapp/presentation/signup_account_type/signup_account_type.dart';
 
 //Components
 import 'package:txiapp/presentation/components/textfields.dart';
@@ -46,7 +46,23 @@ class LoginPage extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
+                // Only show the following after registration
+                const SizedBox(height: 10),
+                Container(
+                  constraints: const BoxConstraints(maxWidth: 300),
+                  child: const Text(
+                    'Thank you for your registration.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontFamily: 'Raleway',
+                      fontWeight: FontWeight.w100,
+                      color: const Color(0xFFD6AD67),
+                    ),
+                  ),
+                ), 
                 const SizedBox(height: 20),
+                // End thank you registration
                 PrimaryTextField(
                   hintText: 'User name',
                   inputType: TextInputType.emailAddress,  
@@ -110,7 +126,7 @@ class LoginPage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const AccountTypePage()),
+                          builder: (context) => const SignupAccountTypePage()),
                     );
                   },
                   child: const Text(
