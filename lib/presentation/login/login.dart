@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:txiapp/presentation/login_forgot_password/login_forgot_password.dart';
 import 'package:txiapp/presentation/signup_account_type/signup_account_type.dart';
 
 //Components
@@ -79,6 +80,20 @@ class LoginPage extends StatelessWidget {
                   },
                 ),
                 const SizedBox(height: 20),
+                Container(
+                  constraints: const BoxConstraints(maxWidth: 300),
+                  child: const Text(
+                    '⚠️ You have entered an invalid username or password.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontFamily: 'Raleway',
+                      fontWeight: FontWeight.w100,
+                      color: Color.fromARGB(255, 251, 137, 137),
+                    ),
+                  ),
+                ), 
+                const SizedBox(height: 20),
                 PrimaryElevatedButton(
                   onPressed: () {
                     // Add login logic
@@ -87,8 +102,12 @@ class LoginPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 30),
                 GestureDetector(
-                  onTap: () {
-                    // Add forgot password logic
+                  onTap: () { 
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const LoginForgotPassword()),
+                    );
                   },
                   child: const Text(
                     'Forgot password?',
