@@ -110,7 +110,7 @@ class SignupAddPaymentMethod extends StatelessWidget {
                       Expanded(
                         child: PrimaryTextField(
                           hintText: "CCV",
-                          inputType: TextInputType.number,  
+                          isPassword: true,
                           onChanged: (value) {
                             
                           },

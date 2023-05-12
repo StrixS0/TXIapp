@@ -109,13 +109,13 @@ class SignupConfirmPassword extends StatelessWidget {
                 const SizedBox(height: 20),
                 PrimaryTextField(
                   hintText: "Input password",
-                  inputType: TextInputType.number,
+                  isPassword: true,
                   onChanged: (value) {},
                 ),
                 const SizedBox(height: 10),
                 PrimaryTextField(
                   hintText: "Re-enter password",
-                  inputType: TextInputType.number,
+                  isPassword: true,
                   onChanged: (value) {},
                 ),
                 const SizedBox(height: 20),
