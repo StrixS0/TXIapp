@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1018980842346",
+    "project_id": "txiapp-project",
+    "storage_bucket": "txiapp-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1018980842346:android:043bb6a373761579404313",
+        "android_client_info": {
+          "package_name": "com.example.txiapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1018980842346-bulhsslr54i4boipc9lcpur3o7bbkk6s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD80eHCVBkN6wr5QSiOR5pxG5u-YoEzJyc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1018980842346-bulhsslr54i4boipc9lcpur3o7bbkk6s.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1018980842346-e64efp7emakt8g4u2anjs6av1so4b3h4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.txiapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

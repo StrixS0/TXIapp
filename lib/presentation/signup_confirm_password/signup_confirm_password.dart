@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 //
@@ -9,12 +10,34 @@ import 'package:txiapp/presentation/signup_add_payment_method/signup_add_payment
 
 //Components
 import 'package:txiapp/presentation/components/buttons.dart';
+import 'package:txiapp/presentation/signup_confirm_password/events/confirm_password_changed.dart';
+import 'package:txiapp/presentation/signup_confirm_password/events/form_submitted.dart';
+import 'package:txiapp/presentation/signup_confirm_password/events/password_changed.dart';
+import 'package:txiapp/presentation/signup_confirm_password/events/signup_confirm_password_event.dart';
+import 'package:txiapp/presentation/signup_confirm_password/signup_confirm_password_state.dart';
+import 'package:txiapp/presentation/signup_confirmation/signup_confirmation.dart';
+import 'package:txiapp/presentation/signup_confirmation/signup_confirmation_wrapper.dart';
 
 class SignupConfirmPassword extends StatelessWidget {
-  const SignupConfirmPassword({Key? key}) : super(key: key);
+  final SignupConfirmPasswordState state;
+  final void Function(SignupConfirmPasswordEvent event) onEvent;
+
+  const SignupConfirmPassword(
+      {Key? key, required this.state, required this.onEvent})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      if (state.navigate) {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const SignupConfirmationWrapper(),
+            ));
+      }
+    });
+
     return Container(
       height: double.infinity, // Fill the screen height
       decoration: const BoxDecoration(
@@ -108,38 +131,47 @@ class SignupConfirmPassword extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 PrimaryTextField(
+                  defaultValue: state.password,
                   hintText: "Input password",
                   isPassword: true,
-                  onChanged: (value) {},
+                  onChanged: (value) {
+                    onEvent(PasswordChanged(value));
+                  },
                 ),
                 const SizedBox(height: 10),
                 PrimaryTextField(
+                  defaultValue: state.confirmPassword,
                   hintText: "Re-enter password",
                   isPassword: true,
-                  onChanged: (value) {},
+                  onChanged: (value) {
+                    onEvent(ConfirmPasswordChanged(value));
+                  },
                 ),
                 const SizedBox(height: 20),
-                Container(
-                  constraints: const BoxConstraints(maxWidth: 300),
-                  child: const Text(
-                    '⚠️ Your passwords don\'t match.',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontFamily: 'Raleway',
-                      fontWeight: FontWeight.w100,
-                      color: Color.fromARGB(255, 251, 137, 137),
-                    ),
-                  ),
-                ),
+                Visibility(
+                    visible: state.error == null ? false : true,
+                    child: Container(
+                      constraints: const BoxConstraints(maxWidth: 300),
+                      child: Text(
+                        '⚠️ ${state.error}',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontFamily: 'Raleway',
+                          fontWeight: FontWeight.w100,
+                          color: Color.fromARGB(255, 251, 137, 137),
+                        ),
+                      ),
+                    )),
                 const SizedBox(height: 30),
                 PrimaryElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const SignupAddPaymentMethod()),
-                    );
+                    onEvent(FormSubmitted());
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //       builder: (context) => const SignupAddPaymentMethod()),
+                    // );
                   },
                   text: 'Continue',
                 ),

@@ -5,7 +5,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 //
 import 'package:txiapp/presentation/login/login.dart';
-import 'package:txiapp/presentation/components/textfields.dart'; 
+import 'package:txiapp/presentation/components/textfields.dart';
+import 'package:txiapp/presentation/login/login_wrapper.dart'; 
 import 'package:txiapp/presentation/signup_confirm_password/signup_confirm_password.dart';
 
 //Components
@@ -93,7 +94,7 @@ class SignUpCorporatePage extends StatelessWidget {
                   },
                 ),
                 const SizedBox(height: 10),
-                buildYearOfBirthDropdown(),
+                buildYearOfBirthDropdown(null, null),
                 const SizedBox(height: 10),
                 PrimaryTextField(
                   hintText: "Address",
@@ -149,11 +150,11 @@ class SignUpCorporatePage extends StatelessWidget {
                 const SizedBox(height: 30),
                 PrimaryElevatedButton(
                   onPressed: () {
-                     Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const SignupConfirmPassword()),
-                    );
+                    //  Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //       builder: (context) => const SignupConfirmPassword()),
+                    // );
                   },
                   text: 'Continue',
                 ), 
@@ -182,7 +183,7 @@ class SignUpCorporatePage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const LoginPage()),
+                          builder: (context) => const LoginWrapper()),
                     );
                   },
                   child: const Text(

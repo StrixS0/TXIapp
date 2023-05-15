@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget buildStateDropdown() {
+Widget buildStateDropdown({String? defaultValue, ValueChanged<String?>? onChanged}) {
   final List<String> states = [
     'Alabama',
     'Alaska',
@@ -57,7 +57,7 @@ Widget buildStateDropdown() {
   return Container(
     constraints: const BoxConstraints(maxWidth: 300, maxHeight: 55),
     child: DropdownButtonFormField<String>(
-      value: null,
+      value: defaultValue,
       items: states.map((String state) {
         return DropdownMenuItem<String>(
           value: state,
@@ -74,9 +74,7 @@ Widget buildStateDropdown() {
           ),
         );
       }).toList(),
-      onChanged: (String? value) {
-        // Handle selected state
-      },
+      onChanged: onChanged,
       dropdownColor: const Color.fromARGB(255, 137, 109, 61),
       decoration: const InputDecoration(
         contentPadding: EdgeInsets.symmetric(horizontal: 20),

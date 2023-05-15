@@ -6,6 +6,7 @@ class PrimaryTextField extends StatelessWidget {
   final TextInputType? inputType;
   final int? maxLength;  
   final ValueChanged<String>? onChanged;
+  final String? defaultValue;
 
   const PrimaryTextField({
     Key? key,
@@ -14,13 +15,18 @@ class PrimaryTextField extends StatelessWidget {
     this.inputType,
     this.maxLength,  
     this.onChanged,
+    this.defaultValue
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController textEditingController = TextEditingController(text: defaultValue);
+    textEditingController.selection =  TextSelection.fromPosition(TextPosition(offset: textEditingController.text.length));
+
     return Container(
       constraints: const BoxConstraints(maxWidth: 300, minHeight: 55),
       child: TextField(
+        controller: textEditingController,
         textAlign: TextAlign.center,
         style: const TextStyle(
           color: Colors.white,

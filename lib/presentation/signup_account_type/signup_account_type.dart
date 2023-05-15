@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 //
-import 'package:txiapp/presentation/login/login.dart'; 
+import 'package:txiapp/presentation/login/login.dart';
+import 'package:txiapp/presentation/login/login_wrapper.dart'; 
 import 'package:txiapp/presentation/signup_personal/signup_personal.dart';
 import 'package:txiapp/presentation/signup_corporate.dart/signup_corporate.dart';
 
 //Components 
 import 'package:txiapp/presentation/components/buttons.dart';
+import 'package:txiapp/presentation/signup_personal/signup_personal_wrapper.dart';
 
 class SignupAccountTypePage extends StatelessWidget {
   const SignupAccountTypePage({Key? key}) : super(key: key);
@@ -68,7 +70,7 @@ class SignupAccountTypePage extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context, 
-                      MaterialPageRoute(builder: (context) => const SignUpPersonalPage()),
+                      MaterialPageRoute(builder: (context) => const SignupPersonalWrapper(registrationType: 'personal',)),
                     );
                   },
                   text: 'PERSONAL',
@@ -78,7 +80,7 @@ class SignupAccountTypePage extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context, 
-                      MaterialPageRoute(builder: (context) => const SignUpCorporatePage()),
+                      MaterialPageRoute(builder: (context) => const SignupPersonalWrapper(registrationType: 'corporate')),
                     );
                   },
                   text: 'CORPORATE',
@@ -107,7 +109,7 @@ class SignupAccountTypePage extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const LoginPage()),
+                    MaterialPageRoute(builder: (context) => const LoginWrapper()),
                   );
                   },
                   child: const Text(

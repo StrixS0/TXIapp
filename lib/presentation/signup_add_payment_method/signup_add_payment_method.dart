@@ -8,7 +8,8 @@ import 'package:txiapp/presentation/login/login.dart';
 import 'package:txiapp/presentation/components/textfields.dart'; 
 
 //Components
-import 'package:txiapp/presentation/components/buttons.dart';  
+import 'package:txiapp/presentation/components/buttons.dart';
+import 'package:txiapp/presentation/login/login_wrapper.dart';  
 
 class SignupAddPaymentMethod extends StatelessWidget {
   const SignupAddPaymentMethod({Key? key}) : super(key: key);
@@ -149,7 +150,7 @@ class SignupAddPaymentMethod extends StatelessWidget {
                      Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const LoginPage()),
+                          builder: (context) => const LoginWrapper()),
                     );
                   },
                   text: 'Continue',

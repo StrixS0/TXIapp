@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 
-Widget buildYearOfBirthDropdown() {
+Widget buildYearOfBirthDropdown(int? defaultValue, ValueChanged<int?>? onChanged) {
   final List<int> years =
       List.generate(100, (index) => DateTime.now().year - index);
 
   return Container(
     constraints: const BoxConstraints(maxWidth: 300, maxHeight: 55),
     child: DropdownButtonFormField<int>(
-      value: null, // Initial value is null
+      value: defaultValue,
       items: years.map((int year) {
         return DropdownMenuItem<int>(
           value: year,
@@ -25,9 +25,7 @@ Widget buildYearOfBirthDropdown() {
           ),
         );
       }).toList(),
-      onChanged: (int? value) {
-        // Handle selected year
-      },
+      onChanged: onChanged,
       dropdownColor: const Color.fromARGB(255, 137, 109, 61),
       decoration: const InputDecoration(
         contentPadding: EdgeInsets.symmetric(horizontal: 20),

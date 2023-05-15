@@ -1,7 +1,11 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:txiapp/di/app_module.dart';
+import 'package:txiapp/presentation/login/login_wrapper.dart';
 import 'package:txiapp/presentation/signup_account_type/signup_account_type.dart'; 
 import 'package:txiapp/presentation/login/login.dart'; 
 
@@ -9,7 +13,29 @@ import 'package:txiapp/presentation/login/login.dart';
 //Components 
 import 'package:txiapp/presentation/components/buttons.dart';
 
-void main() {
+//Firebase imports
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  setup();
+
+  getIt<FirebaseAuth>().useAuthEmulator('localhost', 9099);
+  getIt<FirebaseFirestore>().useFirestoreEmulator('localhost', 8080);
+
+  // Email email = Email('test6@mailinator.com');
+  // Address address = Address(address: 'address', postalCode: 'postalCode', state: 'state');
+  // Profile profile = Profile.create(address: address, email: email, name: 'Test User', phoneNumber: '123456', yearOfBirth: 1994);
+
+  // domain_user.User user = getIt<IUserFactory>().create(email: email, password: 'password');
+
+  // getIt<IRegistrationService>().register(type: 'personal', profile: profile, user: user);
+
   runApp(const MyApp());
 }
 
@@ -76,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const LoginPage()),
+                    MaterialPageRoute(builder: (context) => const LoginWrapper()),
                   );
                 },
                 text: 'LOG IN',

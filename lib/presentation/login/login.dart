@@ -1,19 +1,39 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:txiapp/presentation/login/events/form_submitted.dart';
+import 'package:txiapp/presentation/login/events/login_event.dart';
+import 'package:txiapp/presentation/login/events/password_changed.dart';
+import 'package:txiapp/presentation/login/events/username_changed.dart';
+import 'package:txiapp/presentation/login/login_state.dart';
 import 'package:txiapp/presentation/login_forgot_password/login_forgot_password.dart';
 import 'package:txiapp/presentation/signup_account_type/signup_account_type.dart';
 
 //Components
 import 'package:txiapp/presentation/components/textfields.dart';
 import 'package:txiapp/presentation/components/buttons.dart';
+import 'package:txiapp/presentation/signup_add_payment_method/signup_add_payment_method.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  final LoginState state;
+  final void Function(LoginEvent event) onEvent;
+
+  const LoginPage({Key? key, required this.state, required this.onEvent}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      if(state.navigate != null){
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => const SignupAddPaymentMethod()),
+      );
+    }
+  });
+
     return Container(
       height: double.infinity, // Fill the screen height
       decoration: const BoxDecoration(
@@ -65,40 +85,45 @@ class LoginPage extends StatelessWidget {
                 const SizedBox(height: 20),
                 // End thank you registration
                 PrimaryTextField(
-                  hintText: 'User name',
+                  defaultValue: state.username,
+                  hintText: 'Email Address',
                   inputType: TextInputType.emailAddress,  
                   onChanged: (value) {
-                    // Handle username input
+                    onEvent(UsernameChanged(value));
                   },
                 ),
                 const SizedBox(height: 10),
                 PrimaryTextField(
+                  defaultValue: state.password,
                   hintText: 'Password',
                   isPassword: true,
                   onChanged: (value) {
-                    // Handle password input
+                    onEvent(PasswordChanged(value));
                   },
                 ),
                 const SizedBox(height: 20),
-                Container(
-                  constraints: const BoxConstraints(maxWidth: 300),
-                  child: const Text(
-                    '⚠️ You have entered an invalid username or password.',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontFamily: 'Raleway',
-                      fontWeight: FontWeight.w100,
-                      color: Color.fromARGB(255, 251, 137, 137),
+                Visibility(
+                  visible: state.message == null ? false : true,
+                  child: Container(
+                    constraints: const BoxConstraints(maxWidth: 300),
+                    child: Text(
+                      '⚠️ ${state.message}',
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontFamily: 'Raleway',
+                        fontWeight: FontWeight.w100,
+                        color: Color.fromARGB(255, 251, 137, 137),
+                      ),
                     ),
-                  ),
+                  )
                 ), 
                 const SizedBox(height: 20),
                 PrimaryElevatedButton(
                   onPressed: () {
-                    // Add login logic
+                    onEvent(FormSubmitted());
                   },
-                  text: 'Continue',
+                  text: state.isLoading ? 'Logging in...' : 'Continue',
                 ),
                 const SizedBox(height: 30),
                 GestureDetector(

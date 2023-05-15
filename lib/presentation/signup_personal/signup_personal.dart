@@ -1,10 +1,13 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:txiapp/domain/models/common/value_objects/profile.dart';
 
 //
 import 'package:txiapp/presentation/login/login.dart';
+import 'package:txiapp/presentation/login/login_wrapper.dart';
 import 'package:txiapp/presentation/signup_confirm_password/signup_confirm_password.dart';
 import 'package:txiapp/presentation/components/textfields.dart'; 
 
@@ -12,12 +15,39 @@ import 'package:txiapp/presentation/components/textfields.dart';
 import 'package:txiapp/presentation/components/buttons.dart'; 
 import 'package:txiapp/presentation/components/state_dropdown.dart';
 import 'package:txiapp/presentation/components/birthyear_dropdown.dart';
+import 'package:txiapp/presentation/signup_confirm_password/signup_confirm_password_wrapper.dart';
+import 'package:txiapp/presentation/signup_personal/events/address_changed.dart';
+import 'package:txiapp/presentation/signup_personal/events/company_changed.dart';
+import 'package:txiapp/presentation/signup_personal/events/email_changed.dart';
+import 'package:txiapp/presentation/signup_personal/events/form_submitted.dart';
+import 'package:txiapp/presentation/signup_personal/events/name_changed.dart';
+import 'package:txiapp/presentation/signup_personal/events/phone_number_changed.dart';
+import 'package:txiapp/presentation/signup_personal/events/postal_code_changed.dart';
+import 'package:txiapp/presentation/signup_personal/events/signup_personal_event.dart';
+import 'package:txiapp/presentation/signup_personal/events/state_changed.dart';
+import 'package:txiapp/presentation/signup_personal/events/year_of_birth_changed.dart';
+import 'package:txiapp/presentation/signup_personal/signup_personal_state.dart';
 
 class SignUpPersonalPage extends StatelessWidget {
-  const SignUpPersonalPage({Key? key}) : super(key: key);
+  final String type;
+  final SignupPersonalState signupPersonalState;
+  final void Function(SignupPersonalEvent event) onEvent;
+
+  const SignUpPersonalPage({Key? key, required this.type, required this.signupPersonalState, required this.onEvent}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      Profile? profile = signupPersonalState.profile;
+      if(signupPersonalState.navigate && profile != null){
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => SignupConfirmPasswordWrapper(type: type, company: signupPersonalState.company, profile: profile)),
+      );
+    }
+  });
+
     return Container(
       height: double.infinity, // Fill the screen height
       decoration: const BoxDecoration(
@@ -42,9 +72,9 @@ class SignUpPersonalPage extends StatelessWidget {
                   color: const Color(0xFFD6AD67),
                 ),
               ),
-              const Text(
-                'Personal Registration',
-                style: TextStyle(
+              Text(
+                type == 'personal' ? 'Personal Registration' : 'Corporate Registration',
+                style: const TextStyle(
                   fontSize: 27,
                   fontFamily: 'Raleway',
                   fontWeight: FontWeight.w100,
@@ -61,37 +91,53 @@ class SignUpPersonalPage extends StatelessWidget {
                 ),
               ),
                 const SizedBox(height: 20),
+                Visibility(
+                  visible: type == 'personal' ? false : true,
+                  child: PrimaryTextField(
+                    defaultValue: signupPersonalState.company,
+                    hintText: "Company Name",
+                    inputType: TextInputType.name,  
+                    onChanged: (value) {
+                      onEvent(CompanyChanged(value));
+                    },
+                  ),
+                ),
+                const SizedBox(height: 10),
                 PrimaryTextField(
+                  defaultValue: signupPersonalState.name,
                   hintText: "Full Name",
                   inputType: TextInputType.name,  
                   onChanged: (value) {
-                    //full name input
+                    onEvent(NameChanged(value));
                   },
                 ),
                 const SizedBox(height: 10),
                 PrimaryTextField(
+                  defaultValue: signupPersonalState.email,
                   hintText: "Email Address",
                   inputType: TextInputType.emailAddress,  
                   onChanged: (value) {
-                    //full name input
+                    onEvent(EmailChanged(value));
                   },
                 ),
                 const SizedBox(height: 10),
                 PrimaryTextField(
+                  defaultValue: signupPersonalState.phoneNumber,
                   hintText: "Phone Number",
                   inputType: TextInputType.phone,  
                   onChanged: (value) {
-                    //full name input
+                    onEvent(PhoneNumberChanged(value));
                   },
                 ),
                 const SizedBox(height: 10),
-                buildYearOfBirthDropdown(),
+                buildYearOfBirthDropdown(signupPersonalState.yearOfBirth, (value){ onEvent(YearOfBirthChanged(value!)); }),
                 const SizedBox(height: 10),
                 PrimaryTextField(
+                  defaultValue: signupPersonalState.address,
                   hintText: "Address",
                   inputType: TextInputType.streetAddress,  
                   onChanged: (value) {
-                    //full name input
+                    onEvent(AddressChanged(value));
                   },
                 ),
                 const SizedBox(height: 10),
@@ -102,51 +148,45 @@ class SignUpPersonalPage extends StatelessWidget {
                     children: [
                       Expanded(
                         child: PrimaryTextField(
+                          defaultValue: signupPersonalState.postalCode,
                           hintText: "Zip Code",
                           inputType: TextInputType.number,  
                           onChanged: (value) {
-                            //zip code input
+                            onEvent(PostalCodeChanged(value));
                           },
                         ),
                       ),
                       const SizedBox(width: 10),
                       Expanded(
-                        child: buildStateDropdown(),
+                        child: buildStateDropdown(defaultValue: signupPersonalState.state, onChanged: (value){ onEvent(StateChanged(value!)); }),
                       ),
                     ],
                   ),
                 ), 
-                Container(
+                Visibility(visible: signupPersonalState.errors != null ? true : false, child: Container(
                   constraints: const BoxConstraints(maxWidth: 280),
-                  child: const Text(
-                    '\n - Full name is required.' + 
-                    '\n - Email address is required.' +
-                    '\n - Email address is invalid.' +
-                    '\n - Phone Number is required.' +
-                    '\n - Select year of birth.' +
-                    '\n - Address is required.' +
-                    '\n - Zip code is required.' +
-                    '\n - Select state' 
-                    ,
+                  child: Text(
+                    signupPersonalState.errors ?? '',
                     textAlign: TextAlign.start,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 16,
                       fontFamily: 'Raleway',
                       fontWeight: FontWeight.w100,
                       color: Color.fromARGB(255, 251, 137, 137),
                     ),
                   ),
-                ), 
+                ), ),
                 const SizedBox(height: 30),
                 PrimaryElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const SignupConfirmPassword()),
-                    );
+                    onEvent(FormSubmitted());
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //       builder: (context) => const AddPaymentMethod()),
+                    // );
                   },
-                  text: 'Continue',
+                  text: signupPersonalState.loading ? 'Please wait...' : 'Continue',
                 ), 
                 const SizedBox(height: 30),
                 Container(
@@ -173,7 +213,7 @@ class SignUpPersonalPage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const LoginPage()),
+                          builder: (context) => const LoginWrapper()),
                     );
                   },
                   child: const Text(
