@@ -49,7 +49,7 @@ void setup() {
   getIt.registerSingleton<IPaymentService>(StripeCardService(getIt<IPaymentDetailsRepository>()));
   getIt.registerSingleton<INotificationService>(NotificationServiceImpl());
 
-  getIt.registerSingleton<SignupUsecase>(SignupUsecase(getIt<IEmailFactory>(), getIt<IPhoneNumberFactory>()));
+  getIt.registerSingleton<SignupUsecase>(SignupUsecase(getIt<IEmailFactory>(), getIt<IPhoneNumberFactory>(), getIt<IUserRepository>()));
   getIt.registerSingleton<RegistrationUsecase>(RegistrationUsecase(getIt<IRegistrationService>(), getIt<IUserFactory>()));
   getIt.registerSingleton<AddPaymentMethodUsecase>(AddPaymentMethodUsecase(getIt<IPaymentService>()));
   getIt.registerSingleton<ActivateCustomerUsecase>(ActivateCustomerUsecase(getIt<ICustomerService>()));
