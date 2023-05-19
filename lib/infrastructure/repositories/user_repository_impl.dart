@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:txiapp/domain/factories/i_email_factory.dart';
 import 'package:txiapp/domain/factories/i_user_factory.dart';
+import 'package:txiapp/domain/models/common/value_objects/email.dart';
 import 'package:txiapp/domain/models/user/user.dart' as domain_user;
 import 'package:txiapp/domain/models/user/value_objects/user_id.dart';
 import 'package:txiapp/domain/repositories/i_user_repository.dart';
@@ -49,8 +50,8 @@ class UserRepositoryImpl implements IUserRepository{
   }
 
   @override
-  Future<bool> isEmailTaken(String email) async{
-    List<String> result = await _firebaseAuth.fetchSignInMethodsForEmail(email);
+  Future<bool> isEmailTaken(Email email) async{
+    List<String> result = await _firebaseAuth.fetchSignInMethodsForEmail(email.value());
 
     return result.isNotEmpty;
   }

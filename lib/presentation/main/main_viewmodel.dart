@@ -67,7 +67,7 @@ class MainViewmodel extends ChangeNotifier{
     if(customer == null) return Destination.homeScreen;
 
     bool hasPaymentDetails = await _customerService.hasPaymentDetails(customer);
-    print(hasPaymentDetails);
+    
     if(!hasPaymentDetails){
       return Destination.addPaymentDetailsScreen;
     }

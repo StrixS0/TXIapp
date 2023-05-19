@@ -2,16 +2,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
-//
-import 'package:txiapp/presentation/components/textfields.dart';
-import 'package:txiapp/presentation/signup_confirm_password/signup_confirm_password.dart';
-
-//Components
-import 'package:txiapp/presentation/components/buttons.dart';
+import 'package:txiapp/presentation/login_forgot_password/events/login_forgot_password_event.dart';
+import 'package:txiapp/presentation/login_forgot_password/events/resend_button_clicked.dart';
+import 'package:txiapp/presentation/login_forgot_password/login_forgot_password_state.dart';
 
 class LoginForgotPasswordConfirm extends StatelessWidget {
-  const LoginForgotPasswordConfirm({Key? key}) : super(key: key);
+  final LoginForgotPasswordState state;
+  final void Function(LoginForgotPasswordEvent event) onEvent;
+
+  const LoginForgotPasswordConfirm({Key? key, required this.state, required this.onEvent}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -43,13 +42,13 @@ class LoginForgotPasswordConfirm extends StatelessWidget {
                 Container(
                   constraints: const BoxConstraints(maxWidth: 300),
                   child: const Text(
-                    'WE JUST EMAILED YOU A CONFIRMATION CODE',
+                    'WE JUST EMAILED YOU A PASSWORD RESET LINK',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 20,
                       fontFamily: 'Raleway',
                       fontWeight: FontWeight.w400,
-                      color: const Color(0xFFD6AD67),
+                      color: Color(0xFFD6AD67),
                     ),
                   ),
                 ), 
@@ -57,7 +56,7 @@ class LoginForgotPasswordConfirm extends StatelessWidget {
                 Container(
                   constraints: const BoxConstraints(maxWidth: 200),
                   child: const Text(
-                  'Check your email for a confirmation code.',
+                  'Check your email for a password reset link.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 16,
@@ -66,39 +65,23 @@ class LoginForgotPasswordConfirm extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-                ),  
+                ),
                 const SizedBox(height: 20),
-                PrimaryTextField(
-                  hintText: "",
-                  inputType: TextInputType.number,
-                  onChanged: (value) {
-                    //full name input
-                  },
-                ), 
-                const SizedBox(height: 20),
-                Container(
+                Visibility(
+                  visible: state.message == null ? false : true,
+                  child: Container(
                   constraints: const BoxConstraints(maxWidth: 280),
-                  child: const Text(
-                    '⚠️ It seems like you entered an invalid code. You may opt to resend the code and try again.',
+                  child:  Text(
+                    !state.resendSuccess ? '⚠️ ${state.message ?? ''}' : state.message ?? '',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 16,
                       fontFamily: 'Raleway',
                       fontWeight: FontWeight.w100,
-                      color: Color.fromARGB(255, 251, 137, 137),
+                      color: !state.resendSuccess ? const Color.fromARGB(255, 251, 137, 137) : const Color.fromARGB(255, 64, 252, 26),
                     ),
                   ),
-                ), 
-                const SizedBox(height: 30),
-                PrimaryElevatedButton(
-                  onPressed: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //       builder: (context) => const SignupConfirmPassword()),
-                    // );
-                  },
-                  text: 'Confirm',
+                ) 
                 ),
                 const SizedBox(height: 30),
                 Container(
@@ -112,7 +95,7 @@ class LoginForgotPasswordConfirm extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    // resend code
+                    if(!state.resendDisabled) onEvent(ResendButtonClicked());
                   },
                   child: const Text(
                     'Resend code',

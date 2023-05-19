@@ -8,7 +8,7 @@ import 'package:txiapp/presentation/login/events/login_event.dart';
 import 'package:txiapp/presentation/login/events/password_changed.dart';
 import 'package:txiapp/presentation/login/events/username_changed.dart';
 import 'package:txiapp/presentation/login/login_state.dart';
-import 'package:txiapp/presentation/login_forgot_password/login_forgot_password.dart';
+import 'package:txiapp/presentation/login_forgot_password/login_forgot_password_wrapper.dart';
 import 'package:txiapp/presentation/signup_account_type/signup_account_type.dart';
 
 //Components
@@ -131,7 +131,7 @@ class LoginPage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const LoginForgotPassword()),
+                          builder: (context) => const LoginForgotPasswordWrapper()),
                     );
                   },
                   child: const Text(

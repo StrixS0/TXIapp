@@ -33,14 +33,6 @@ void main() async {
   getIt<FirebaseAuth>().useAuthEmulator('localhost', 9099);
   getIt<FirebaseFirestore>().useFirestoreEmulator('localhost', 8080);
 
-  // Email email = Email('test6@mailinator.com');
-  // Address address = Address(address: 'address', postalCode: 'postalCode', state: 'state');
-  // Profile profile = Profile.create(address: address, email: email, name: 'Test User', phoneNumber: '123456', yearOfBirth: 1994);
-
-  // domain_user.User user = getIt<IUserFactory>().create(email: email, password: 'password');
-
-  // getIt<IRegistrationService>().register(type: 'personal', profile: profile, user: user);
-
   runApp(const MainWrapper());
 }
 

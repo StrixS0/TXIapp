@@ -5,13 +5,19 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 //
 import 'package:txiapp/presentation/components/textfields.dart';
-import 'package:txiapp/presentation/login_forgot_password_confirm/login_forgot_password_confirm.dart';
+import 'package:txiapp/presentation/login_forgot_password/events/email_changed.dart';
+import 'package:txiapp/presentation/login_forgot_password/events/form_submitted.dart';
+import 'package:txiapp/presentation/login_forgot_password/events/login_forgot_password_event.dart';
+import 'package:txiapp/presentation/login_forgot_password/login_forgot_password_state.dart';
 
 //Components
 import 'package:txiapp/presentation/components/buttons.dart';
 
 class LoginForgotPassword extends StatelessWidget {
-  const LoginForgotPassword({Key? key}) : super(key: key);
+  final LoginForgotPasswordState state;
+  final void Function(LoginForgotPasswordEvent event) onEvent;
+
+  const LoginForgotPassword({Key? key, required this.state, required this.onEvent}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +55,7 @@ class LoginForgotPassword extends StatelessWidget {
                       fontSize: 20,
                       fontFamily: 'Raleway',
                       fontWeight: FontWeight.w400,
-                      color: const Color(0xFFD6AD67),
+                      color:  Color(0xFFD6AD67),
                     ),
                   ),
                 ),
@@ -85,42 +91,42 @@ class LoginForgotPassword extends StatelessWidget {
                     fontSize: 16,
                     fontFamily: 'Raleway',
                     fontWeight: FontWeight.w100,
-                    color: const Color(0xFFD6AD67),
+                    color: Color(0xFFD6AD67),
                   ),
                 ),
                 ), 
                 const SizedBox(height: 20),
                 PrimaryTextField(
+                  defaultValue: state.email,
                   hintText: "Email",
-                  inputType: TextInputType.number,
+                  inputType: TextInputType.emailAddress,
                   onChanged: (value) {
-                    //full name input
+                    onEvent(EmailChanged(value));
                   },
                 ), 
                 const SizedBox(height: 20),
-                Container(
+                Visibility(
+                  visible: state.message == null ? false : true,
+                  child: Container(
                   constraints: const BoxConstraints(maxWidth: 280),
-                  child: const Text(
-                    '⚠️ The email you entered does not exist in our database. Please enter a valid email.',
+                  child: Text(
+                    '⚠️ ${state.message}',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 16,
                       fontFamily: 'Raleway',
                       fontWeight: FontWeight.w100,
                       color: Color.fromARGB(255, 251, 137, 137),
                     ),
                   ),
+                )
                 ), 
                 const SizedBox(height: 30),
                 PrimaryElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const LoginForgotPasswordConfirm()),
-                    );
+                    onEvent(FormSubmitted());
                   },
-                  text: 'Send Code',
+                  text: state.isLoading ? 'Sending...' : 'Send Code',
                 ),
                 const SizedBox(height: 30),
                 Container(

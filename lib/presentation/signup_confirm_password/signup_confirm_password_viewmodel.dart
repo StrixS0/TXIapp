@@ -110,7 +110,7 @@ class SignupConfirmPasswordViewmodel extends ChangeNotifier{
       state.loading = false;
       notifyListeners();
     }
-    print(result.value.userId().id());
+    
     _mainViewmodel.onEvent(UserLoggedIn(result.value.userId()));
     notifyListeners();
   }

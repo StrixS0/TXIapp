@@ -5,7 +5,7 @@ import 'package:txiapp/di/app_module.dart';
 import 'package:txiapp/domain/services/i_customer_service.dart';
 import 'package:txiapp/main.dart';
 import 'package:txiapp/presentation/login/login_wrapper.dart';
-import 'package:txiapp/presentation/login_forgot_password/login_forgot_password.dart';
+import 'package:txiapp/presentation/login_forgot_password/login_forgot_password_wrapper.dart';
 import 'package:txiapp/presentation/main/main_viewmodel.dart';
 import 'package:txiapp/presentation/menu_personal/menu_personal.dart';
 import 'package:txiapp/presentation/signup_add_payment_method/signup_add_payment_method_wrapper.dart';
@@ -21,7 +21,6 @@ class MainWrapper extends StatelessWidget {
       create: (context) => MainViewmodel(getIt<ICustomerService>()),
       child: Consumer <MainViewmodel>(
         builder: (context, viewmodel, child) {
-          print('main is rebuilt');
           SchedulerBinding.instance.addPostFrameCallback((_) {
           Widget defaultDestination = const MyHomePage();
           if(viewmodel.state.navigate != null){
@@ -39,7 +38,7 @@ class MainWrapper extends StatelessWidget {
                 break;
 
               case Destination.homeScreen:
-                defaultDestination = const LoginForgotPassword();
+                defaultDestination = const LoginForgotPasswordWrapper();
                 break;
 
               case Destination.menuPersonal:

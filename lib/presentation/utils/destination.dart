@@ -3,5 +3,7 @@ enum Destination{
   addPaymentDetailsScreen,
   verifyEmailScreen,
   homeScreen,
-  menuPersonal
+  menuPersonal,
+  forgotPassword,
+  forgotPasswordSent
 }

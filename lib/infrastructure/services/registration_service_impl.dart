@@ -18,6 +18,8 @@ class RegistrationServiceImpl implements IRegistrationService{
 
   @override
   Future<Customer> register({required String type, required Profile profile, String? company, required domain.User user}) async{
+    if(await _userRepository.isEmailTaken(profile.email())) throw DomainException({'email': 'Email address is already taken.'});
+
     domain.User userResult = await _userRepository.save(user);
     UserId? userId = userResult.id();
 

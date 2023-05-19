@@ -49,7 +49,7 @@ class SignupConfirmationViewmodel extends ChangeNotifier{
       }
 
       await user.reload();
-      print(user.emailVerified);
+      
       if(user.emailVerified){
         final customer = _mainViewmodel.state.currentCustomer;
         if(customer == null){
