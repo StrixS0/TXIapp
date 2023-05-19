@@ -3,16 +3,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-//
-import 'package:txiapp/presentation/login/login.dart';
 import 'package:txiapp/presentation/components/textfields.dart'; 
 
 //Components
 import 'package:txiapp/presentation/components/buttons.dart';
-import 'package:txiapp/presentation/login/login_wrapper.dart';  
+import 'package:txiapp/presentation/signup_add_payment_method/events/card_number_changed.dart';
+import 'package:txiapp/presentation/signup_add_payment_method/events/cardholder_name_changed.dart';
+import 'package:txiapp/presentation/signup_add_payment_method/events/ccv_changed.dart';
+import 'package:txiapp/presentation/signup_add_payment_method/events/expiration_month_changed.dart';
+import 'package:txiapp/presentation/signup_add_payment_method/events/expiration_year_changed.dart';
+import 'package:txiapp/presentation/signup_add_payment_method/events/form_submitted.dart';
+import 'package:txiapp/presentation/signup_add_payment_method/events/postal_code_changed.dart';
+import 'package:txiapp/presentation/signup_add_payment_method/events/signup_add_payment_method_event.dart';
+import 'package:txiapp/presentation/signup_add_payment_method/signup_add_payment_method_state.dart';  
 
 class SignupAddPaymentMethod extends StatelessWidget {
-  const SignupAddPaymentMethod({Key? key}) : super(key: key);
+  final SignupAddPaymentMethodState state;
+  final void Function(SignupAddPaymentMethodEvent event) onEvent;
+
+  const SignupAddPaymentMethod({Key? key, required this.state, required this.onEvent}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -60,18 +69,20 @@ class SignupAddPaymentMethod extends StatelessWidget {
               ),
               const SizedBox(height: 20),
                 PrimaryTextField(
+                  defaultValue: state.cardNumber,
                   hintText: "Card Number",
                   inputType: TextInputType.number,  
                   onChanged: (value) {
-                    //full name input
+                    onEvent(CardNumberChanged(value));
                   },
                 ),
                 const SizedBox(height: 10),
                 PrimaryTextField(
+                  defaultValue: state.cardholderName,
                   hintText: "Cardholder Name",
                   inputType: TextInputType.name,  
                   onChanged: (value) {
-                    //full name input
+                    onEvent(CardholderNameChanged(value));
                   },
                 ),
                 const SizedBox(height: 10),
@@ -82,20 +93,22 @@ class SignupAddPaymentMethod extends StatelessWidget {
                     children: [
                       Expanded(
                         child: PrimaryTextField(
+                          defaultValue: state.expirationMonth,
                           hintText: "Month",
                           inputType: TextInputType.number,  
                           onChanged: (value) {
-                            
+                            onEvent(ExpirationMonthChanged(value));
                           },
                         ),
                       ),
                       const SizedBox(width: 10),
                       Expanded(
                         child: PrimaryTextField(
+                          defaultValue: state.expirationYear,
                           hintText: "Year",
                           inputType: TextInputType.number,  
                           onChanged: (value) {
-                            
+                            onEvent(ExpirationYearChanged(value));
                           },
                         ),
                       ),
@@ -110,20 +123,22 @@ class SignupAddPaymentMethod extends StatelessWidget {
                     children: [
                       Expanded(
                         child: PrimaryTextField(
+                          defaultValue: state.ccv,
                           hintText: "CCV",
                           isPassword: true,
                           onChanged: (value) {
-                            
+                            onEvent(CcvChanged(value));
                           },
                         ),
                       ),
                       const SizedBox(width: 10),
                       Expanded(
                         child: PrimaryTextField(
+                          defaultValue: state.postalCode,
                           hintText: "Zip Code",
                           inputType: TextInputType.number,  
                           onChanged: (value) {
-                            
+                            onEvent(PostalCodeChanged(value));
                           },
                         ),
                       ),
@@ -131,29 +146,28 @@ class SignupAddPaymentMethod extends StatelessWidget {
                   ),
                 ), 
                 const SizedBox(height: 20),
-                Container(
+                Visibility(
+                  visible: state.message == null ? false : true,
+                  child: Container(
                   constraints: const BoxConstraints(maxWidth: 300),
-                  child: const Text(
-                    '⚠️ Something went wrong. Check your details and try again.',
+                  child: Text(
+                    '⚠️ ${state.message}',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 16,
                       fontFamily: 'Raleway',
                       fontWeight: FontWeight.w100,
                       color: Color.fromARGB(255, 251, 137, 137),
                     ),
                   ),
+                )
                 ), 
                 const SizedBox(height: 30),
                 PrimaryElevatedButton(
                   onPressed: () {
-                     Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const LoginWrapper()),
-                    );
+                     onEvent(FormSubmitted());
                   },
-                  text: 'Continue',
+                  text: state.isLoading ? 'Please wait...' : 'Continue',
                 ), 
                 const SizedBox(height: 30),
                 // Container(

@@ -5,6 +5,8 @@ import 'package:txiapp/domain/usecases/common/register_usecase/registration_requ
 import 'package:txiapp/domain/usecases/common/register_usecase/registration_usecase.dart';
 import 'package:txiapp/domain/utils/exceptions/domain_exception.dart';
 import 'package:txiapp/domain/utils/result.dart';
+import 'package:txiapp/presentation/main/events/user_logged_in.dart';
+import 'package:txiapp/presentation/main/main_viewmodel.dart';
 import 'package:txiapp/presentation/signup_confirm_password/events/confirm_password_changed.dart';
 import 'package:txiapp/presentation/signup_confirm_password/events/form_submitted.dart';
 import 'package:txiapp/presentation/signup_confirm_password/events/initialized.dart';
@@ -19,9 +21,15 @@ class SignupConfirmPasswordViewmodel extends ChangeNotifier{
   String? _company;
   Profile? _profile;
 
+  late MainViewmodel _mainViewmodel;
+
   SignupConfirmPasswordState state = SignupConfirmPasswordState();
 
   SignupConfirmPasswordViewmodel(this._registrationUsecase);
+
+  setMainViewModel(MainViewmodel viewmodel){
+    _mainViewmodel = viewmodel;
+  }
 
   void onEvent(SignupConfirmPasswordEvent event){
     switch(event.runtimeType){
@@ -102,9 +110,8 @@ class SignupConfirmPasswordViewmodel extends ChangeNotifier{
       state.loading = false;
       notifyListeners();
     }
-
-    state.navigate = true;
-    state.loading = false;
+    print(result.value.userId().id());
+    _mainViewmodel.onEvent(UserLoggedIn(result.value.userId()));
     notifyListeners();
   }
 }

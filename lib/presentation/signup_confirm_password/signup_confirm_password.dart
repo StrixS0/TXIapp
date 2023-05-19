@@ -6,7 +6,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 //
 import 'package:txiapp/presentation/components/textfields.dart';
-import 'package:txiapp/presentation/signup_add_payment_method/signup_add_payment_method.dart';
 
 //Components
 import 'package:txiapp/presentation/components/buttons.dart';
@@ -15,7 +14,6 @@ import 'package:txiapp/presentation/signup_confirm_password/events/form_submitte
 import 'package:txiapp/presentation/signup_confirm_password/events/password_changed.dart';
 import 'package:txiapp/presentation/signup_confirm_password/events/signup_confirm_password_event.dart';
 import 'package:txiapp/presentation/signup_confirm_password/signup_confirm_password_state.dart';
-import 'package:txiapp/presentation/signup_confirmation/signup_confirmation.dart';
 import 'package:txiapp/presentation/signup_confirmation/signup_confirmation_wrapper.dart';
 
 class SignupConfirmPassword extends StatelessWidget {
@@ -28,15 +26,6 @@ class SignupConfirmPassword extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      if (state.navigate) {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const SignupConfirmationWrapper(),
-            ));
-      }
-    });
 
     return Container(
       height: double.infinity, // Fill the screen height

@@ -2,6 +2,10 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:txiapp/domain/usecases/common/activate_customer_usecase/activate_customer_request.dart';
+import 'package:txiapp/domain/usecases/common/activate_customer_usecase/activate_customer_usecase.dart';
+import 'package:txiapp/presentation/main/events/customer_activated.dart';
+import 'package:txiapp/presentation/main/main_viewmodel.dart';
 import 'package:txiapp/presentation/signup_confirmation/events/initialized.dart';
 import 'package:txiapp/presentation/signup_confirmation/events/resend_clicked.dart';
 import 'package:txiapp/presentation/signup_confirmation/events/signup_confirmation_event.dart';
@@ -11,7 +15,14 @@ class SignupConfirmationViewmodel extends ChangeNotifier{
   SignupConfirmationState state = SignupConfirmationState();
 
   Timer? _timer;
+  final ActivateCustomerUsecase _activateCustomerUsecase;
+  late MainViewmodel _mainViewmodel;
 
+  SignupConfirmationViewmodel(this._activateCustomerUsecase);
+
+  setMainViewModel(MainViewmodel mainViewmodel){
+    _mainViewmodel = mainViewmodel;
+  }
 
   void onEvent(SignupConfirmationEvent event){
     switch(event.runtimeType){
@@ -40,9 +51,28 @@ class SignupConfirmationViewmodel extends ChangeNotifier{
       await user.reload();
       print(user.emailVerified);
       if(user.emailVerified){
+        final customer = _mainViewmodel.state.currentCustomer;
+        if(customer == null){
+          state.resendMessage = 'Something went wrong. Please try again later.';
+          state.resendSuccess = false;
+
+          notifyListeners();
+          return;
+        }
+
         _timer?.cancel();
-        state.navigate = 'payment';
-        notifyListeners();
+
+        final result = await _activateCustomerUsecase.execute(ActivateCustomerRequest(customer));
+
+        if(result.isFailure){
+          state.resendMessage = 'Something went wrong. Please try again later.';
+          state.resendSuccess = false;
+
+          notifyListeners();
+          return;
+        }
+
+        _mainViewmodel.onEvent(CustomerActivated());
       }
     });
   }

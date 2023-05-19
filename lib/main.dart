@@ -3,12 +3,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:txiapp/di/app_module.dart';
 import 'package:txiapp/presentation/login/login_wrapper.dart';
+import 'package:txiapp/presentation/main/main_wrapper.dart';
 import 'package:txiapp/presentation/signup_account_type/signup_account_type.dart'; 
-import 'package:txiapp/presentation/login/login.dart'; 
-
 
 //Components 
 import 'package:txiapp/presentation/components/buttons.dart';
@@ -17,11 +17,16 @@ import 'package:txiapp/presentation/components/buttons.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  Stripe.publishableKey = 'pk_test_51LaAWsG0IrZP1KAROufnYwgB4bbDFZ6XuSTygLqjOiyh18ljRsRAyBJRlLeJvQg8ACLhoRLcMAVTP3I8nEEAZFFX0047h2oWcs';
+  await Stripe.instance.applySettings();
 
   setup();
 
@@ -36,7 +41,7 @@ void main() async {
 
   // getIt<IRegistrationService>().register(type: 'personal', profile: profile, user: user);
 
-  runApp(const MyApp());
+  runApp(const MainWrapper());
 }
 
 class MyApp extends StatelessWidget {

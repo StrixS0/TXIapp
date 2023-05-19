@@ -14,7 +14,7 @@ import 'package:txiapp/presentation/signup_account_type/signup_account_type.dart
 //Components
 import 'package:txiapp/presentation/components/textfields.dart';
 import 'package:txiapp/presentation/components/buttons.dart';
-import 'package:txiapp/presentation/signup_add_payment_method/signup_add_payment_method.dart';
+import 'package:txiapp/presentation/signup_add_payment_method/signup_add_payment_method_wrapper.dart';
 
 class LoginPage extends StatelessWidget {
   final LoginState state;
@@ -29,7 +29,7 @@ class LoginPage extends StatelessWidget {
       Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => const SignupAddPaymentMethod()),
+            builder: (context) => const SignupAddPaymentMethodWrapper()),
       );
     }
   });

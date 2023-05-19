@@ -4,14 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-//
-import 'package:txiapp/presentation/components/textfields.dart';
-import 'package:txiapp/presentation/login/login.dart';
-
 //Components
-import 'package:txiapp/presentation/components/buttons.dart';
 import 'package:txiapp/presentation/login/login_wrapper.dart';
-import 'package:txiapp/presentation/signup_add_payment_method/signup_add_payment_method.dart';
+import 'package:txiapp/presentation/signup_add_payment_method/signup_add_payment_method_wrapper.dart';
 import 'package:txiapp/presentation/signup_confirmation/events/resend_clicked.dart';
 import 'package:txiapp/presentation/signup_confirmation/events/signup_confirmation_event.dart';
 import 'package:txiapp/presentation/signup_confirmation/signup_confirmation_state.dart';
@@ -29,7 +24,7 @@ class SignUpConfirmationPage extends StatelessWidget {
       Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => state.navigate == 'login' ? const LoginWrapper() : const SignupAddPaymentMethod()),
+            builder: (context) => state.navigate == 'login' ? const LoginWrapper() : const SignupAddPaymentMethodWrapper()),
       );
     }
     });
@@ -68,7 +63,7 @@ class SignUpConfirmationPage extends StatelessWidget {
                       fontSize: 20,
                       fontFamily: 'Raleway',
                       fontWeight: FontWeight.w400,
-                      color: const Color(0xFFD6AD67),
+                      color: Color(0xFFD6AD67),
                     ),
                   ),
                 ),

@@ -1,14 +1,22 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:txiapp/domain/models/user/value_objects/user_id.dart';
 import 'package:txiapp/presentation/login/events/form_submitted.dart';
 import 'package:txiapp/presentation/login/events/login_event.dart';
 import 'package:txiapp/presentation/login/events/password_changed.dart';
 import 'package:txiapp/presentation/login/events/username_changed.dart';
 import 'package:txiapp/presentation/login/login_state.dart';
+import 'package:txiapp/presentation/main/events/user_logged_in.dart';
+import 'package:txiapp/presentation/main/main_viewmodel.dart';
 
 class LoginViewmodel extends ChangeNotifier{
   LoginState state = LoginState();
 
+  late MainViewmodel _mainViewmodel;
+
+  setMainViewModel(MainViewmodel mainViewmodel){
+    _mainViewmodel = mainViewmodel;
+  }
 
   void onEvent(LoginEvent event){
     switch(event.runtimeType){
@@ -42,10 +50,18 @@ class LoginViewmodel extends ChangeNotifier{
     notifyListeners();
 
     try{
-      await FirebaseAuth.instance.signInWithEmailAndPassword(email: state.username, password: state.password);
+      final userCreds = await FirebaseAuth.instance.signInWithEmailAndPassword(email: state.username, password: state.password);
 
-      state.navigate = 'payment_method';
-      notifyListeners();
+      final user = userCreds.user;
+      if(user == null){
+        state.message = 'Something went wrong. Please try again later.';
+        state.isLoading = false;
+
+        notifyListeners();
+        return;
+      }
+
+      _mainViewmodel.onEvent(UserLoggedIn(UserId(user.uid)));
     }on FirebaseAuthException catch(e){
       state.message = e.message;
       state.isLoading = false;
