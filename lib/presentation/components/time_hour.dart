@@ -1,58 +1,7 @@
 import 'package:flutter/material.dart';
 
-Widget buildStateDropdown({String? defaultValue, ValueChanged<String?>? onChanged}) {
-  final List<String> states = [
-    'Alabama',
-    'Alaska',
-    'Arizona',
-    'Arkansas',
-    'California',
-    'Colorado',
-    'Connecticut',
-    'Delaware',
-    'Florida',
-    'Georgia',
-    'Hawaii',
-    'Idaho',
-    'Illinois',
-    'Indiana',
-    'Iowa',
-    'Kansas',
-    'Kentucky',
-    'Louisiana',
-    'Maine',
-    'Maryland',
-    'Massachusetts',
-    'Michigan',
-    'Minnesota',
-    'Mississippi',
-    'Missouri',
-    'Montana',
-    'Nebraska',
-    'Nevada',
-    'New Hampshire',
-    'New Jersey',
-    'New Mexico',
-    'New York',
-    'North Carolina',
-    'North Dakota',
-    'Ohio',
-    'Oklahoma',
-    'Oregon',
-    'Pennsylvania',
-    'Rhode Island',
-    'South Carolina',
-    'South Dakota',
-    'Tennessee',
-    'Texas',
-    'Utah',
-    'Vermont',
-    'Virginia',
-    'Washington',
-    'West Virginia',
-    'Wisconsin',
-    'Wyoming'
-  ];
+Widget buildHoursDropdown({String? defaultValue, ValueChanged<String?>? onChanged}) {
+  final List<String> states = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
 
   return Container(
     constraints: const BoxConstraints(maxWidth: 300, maxHeight: 60),
@@ -110,7 +59,7 @@ Widget buildStateDropdown({String? defaultValue, ValueChanged<String?>? onChange
       itemHeight: 55,
       hint: const Center(
         child: Text(
-          'State',
+          '-',
           style: TextStyle(
             color: Colors.white,
             fontSize: 18,
