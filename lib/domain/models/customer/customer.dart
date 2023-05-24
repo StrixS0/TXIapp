@@ -1,3 +1,4 @@
+import 'package:txiapp/domain/models/common/value_objects/address.dart';
 import 'package:txiapp/domain/models/common/value_objects/profile.dart';
 import 'package:txiapp/domain/models/customer/value_objects/customer_id.dart';
 import 'package:txiapp/domain/models/customer/enums/status.dart';
@@ -6,14 +7,16 @@ import 'package:txiapp/domain/models/user/value_objects/user_id.dart';
 class Customer{
   final CustomerId _id;
   final Profile _profile;
+  final Address _address;
   final UserId _userId;
   Status _status;
   final DateTime _created;
   DateTime _modified;
 
-  Customer({required CustomerId id, required Profile profile, required UserId userId, required Status status, required DateTime created, required DateTime modified})
+  Customer({required CustomerId id, required Profile profile, required Address address, required UserId userId, required Status status, required DateTime created, required DateTime modified})
     : _id = id,
       _profile = profile,
+      _address = address,
       _userId = userId,
       _status = status,
       _created = created,
@@ -25,6 +28,10 @@ class Customer{
 
   Profile profile(){
     return _profile;
+  }
+
+  Address address(){
+    return _address;
   }
 
   UserId userId(){

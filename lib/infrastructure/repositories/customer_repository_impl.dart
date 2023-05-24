@@ -35,9 +35,11 @@ class CustomerRepository extends ICustomerRepository{
         'email': customer.profile().email().value(),
         'phoneNumber': customer.profile().phoneNumber().value(),
         'yearOfBirth': customer.profile().yearOfBirth(),
-        'address': customer.profile().address().address(),
-        'postalCode': customer.profile().address().postalCode(),
-        'state': customer.profile().address().state(),
+      },
+      'address': {
+        'address': customer.address().address(),
+        'postalCode': customer.address().postalCode(),
+        'state': customer.address().state(),
       },
       'type': customer is PersonalCustomer ? 'personal' : 'corporate',
       'company': customer is CorporateCustomer ? customer.company() : null,
@@ -67,9 +69,9 @@ class CustomerRepository extends ICustomerRepository{
         name: data['profile']['name'], 
         email: _emailFactory.reconstitute(data['profile']['email']), 
         phoneNumber: _phoneNumberFactory.reconstitute(data['profile']['phoneNumber']), 
-        yearOfBirth: data['profile']['yearOfBirth'], 
-        address: Address(address: data['profile']['address'], postalCode: data['profile']['postalCode'], state: data['profile']['state'])
+        yearOfBirth: data['profile']['yearOfBirth']
         ), 
+      address: Address(address: data['address']['address'], postalCode: data['address']['postalCode'], state: data['address']['state']),
       userId: UserId(data['userId']), 
       status: Status.values.firstWhere((e) => e.toString() == data['status']),
       created: DateTime.parse(data['created']), 

@@ -1,5 +1,4 @@
 import 'package:txiapp/domain/models/common/value_objects/email.dart';
-import 'package:txiapp/domain/models/common/value_objects/address.dart';
 import 'package:txiapp/domain/models/common/value_objects/phone_number.dart';
 
 class Profile{
@@ -7,21 +6,19 @@ class Profile{
   final Email _email;
   final PhoneNumber _phoneNumber;
   final int _yearOfBirth;
-  final Address _address;
 
-  Profile._({required String name, required Email email, required PhoneNumber phoneNumber, required int yearOfBirth, required Address address})
+  Profile._({required String name, required Email email, required PhoneNumber phoneNumber, required int yearOfBirth})
     : _name = name,
       _email = email,
       _phoneNumber = phoneNumber,
-      _yearOfBirth = yearOfBirth,
-      _address = address;
+      _yearOfBirth = yearOfBirth;
 
-  static Profile create({required String name, required Email email, required PhoneNumber phoneNumber, required int yearOfBirth, required Address address}) {
-    return Profile._(name: name, email: email, phoneNumber: phoneNumber, yearOfBirth: yearOfBirth, address: address);
+  static Profile create({required String name, required Email email, required PhoneNumber phoneNumber, required int yearOfBirth}) {
+    return Profile._(name: name, email: email, phoneNumber: phoneNumber, yearOfBirth: yearOfBirth);
   }
 
-  static Profile reconstitute({required String name, required Email email, required PhoneNumber phoneNumber, required int yearOfBirth, required Address address}) {
-    return Profile._(name: name, email: email, phoneNumber: phoneNumber, yearOfBirth: yearOfBirth, address: address);
+  static Profile reconstitute({required String name, required Email email, required PhoneNumber phoneNumber, required int yearOfBirth}) {
+    return Profile._(name: name, email: email, phoneNumber: phoneNumber, yearOfBirth: yearOfBirth);
   }
 
   String name(){
@@ -38,9 +35,5 @@ class Profile{
 
   int yearOfBirth(){
     return _yearOfBirth;
-  }
-
-  Address address(){
-    return _address;
   }
 }

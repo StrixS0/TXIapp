@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:txiapp/domain/models/common/value_objects/address.dart';
 import 'package:txiapp/domain/models/common/value_objects/profile.dart';
 import 'package:txiapp/domain/models/customer/customer.dart';
 import 'package:txiapp/domain/usecases/common/register_usecase/registration_request.dart';
@@ -20,6 +21,7 @@ class SignupConfirmPasswordViewmodel extends ChangeNotifier{
   String? _type;
   String? _company;
   Profile? _profile;
+  Address? _address;
 
   late MainViewmodel _mainViewmodel;
 
@@ -57,6 +59,7 @@ class SignupConfirmPasswordViewmodel extends ChangeNotifier{
   void _initialized(Initialized event){
     _type = event.data()['type'];
     _profile = event.data()['profile'];
+    _address = event.data()['address'];
     _company = event.data()['company'];
   }
 
@@ -82,7 +85,8 @@ class SignupConfirmPasswordViewmodel extends ChangeNotifier{
 
     String? type = _type;
     Profile? profile = _profile;
-    if(type == null || profile == null) throw Exception('Missing type and profile');
+    final address = _address;
+    if(type == null || profile == null || address == null) throw Exception('Missing type, profile or address');
 
     String? password = state.password;
     if(password == null){
@@ -92,7 +96,7 @@ class SignupConfirmPasswordViewmodel extends ChangeNotifier{
       return;
     }
 
-    RegistrationRequest request = RegistrationRequest(type, _company, profile, password);
+    RegistrationRequest request = RegistrationRequest(type, _company, profile, address, password);
     Result<Customer> result = await _registrationUsecase.execute(request);
 
     if(result.isFailure){

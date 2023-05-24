@@ -17,7 +17,7 @@ class RegistrationUsecase{
       Password password = Password.create(request.password());
       User user = _userFactory.create(email: request.profile().email(), password: password);
 
-      Customer customer = await _registrationService.register(type: request.type(), company: request.company(), profile: request.profile(), user: user);
+      Customer customer = await _registrationService.register(type: request.type(), company: request.company(), profile: request.profile(), address: request.address(), user: user);
 
       return Result.success(customer);
     }catch(e){

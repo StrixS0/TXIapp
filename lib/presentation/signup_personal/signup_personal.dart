@@ -39,11 +39,12 @@ class SignUpPersonalPage extends StatelessWidget {
   Widget build(BuildContext context) {
     SchedulerBinding.instance.addPostFrameCallback((_) {
       Profile? profile = signupPersonalState.profile;
-      if(signupPersonalState.navigate && profile != null){
+      final address = signupPersonalState.addressObject;
+      if(signupPersonalState.navigate && profile != null && address != null){
       Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => SignupConfirmPasswordWrapper(type: type, company: signupPersonalState.company, profile: profile)),
+            builder: (context) => SignupConfirmPasswordWrapper(type: type, company: signupPersonalState.company, profile: profile, address: address)),
       );
     }
   });

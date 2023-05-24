@@ -147,6 +147,7 @@ class SignupPersonalVieModel extends ChangeNotifier{
       }
     }
     signupPersonalState.profile = signupResult.value.profile();
+    signupPersonalState.addressObject = signupResult.value.address();
     signupPersonalState.navigate = true;
 
     notifyListeners();

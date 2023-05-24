@@ -1,3 +1,4 @@
+import 'package:txiapp/domain/models/common/value_objects/address.dart';
 import 'package:txiapp/domain/models/common/value_objects/profile.dart';
 
 class SignupPersonalState{
@@ -14,6 +15,7 @@ class SignupPersonalState{
 
   String type = '';
   Profile? profile;
+  Address? addressObject;
   bool navigate = false;
   
 

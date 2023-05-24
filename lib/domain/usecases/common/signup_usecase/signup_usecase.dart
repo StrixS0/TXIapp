@@ -41,8 +41,8 @@ class SignupUsecase{
     if(_errors.isNotEmpty) return Result.failure(DomainException(_errors));
 
     Address address = Address(address: request.address(), postalCode: request.postalCode(), state: request.state());
-    Profile profile = Profile.create(name: request.name(), email: email!, phoneNumber: phoneNumber!, yearOfBirth: request.yearOfBirth(), address: address);
+    Profile profile = Profile.create(name: request.name(), email: email!, phoneNumber: phoneNumber!, yearOfBirth: request.yearOfBirth());
 
-    return Result.success(SignupResult(profile));
+    return Result.success(SignupResult(profile, address));
   }
 }

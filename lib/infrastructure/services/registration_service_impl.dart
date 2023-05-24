@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:txiapp/domain/factories/i_customer_factory.dart';
+import 'package:txiapp/domain/models/common/value_objects/address.dart';
 import 'package:txiapp/domain/models/common/value_objects/profile.dart';
 import 'package:txiapp/domain/models/customer/customer.dart';
 import 'package:txiapp/domain/models/user/user.dart' as domain;
@@ -17,7 +18,7 @@ class RegistrationServiceImpl implements IRegistrationService{
   RegistrationServiceImpl(this._userRepository, this._customerFactory, this._customerRepository);
 
   @override
-  Future<Customer> register({required String type, required Profile profile, String? company, required domain.User user}) async{
+  Future<Customer> register({required String type, required Profile profile, required Address address, String? company, required domain.User user}) async{
     if(await _userRepository.isEmailTaken(profile.email())) throw DomainException({'email': 'Email address is already taken.'});
 
     domain.User userResult = await _userRepository.save(user);
@@ -25,7 +26,7 @@ class RegistrationServiceImpl implements IRegistrationService{
 
     if(userId == null) throw DomainException({'user': 'Could not register user.'});
 
-    Customer customer = _customerFactory.create(type: type, profile: profile, userId: userId, company: company);
+    Customer customer = _customerFactory.create(type: type, profile: profile, address: address, userId: userId, company: company);
     _customerRepository.save(customer);
     
     await FirebaseAuth.instance.currentUser?.sendEmailVerification();

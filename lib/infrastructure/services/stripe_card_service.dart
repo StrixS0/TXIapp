@@ -35,9 +35,9 @@ class StripeCardService implements IPaymentService {
       address: Address(
         country: 'US',
         city: null,
-        line1: customer.profile().address().address(),
+        line1: customer.address().address(),
         line2: null,
-        state: customer.profile().address().state(),
+        state: customer.address().state(),
         postalCode: details['postalCode'],
       ),
     ))));
