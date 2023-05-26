@@ -48,12 +48,14 @@ class PrimaryElevatedButton extends StatelessWidget {
 class PrimaryOutlinedButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
+  final Color fontColor;
 
   const PrimaryOutlinedButton({
-    super.key,
+    Key? key,
     required this.text,
     required this.onPressed,
-  });
+    this.fontColor = Colors.white, // Default value is white
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -80,10 +82,10 @@ class PrimaryOutlinedButton extends StatelessWidget {
           child: Text(
             text,
             textAlign: TextAlign.center,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.normal,
-              color: Color(0xFFD6AD67),
+              color: fontColor, // Use the provided fontColor
             ),
           ),
         ),
@@ -96,12 +98,14 @@ class PrimaryOutlinedButton extends StatelessWidget {
 class PrimaryOutlinedSmallButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
+  final Color fontColor;
 
   const PrimaryOutlinedSmallButton({
-    super.key,
+    Key? key,
     required this.text,
     required this.onPressed,
-  });
+    this.fontColor = Colors.white, // Default value is white
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -128,10 +132,10 @@ class PrimaryOutlinedSmallButton extends StatelessWidget {
           child: Text(
             text,
             textAlign: TextAlign.center,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.normal,
-              color: Color.fromARGB(255, 255, 255, 255),
+              color: fontColor, // Use the provided fontColor
             ),
           ),
         ),
