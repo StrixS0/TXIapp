@@ -65,11 +65,11 @@ class SelectVehicle extends StatelessWidget {
                     crossAxisCount: 2,
                     children: [
                       _buildVehicleBox('SEDAN'),
+                      _buildVehicleBox('LUXURY\nSEDAN'),
                       _buildVehicleBox('SUV'),
-                      _buildVehicleBox('LUXURY SUV'),
+                      _buildVehicleBox('LUXURY\nSUV'),
                       _buildVehicleBox('SPRINTER'),
-                      _buildVehicleBox('BUS'),
-                      _buildVehicleBox('EXECUTIVE BUS'),
+                      _buildVehicleBox('EXECUTIVE\nSPRINTER'),
                     ],
                   ),
                 ),
@@ -107,7 +107,7 @@ class SelectVehicle extends StatelessWidget {
           decoration: BoxDecoration(
             border: Border.all(
               color: Colors.white,
-              width: 0.5,
+              width: 1,
             ),
           ),
           child: Container(
@@ -121,7 +121,7 @@ class SelectVehicle extends StatelessWidget {
                   vehicleName,
                   style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 18,
+                    fontSize: 18, 
                   ),
                   textAlign: TextAlign.center,
                 ),

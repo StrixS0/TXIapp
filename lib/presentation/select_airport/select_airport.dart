@@ -70,16 +70,19 @@ class SelectAirport extends StatelessWidget {
                       children: [
                         PrimaryOutlinedButton(
                           onPressed: () {},
+                          fontColor: Colors.white,
                           text: 'GEORGE BUSH',
                         ),
                         const SizedBox(height: 20),
                         PrimaryOutlinedButton(
                           onPressed: () {},
+                          fontColor: Colors.white,
                           text: 'HOBBY',
                         ),
                         const SizedBox(height: 20),
                         PrimaryOutlinedButton(
                           onPressed: () {},
+                          fontColor: Colors.white,
                           text: 'PRIVATE AIRPORT',
                         ),
                       ],

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 //Components
-class SelectVehicle extends StatelessWidget {
-  const SelectVehicle({Key? key}) : super(key: key);
+class ViewOnlySelectVehicle extends StatelessWidget {
+  const ViewOnlySelectVehicle({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
