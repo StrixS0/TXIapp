@@ -1,5 +1,9 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import '../components/buttons.dart';
 
 //Components
 class BookTrip extends StatelessWidget {
@@ -46,21 +50,63 @@ class BookTrip extends StatelessWidget {
                     ],
                   ),
                 ), 
-                const SizedBox(height: 10),
-                Container(
-                  constraints: const BoxConstraints(maxWidth: 300),
-                  child: GridView.count(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    crossAxisCount: 2,
-                    children: [
-                      buildBookTripMenu('POINT\nTO POINT'),
-                      buildBookTripMenu('AIRPORT\nTRIP'),
-                      buildBookTripMenu('BY\nHOUR'),
-                      buildBookTripMenu('BY\nDAY'),  
-                    ],
+                const SizedBox(height: 20),
+                const Text(
+                  'BOOK A TRIP',
+                  style: TextStyle(
+                    fontSize: 27,
+                    fontFamily: 'Raleway',
+                    fontWeight: FontWeight.w100,
+                    color: Colors.white,
                   ),
                 ),
+                const SizedBox(height: 20),
+                 Container(
+                    constraints: const BoxConstraints(maxWidth: 300),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        LightElevatedButton(
+                          onPressed: () {},
+                          text: 'POINT TO POINT',
+                        ),
+                        const SizedBox(height: 15),
+                        LightElevatedButton(
+                          onPressed: () {},
+                          text: 'AIRPORT TRIP',
+                        ),
+                        const SizedBox(height: 15),
+                        LightElevatedButton(
+                          onPressed: () {},
+                          text: 'BY HOUR',
+                        ),
+                        const SizedBox(height: 15),
+                        LightElevatedButton(
+                          onPressed: () {},
+                          text: 'DAY RATE',
+                        ),
+                        const SizedBox(height: 15),
+                        LightElevatedButton(
+                          onPressed: () {},
+                          text: 'LAKE CHARLES',
+                        ),
+                        const SizedBox(height: 15),
+                        LightElevatedButton(
+                          onPressed: () {},
+                          text: 'SAN ANTONIO',
+                        ),
+                        const SizedBox(height: 15),
+                        LightElevatedButton(
+                          onPressed: () {},
+                          text: 'AUSTIN',
+                        ),
+                        const SizedBox(height: 15),
+                        LightElevatedButton(
+                          onPressed: () {},
+                          text: 'DALLAS',
+                        ),
+                      ],
+                    )),
                 const SizedBox(height: 20),
                 GestureDetector(
                   onTap: () {},
@@ -82,42 +128,7 @@ class BookTrip extends StatelessWidget {
         ),
       ),
     );
-  }
+  } 
 
-  Widget buildBookTripMenu(String vehicleName) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: GestureDetector(
-        onTap: () {
-          // Handle onTap for the vehicle box
-        },
-        child: Container(
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: Color.fromRGBO(108, 89, 52, 0.9),
-              width: 0.5,
-            ),
-          ),
-          child: Container(
-            color: Color.fromRGBO(237, 237, 236, 0.282),
-            height: 50,
-            width: 50,
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.all(13.0),
-                child: Text(
-                  vehicleName,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+  
 }

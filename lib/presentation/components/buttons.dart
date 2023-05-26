@@ -139,3 +139,56 @@ class PrimaryOutlinedSmallButton extends StatelessWidget {
     );
   }
 }
+
+
+class LightElevatedButton extends StatelessWidget {
+  final String text;
+  final VoidCallback onPressed;
+
+  const LightElevatedButton({
+    Key? key,
+    required this.text,
+    required this.onPressed,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: onPressed,
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all<Color>(
+          const Color.fromARGB(70, 255, 255, 255),
+        ),
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(2),
+          ),
+        ),
+        side: MaterialStateProperty.all<BorderSide>(
+          const BorderSide(
+            color: Colors.white, 
+            width: 1.0, 
+          ),
+        ),
+      ),
+      child: SizedBox(
+        width: 270,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            vertical: 15,
+            horizontal: 20,
+          ),
+          child: Text(
+            text,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
