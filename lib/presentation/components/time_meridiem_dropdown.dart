@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 Widget buildMeridiemDropdown({String? defaultValue, ValueChanged<String?>? onChanged}) {
-  final List<String> states = ["AM", "PM"];
+  final List<String> meridiem = ["AM", "PM"];
 
   return Container(
     constraints: const BoxConstraints(maxWidth: 300, maxHeight: 60),
     child: DropdownButtonFormField<String>(
       value: defaultValue,
-      items: states.map((String state) {
+      items: meridiem.map((String state) {
         return DropdownMenuItem<String>(
           value: state,
           child: Center(

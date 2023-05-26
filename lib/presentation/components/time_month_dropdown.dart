@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 Widget buildMonthsDropdown({String? defaultValue, ValueChanged<String?>? onChanged}) {
-  final List<String> states = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+  final List<String> months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
 
   return Container(
     constraints: const BoxConstraints(maxWidth: 300, maxHeight: 60),
     child: DropdownButtonFormField<String>(
       value: defaultValue,
-      items: states.map((String state) {
+      items: months.map((String state) {
         return DropdownMenuItem<String>(
           value: state,
           child: Center(

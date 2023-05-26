@@ -144,6 +144,54 @@ class PrimaryOutlinedSmallButton extends StatelessWidget {
   }
 }
 
+class PrimaryFilledSmallButton extends StatelessWidget {
+  final String text;
+  final VoidCallback onPressed;
+  final Color fontColor;
+
+  const PrimaryFilledSmallButton({
+    Key? key,
+    required this.text,
+    required this.onPressed,
+    this.fontColor = Colors.white, // Default value is white
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return OutlinedButton(
+      onPressed: onPressed,
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all<Color>(Color.fromARGB(35, 214, 173, 103)),
+        side: MaterialStateProperty.all<BorderSide>(
+          const BorderSide(color: Color(0xFFD6AD67)),
+        ),
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(0),
+          ),
+        ),
+      ),
+      child: SizedBox(
+        width: 270,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            vertical: 15,
+            horizontal: 20,
+          ),
+          child: Text(
+            text,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.normal,
+              color: fontColor, // Use the provided fontColor
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
 
 class LightElevatedButton extends StatelessWidget {
   final String text;

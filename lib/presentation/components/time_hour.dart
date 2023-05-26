@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 Widget buildHoursDropdown({String? defaultValue, ValueChanged<String?>? onChanged}) {
-  final List<String> states = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
+  final List<String> hours = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
 
   return Container(
     constraints: const BoxConstraints(maxWidth: 300, maxHeight: 60),
     child: DropdownButtonFormField<String>(
       value: defaultValue,
-      items: states.map((String state) {
+      items: hours.map((String state) {
         return DropdownMenuItem<String>(
           value: state,
           child: Center(

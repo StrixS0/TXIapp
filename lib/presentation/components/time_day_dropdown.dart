@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 Widget buildDaysDropdown({String? defaultValue, ValueChanged<String?>? onChanged}) {
-  final List<String> states = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"];
+  final List<String> day = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"];
 
   return Container(
     constraints: const BoxConstraints(maxWidth: 300, maxHeight: 60),
     child: DropdownButtonFormField<String>(
       value: defaultValue,
-      items: states.map((String state) {
+      items: day.map((String state) {
         return DropdownMenuItem<String>(
           value: state,
           child: Center(
