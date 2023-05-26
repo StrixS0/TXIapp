@@ -54,7 +54,7 @@ class _DayTimePTPState extends State<DayTimePTP> {
                         onPressed: () {
                           // Handle menu bar icon tap
                         },
-                        icon: Icon(Icons.menu),
+                        icon: const Icon(Icons.menu),
                         color: Colors.white,
                       ),
                     ],
@@ -265,7 +265,7 @@ class _DayTimePTPState extends State<DayTimePTP> {
                             },
                           ),
                           const SizedBox(width: 10),
-                          Expanded(
+                          const Expanded(
                             child: Text(
                               'One way',
                               textAlign: TextAlign.start,
@@ -292,7 +292,7 @@ class _DayTimePTPState extends State<DayTimePTP> {
                             },
                           ),
                           const SizedBox(width: 10),
-                          Expanded(
+                          const Expanded(
                             child: Text(
                               'Round Trip',
                               textAlign: TextAlign.start,
@@ -372,7 +372,7 @@ class CustomRadio<T> extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4),
           border: Border.all(
-            color: groupValue == value ? Color(0xFFD6AD67) : Color(0xFFD6AD67),
+            color: groupValue == value ? const Color(0xFFD6AD67) : const Color(0xFFD6AD67),
             width: 2,
           ),
         ),
@@ -381,7 +381,7 @@ class CustomRadio<T> extends StatelessWidget {
               ? Container(
                   width: 12,
                   height: 12,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                     color: Color(0xFFD6AD67),
                   ),
