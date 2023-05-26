@@ -103,40 +103,5 @@ class SelectAirport extends StatelessWidget {
     );
   }
 
-  Widget buildCorporateMenu(String vehicleName) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: GestureDetector(
-        onTap: () {
-          // Handle onTap for the vehicle box
-        },
-        child: Container(
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: Color.fromRGBO(108, 89, 52, 0.9),
-              width: 0.5,
-            ),
-          ),
-          child: Container(
-            color: Color.fromRGBO(219, 163, 51, 0.286),
-            height: 50,
-            width: 50,
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.all(13.0),
-                child: Text(
-                  vehicleName,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+  
 }
