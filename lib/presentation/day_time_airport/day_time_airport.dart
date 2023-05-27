@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:txiapp/presentation/book_trip/book_trip.dart';
 import 'package:txiapp/presentation/components/buttons.dart';
 import 'package:txiapp/presentation/components/time_day_dropdown.dart';
 
@@ -326,7 +327,12 @@ class _DayTimeAirportState extends State<DayTimeAirport> {
                 ),
                 const SizedBox(height: 30),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context, 
+                      MaterialPageRoute(builder: (context) => const BookTrip()),
+                    );
+                  },
                   child: const Text(
                     'Back',
                     style: TextStyle(
