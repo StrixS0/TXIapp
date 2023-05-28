@@ -2,10 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:txiapp/presentation/components/buttons.dart';
+import 'package:txiapp/presentation/menu_personal/menu_personal.dart';
+import 'package:txiapp/presentation/trip_confirmation/trip_confirmation.dart';
 
 //Components
 class TripConfirmationReview extends StatelessWidget {
-  const TripConfirmationReview({Key? key}) : super(key: key);
+  final String type;
+  const TripConfirmationReview({required this.type,Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -130,19 +133,24 @@ class TripConfirmationReview extends StatelessWidget {
                 const SizedBox(height: 30),
                 PrimaryElevatedButton(
                   onPressed: () {
-                    // onEvent(FormSubmitted());
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //       builder: (context) => const AddPaymentMethod()),
-                    // );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const MenuPersonal()),
+                      );
                   },
                   text: 'Next',
                   // text: signupPersonalState.loading ? 'Please wait...' : 'Continue',
                 ),
                   const SizedBox(height: 10),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TripConfirmation(type : type)),
+                      );
+                    },
                   child: const Text(
                     'Back',
                     style: TextStyle(

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:txiapp/presentation/components/buttons.dart';
 import 'package:txiapp/presentation/components/time_day_dropdown.dart';
+import 'package:txiapp/presentation/pickup_dropoff/pickup_dropoff.dart';
+import 'package:txiapp/presentation/select_vehicle/select_vehicle.dart';
 
 import '../components/time_hour.dart';
 import '../components/time_meridiem_dropdown.dart';
@@ -10,7 +12,8 @@ import '../components/time_month_dropdown.dart';
 
 // Components
 class DayTimePTP extends StatefulWidget {
-  const DayTimePTP({Key? key}) : super(key: key);
+  final String type;
+  const DayTimePTP({required this.type,Key? key}) : super(key: key);
 
   @override
   _DayTimePTPState createState() => _DayTimePTPState();
@@ -314,19 +317,23 @@ class _DayTimePTPState extends State<DayTimePTP> {
 
                 PrimaryElevatedButton(
                   onPressed: () {
-                    // onEvent(FormSubmitted());
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //       builder: (context) => const AddPaymentMethod()),
-                    // );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => PickUpDropOff(type: widget.type)),
+                    );
                   },
                   text: 'Next',
                   // text: signupPersonalState.loading ? 'Please wait...' : 'Continue',
                 ),
                 const SizedBox(height: 30),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => SelectVehicle(type: widget.type)),
+                    );
+                  },
                   child: const Text(
                     'Back',
                     style: TextStyle(

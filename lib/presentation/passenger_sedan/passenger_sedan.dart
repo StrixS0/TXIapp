@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:txiapp/presentation/components/buttons.dart';
-import 'package:txiapp/presentation/components/dropdown.dart'; 
+import 'package:txiapp/presentation/components/dropdown.dart';
+import 'package:txiapp/presentation/day_time/day_time.dart';
+import 'package:txiapp/presentation/day_time_airport/day_time_airport.dart';
+import 'package:txiapp/presentation/day_time_ptp/day_time_ptp.dart';
+import 'package:txiapp/presentation/select_vehicle/select_vehicle.dart'; 
 
 // Components
 class PassengerSedan extends StatefulWidget {
-  const PassengerSedan({Key? key}) : super(key: key);
+  final String type;
+  const PassengerSedan({required this.type,Key? key}) : super(key: key);
 
   @override
   _PassengerSedanState createState() => _PassengerSedanState();
@@ -177,19 +182,35 @@ class _PassengerSedanState extends State<PassengerSedan> {
                 const SizedBox(height: 30),
                 PrimaryElevatedButton(
                   onPressed: () {
-                    // onEvent(FormSubmitted());
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //       builder: (context) => const AddPaymentMethod()),
-                    // );
+                    if(widget.type == 'airport'){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => DayTimeAirport(type: widget.type)),
+                      );
+                    }else if(widget.type == 'ptp'){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => DayTimePTP(type: widget.type)),
+                      );
+                    }else{
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => DayTime(type: widget.type)),
+                      );
+                    }
                   },
                   text: 'Next',
                   // text: signupPersonalState.loading ? 'Please wait...' : 'Continue',
                 ),
                 const SizedBox(height: 30),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SelectVehicle(type: widget.type)),
+                            );
+                  },
                   child: const Text(
                     'Back',
                     style: TextStyle(

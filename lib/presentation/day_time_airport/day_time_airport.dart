@@ -3,6 +3,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:txiapp/presentation/book_trip/book_trip.dart';
 import 'package:txiapp/presentation/components/buttons.dart';
 import 'package:txiapp/presentation/components/time_day_dropdown.dart';
+import 'package:txiapp/presentation/pickup_dropoff/pickup_dropoff.dart';
+import 'package:txiapp/presentation/pickup_only/pickup_only.dart';
+import 'package:txiapp/presentation/select_vehicle/select_vehicle.dart';
 
 import '../components/time_hour.dart';
 import '../components/time_meridiem_dropdown.dart';
@@ -11,7 +14,8 @@ import '../components/time_month_dropdown.dart';
 
 // Components
 class DayTimeAirport extends StatefulWidget {
-  const DayTimeAirport({Key? key}) : super(key: key);
+  final String type;
+  const DayTimeAirport({required this.type,Key? key}) : super(key: key);
 
   @override
   _DayTimeAirportState createState() => _DayTimeAirportState();
@@ -315,12 +319,10 @@ class _DayTimeAirportState extends State<DayTimeAirport> {
 
                 PrimaryElevatedButton(
                   onPressed: () {
-                    // onEvent(FormSubmitted());
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //       builder: (context) => const AddPaymentMethod()),
-                    // );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => PickUpDropOff(type: widget.type)),
+                    );
                   },
                   text: 'Next',
                   // text: signupPersonalState.loading ? 'Please wait...' : 'Continue',
@@ -329,8 +331,9 @@ class _DayTimeAirportState extends State<DayTimeAirport> {
                 GestureDetector(
                   onTap: () {
                     Navigator.push(
-                      context, 
-                      MaterialPageRoute(builder: (context) => const BookTrip()),
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => SelectVehicle(type: widget.type)),
                     );
                   },
                   child: const Text(

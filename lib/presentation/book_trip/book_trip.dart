@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:txiapp/presentation/select_vehicle/select_vehicle.dart';
 
 import '../components/buttons.dart';
 
@@ -67,42 +68,90 @@ class BookTrip extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         LightElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const SelectVehicle(type: 'ptp')),
+                            );
+                          },
                           text: 'POINT TO POINT',
                         ),
                         const SizedBox(height: 15),
                         LightElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const SelectVehicle(type: 'airport')),
+                            );
+                          },
                           text: 'AIRPORT TRIP',
                         ),
                         const SizedBox(height: 15),
                         LightElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const SelectVehicle(type: 'byhour')),
+                            );
+                          },
                           text: 'BY HOUR',
                         ),
                         const SizedBox(height: 15),
                         LightElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const SelectVehicle(type: 'dayrate')),
+                            );
+                          },
                           text: 'DAY RATE',
                         ),
                         const SizedBox(height: 15),
                         LightElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const SelectVehicle(type: 'lakecharles')),
+                            );
+                          },
                           text: 'LAKE CHARLES',
                         ),
                         const SizedBox(height: 15),
                         LightElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const SelectVehicle(type: 'sanantonio')),
+                            );
+                          },
                           text: 'SAN ANTONIO',
                         ),
                         const SizedBox(height: 15),
                         LightElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const SelectVehicle(type: 'austin')),
+                            );
+                          },
                           text: 'AUSTIN',
                         ),
                         const SizedBox(height: 15),
                         LightElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const SelectVehicle(type: 'dallas')),
+                            );
+                          },
                           text: 'DALLAS',
                         ),
                       ],

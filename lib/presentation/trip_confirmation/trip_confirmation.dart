@@ -1,11 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:txiapp/presentation/book_trip/book_trip.dart';
 import 'package:txiapp/presentation/components/buttons.dart';
+import 'package:txiapp/presentation/trip_confirmation_review/trip_confirmation_review.dart';
 
 //Components
 class TripConfirmation extends StatelessWidget {
-  const TripConfirmation({Key? key}) : super(key: key);
+  final String type;
+  const TripConfirmation({required this.type,Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -224,19 +227,23 @@ class TripConfirmation extends StatelessWidget {
                 const SizedBox(height: 20),
                 PrimaryElevatedButton(
                   onPressed: () {
-                    // onEvent(FormSubmitted());
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //       builder: (context) => const AddPaymentMethod()),
-                    // );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => TripConfirmationReview(type: type)),
+                    );
                   },
                   text: 'Next',
                   // text: signupPersonalState.loading ? 'Please wait...' : 'Continue',
                 ),
                 const SizedBox(height: 10),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const BookTrip()),
+                    );
+                  },
                   child: const Text(
                     'Back',
                     style: TextStyle(

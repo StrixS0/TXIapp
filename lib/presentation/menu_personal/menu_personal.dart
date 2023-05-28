@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../book_trip/book_trip.dart';
+
 //Components
 class MenuPersonal extends StatelessWidget {
   const MenuPersonal({Key? key}) : super(key: key);
@@ -54,10 +56,34 @@ class MenuPersonal extends StatelessWidget {
                     shrinkWrap: true,
                     crossAxisCount: 2,
                     children: [
-                      buildCorporateMenu('BOOK A TRIP'),
-                      buildCorporateMenu('MODIFY A TRIP'),
-                      buildCorporateMenu('REQUEST A QUOTE'),
-                      buildCorporateMenu('TRIP HISTORY'),  
+                      buildCorporateMenu('BOOK A TRIP', () {
+                        // Navigate to the desired screen
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const BookTrip()),
+                        );
+                      }),
+                      buildCorporateMenu('MODIFY A TRIP', () {
+                        // Navigate to the desired screen
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const BookTrip()),
+                        );
+                      }),
+                      buildCorporateMenu('REQUEST A QUOTE', () {
+                        // Navigate to the desired screen
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const BookTrip()),
+                        );
+                      }),
+                      buildCorporateMenu('TRIP HISTORY', () {
+                        // Navigate to the desired screen
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const BookTrip()),
+                        );
+                      }),
                     ],
                   ),
                 ),
@@ -84,13 +110,11 @@ class MenuPersonal extends StatelessWidget {
     );
   }
 
-  Widget buildCorporateMenu(String vehicleName) {
+  Widget buildCorporateMenu(String vehicleName, VoidCallback onTap) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
-        onTap: () {
-          // Handle onTap for the vehicle box
-        },
+        onTap: onTap,
         child: Container(
           decoration: BoxDecoration(
             border: Border.all(

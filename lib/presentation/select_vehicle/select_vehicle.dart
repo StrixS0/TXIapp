@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:txiapp/presentation/book_trip/book_trip.dart';
+import 'package:txiapp/presentation/passenger_exec_sprinter/passenger_exec_sprinter.dart';
+import 'package:txiapp/presentation/passenger_sedan/passenger_sedan.dart';
+import 'package:txiapp/presentation/passenger_sprinter/passenger_sprinter.dart';
+import 'package:txiapp/presentation/passenger_suv/passenger_suv.dart';
 
 //Components
 class SelectVehicle extends StatelessWidget {
-  const SelectVehicle({Key? key}) : super(key: key);
+  
+  final String type;
+  const SelectVehicle({required this.type,Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -64,18 +71,59 @@ class SelectVehicle extends StatelessWidget {
                     shrinkWrap: true,
                     crossAxisCount: 2,
                     children: [
-                      _buildVehicleBox('SEDAN'),
-                      _buildVehicleBox('LUXURY\nSEDAN'),
-                      _buildVehicleBox('SUV'),
-                      _buildVehicleBox('LUXURY\nSUV'),
-                      _buildVehicleBox('SPRINTER'),
-                      _buildVehicleBox('EXECUTIVE\nSPRINTER'),
+                      _buildVehicleBox('SEDAN', () {
+                        // Navigate to the desired screen
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => PassengerSedan(type: type)),
+                        );
+                      }),
+                      _buildVehicleBox('LUXURY\nSEDAN', () {
+                        // Navigate to the desired screen
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => PassengerSedan(type: type)),
+                        );
+                      }),
+                      _buildVehicleBox('SUV', () {
+                        // Navigate to the desired screen
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => PassengerSUV(type: type)),
+                        );
+                      }),
+                      _buildVehicleBox('LUXURY\nSUV', () {
+                        // Navigate to the desired screen
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => PassengerSUV(type: type)),
+                        );
+                      }),
+                      _buildVehicleBox('SPRINTER', () {
+                        // Navigate to the desired screen
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => PassengerSprinter(type: type)),
+                        );
+                      }),
+                      _buildVehicleBox('EXECUTIVE\nSPRINTER', () {
+                        // Navigate to the desired screen
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => PassengerExecSprinter(type: type)),
+                        );
+                      }),
                     ],
                   ),
                 ),
                 const SizedBox(height: 20),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const BookTrip()),
+                        );
+                        },
                   child: const Text(
                     'Back',
                     style: TextStyle(
@@ -96,13 +144,11 @@ class SelectVehicle extends StatelessWidget {
     );
   }
 
-  Widget _buildVehicleBox(String vehicleName) {
+  Widget _buildVehicleBox(String vehicleName, VoidCallback onTap) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
-        onTap: () {
-          // Handle onTap for the vehicle box
-        },
+        onTap: onTap,
         child: Container(
           decoration: BoxDecoration(
             border: Border.all(

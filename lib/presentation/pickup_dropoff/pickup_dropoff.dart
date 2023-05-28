@@ -3,10 +3,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:txiapp/presentation/components/buttons.dart';
 import 'package:txiapp/presentation/components/state_dropdown.dart';
 import 'package:txiapp/presentation/components/textfields.dart';
+import 'package:txiapp/presentation/select_airport/select_airport.dart';
+import 'package:txiapp/presentation/trip_confirmation/trip_confirmation.dart';
 
 //Components
 class PickUpDropOff extends StatelessWidget {
-  const PickUpDropOff({Key? key}) : super(key: key);
+  final String type;
+  const PickUpDropOff({required this.type,Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -194,12 +197,17 @@ class PickUpDropOff extends StatelessWidget {
                 const SizedBox(height: 30),
                 PrimaryElevatedButton(
                   onPressed: () {
-                    // onEvent(FormSubmitted());
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //       builder: (context) => const AddPaymentMethod()),
-                    // );
+                    if(type == 'airport'){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => SelectAirport(type: type)),
+                      );
+                    }else{
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => TripConfirmation(type: type)),
+                      );
+                    }
                   },
                   text: 'Continue',
                   // text: signupPersonalState.loading ? 'Please wait...' : 'Continue',

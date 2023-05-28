@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:txiapp/presentation/components/buttons.dart';
-import 'package:txiapp/presentation/components/dropdown.dart'; 
+import 'package:txiapp/presentation/components/dropdown.dart';
+import 'package:txiapp/presentation/day_time/day_time.dart';
+import 'package:txiapp/presentation/day_time_airport/day_time_airport.dart';
+import 'package:txiapp/presentation/day_time_ptp/day_time_ptp.dart'; 
 
 // Components
 class PassengerExecSprinter extends StatefulWidget {
-  const PassengerExecSprinter({Key? key}) : super(key: key);
+  final String type;
+  const PassengerExecSprinter({required this.type,Key? key}) : super(key: key);
 
   @override
   _PassengerExecSprinterState createState() => _PassengerExecSprinterState();
@@ -177,12 +181,22 @@ class _PassengerExecSprinterState extends State<PassengerExecSprinter> {
                 const SizedBox(height: 30),
                 PrimaryElevatedButton(
                   onPressed: () {
-                    // onEvent(FormSubmitted());
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //       builder: (context) => const AddPaymentMethod()),
-                    // );
+                    if(widget.type == 'airport'){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => DayTimeAirport(type: widget.type)),
+                      );
+                    }else if(widget.type == 'ptp'){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => DayTimePTP(type: widget.type)),
+                      );
+                    }else{
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => DayTime(type: widget.type)),
+                      );
+                    }
                   },
                   text: 'Next',
                   // text: signupPersonalState.loading ? 'Please wait...' : 'Continue',

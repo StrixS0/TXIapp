@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:txiapp/presentation/components/buttons.dart';
+import 'package:txiapp/presentation/pickup_only/pickup_only.dart';
+import 'package:txiapp/presentation/trip_confirmation/trip_confirmation.dart';
 
 //Components
 class SelectAirport extends StatelessWidget {
-  const SelectAirport({Key? key}) : super(key: key);
+  final String type;
+  const SelectAirport({required this.type,Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -69,19 +72,34 @@ class SelectAirport extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         PrimaryOutlinedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => PickUpOnly(type: type)),
+                            );
+                          },
                           fontColor: Colors.white,
                           text: 'GEORGE BUSH',
                         ),
                         const SizedBox(height: 20),
                         PrimaryOutlinedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => PickUpOnly(type: type)),
+                            );
+                            },
                           fontColor: Colors.white,
                           text: 'HOBBY',
                         ),
                         const SizedBox(height: 20),
                         PrimaryOutlinedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => PickUpOnly(type: type)),
+                            );
+                          },
                           fontColor: Colors.white,
                           text: 'PRIVATE AIRPORT',
                         ),
