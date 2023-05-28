@@ -69,46 +69,7 @@ class SignupConfirmPassword extends StatelessWidget {
                 Container(
                   constraints: const BoxConstraints(maxWidth: 200),
                   child: const Text(
-                    '- Rule of the password',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontFamily: 'Raleway',
-                      fontWeight: FontWeight.w100,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                Container(
-                  constraints: const BoxConstraints(maxWidth: 200),
-                  child: const Text(
-                    '- Rule of the password',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontFamily: 'Raleway',
-                      fontWeight: FontWeight.w100,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                Container(
-                  constraints: const BoxConstraints(maxWidth: 200),
-                  child: const Text(
-                    '- Rule of the password',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontFamily: 'Raleway',
-                      fontWeight: FontWeight.w100,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                Container(
-                  constraints: const BoxConstraints(maxWidth: 200),
-                  child: const Text(
-                    '- Rule of the password',
+                    '- Password should contain letters and numbers',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 16,

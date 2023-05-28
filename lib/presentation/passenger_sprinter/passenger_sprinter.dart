@@ -10,7 +10,8 @@ import 'package:txiapp/presentation/select_vehicle/select_vehicle.dart';
 // Components
 class PassengerSprinter extends StatefulWidget {
   final String type;
-  const PassengerSprinter({required this.type,Key? key}) : super(key: key);
+  final String vehicle;
+  const PassengerSprinter({required this.type,required this.vehicle,Key? key}) : super(key: key);
 
   @override
   _PassengerSprinterState createState() => _PassengerSprinterState();
@@ -185,17 +186,17 @@ class _PassengerSprinterState extends State<PassengerSprinter> {
                     if(widget.type == 'airport'){
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => DayTimeAirport(type: widget.type)),
+                        MaterialPageRoute(builder: (context) => DayTimeAirport(type: widget.type,vehicle: widget.vehicle)),
                       );
                     }else if(widget.type == 'ptp'){
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => DayTimePTP(type: widget.type)),
+                        MaterialPageRoute(builder: (context) => DayTimePTP(type: widget.type,vehicle: widget.vehicle)),
                       );
                     }else{
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => DayTime(type: widget.type)),
+                        MaterialPageRoute(builder: (context) => DayTime(type: widget.type,vehicle: widget.vehicle)),
                       );
                     }
                   },

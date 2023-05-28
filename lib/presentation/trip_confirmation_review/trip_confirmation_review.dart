@@ -8,7 +8,8 @@ import 'package:txiapp/presentation/trip_confirmation/trip_confirmation.dart';
 //Components
 class TripConfirmationReview extends StatelessWidget {
   final String type;
-  const TripConfirmationReview({required this.type,Key? key}) : super(key: key);
+  final String vehicle;
+  const TripConfirmationReview({required this.type,required this.vehicle,Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +86,7 @@ class TripConfirmationReview extends StatelessWidget {
                   onPressed: () {},
                   fontColor: Colors.white,
                   titleText: 'Vehicle type:',
-                  text: 'LUXURY SUV',
+                  text: vehicle,
                   iconData: CupertinoIcons.pencil_ellipsis_rectangle, 
                 ),
                 const SizedBox(height: 10),
@@ -148,7 +149,7 @@ class TripConfirmationReview extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => TripConfirmation(type : type)),
+                            builder: (context) => TripConfirmation(type : type,vehicle: vehicle)),
                       );
                     },
                   child: const Text(

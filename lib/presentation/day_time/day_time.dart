@@ -14,7 +14,8 @@ import '../components/time_month_dropdown.dart';
 // Components
 class DayTime extends StatefulWidget {
   final String type;
-  const DayTime({required this.type,Key? key}) : super(key: key);
+  final String vehicle;
+  const DayTime({required this.type,required this.vehicle,Key? key}) : super(key: key);
 
   @override
   _DayTimeState createState() => _DayTimeState();
@@ -252,12 +253,12 @@ class _DayTimeState extends State<DayTime> {
                     if(widget.type == 'byhour'){
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => PickUpDropOff(type: widget.type)),
+                        MaterialPageRoute(builder: (context) => PickUpDropOff(type: widget.type,vehicle: widget.vehicle)),
                       );
                     }else{
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => PickUpOnly(type: widget.type)),
+                        MaterialPageRoute(builder: (context) => PickUpOnly(type: widget.type,vehicle: widget.vehicle)),
                       );
                     }
                   },

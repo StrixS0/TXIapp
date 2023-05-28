@@ -15,7 +15,8 @@ import '../components/time_month_dropdown.dart';
 // Components
 class DayTimeAirport extends StatefulWidget {
   final String type;
-  const DayTimeAirport({required this.type,Key? key}) : super(key: key);
+  final String vehicle;
+  const DayTimeAirport({required this.type,required this.vehicle,Key? key}) : super(key: key);
 
   @override
   _DayTimeAirportState createState() => _DayTimeAirportState();
@@ -321,7 +322,7 @@ class _DayTimeAirportState extends State<DayTimeAirport> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => PickUpDropOff(type: widget.type)),
+                      MaterialPageRoute(builder: (context) => PickUpDropOff(type: widget.type,vehicle: widget.vehicle)),
                     );
                   },
                   text: 'Next',

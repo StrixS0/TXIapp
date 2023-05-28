@@ -8,7 +8,8 @@ import 'package:txiapp/presentation/trip_confirmation_review/trip_confirmation_r
 //Components
 class TripConfirmation extends StatelessWidget {
   final String type;
-  const TripConfirmation({required this.type,Key? key}) : super(key: key);
+  final String vehicle;
+  const TripConfirmation({required this.type,required this.vehicle,Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +111,7 @@ class TripConfirmation extends StatelessWidget {
                           Expanded(
                               child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
+                            children: [
                               Text(
                                 'POINT TO POINT',
                                 style: bodyFont,
@@ -137,7 +138,7 @@ class TripConfirmation extends StatelessWidget {
                               ),
                               LilSpacer(),
                               Text(
-                                'LUXURY SUV',
+                                vehicle,
                                 style: bodyFont,
                               ),
                               LilSpacer(),
@@ -229,7 +230,7 @@ class TripConfirmation extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => TripConfirmationReview(type: type)),
+                      MaterialPageRoute(builder: (context) => TripConfirmationReview(type: type,vehicle: vehicle)),
                     );
                   },
                   text: 'Next',

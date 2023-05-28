@@ -7,7 +7,8 @@ import 'package:txiapp/presentation/trip_confirmation/trip_confirmation.dart';
 //Components
 class SelectAirport extends StatelessWidget {
   final String type;
-  const SelectAirport({required this.type,Key? key}) : super(key: key);
+  final String vehicle;
+  const SelectAirport({required this.type,required this.vehicle,Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +76,7 @@ class SelectAirport extends StatelessWidget {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => PickUpOnly(type: type)),
+                              MaterialPageRoute(builder: (context) => PickUpOnly(type: type,vehicle: vehicle)),
                             );
                           },
                           fontColor: Colors.white,
@@ -86,7 +87,7 @@ class SelectAirport extends StatelessWidget {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => PickUpOnly(type: type)),
+                              MaterialPageRoute(builder: (context) => PickUpOnly(type: type,vehicle: vehicle)),
                             );
                             },
                           fontColor: Colors.white,
@@ -97,7 +98,7 @@ class SelectAirport extends StatelessWidget {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => PickUpOnly(type: type)),
+                              MaterialPageRoute(builder: (context) => PickUpOnly(type: type,vehicle: vehicle)),
                             );
                           },
                           fontColor: Colors.white,

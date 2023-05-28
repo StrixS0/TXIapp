@@ -9,7 +9,8 @@ import 'package:txiapp/presentation/day_time_ptp/day_time_ptp.dart';
 // Components
 class PassengerExecSprinter extends StatefulWidget {
   final String type;
-  const PassengerExecSprinter({required this.type,Key? key}) : super(key: key);
+  final String vehicle;
+  const PassengerExecSprinter({required this.type,required this.vehicle,Key? key}) : super(key: key);
 
   @override
   _PassengerExecSprinterState createState() => _PassengerExecSprinterState();
@@ -184,17 +185,17 @@ class _PassengerExecSprinterState extends State<PassengerExecSprinter> {
                     if(widget.type == 'airport'){
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => DayTimeAirport(type: widget.type)),
+                        MaterialPageRoute(builder: (context) => DayTimeAirport(type: widget.type,vehicle: widget.vehicle)),
                       );
                     }else if(widget.type == 'ptp'){
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => DayTimePTP(type: widget.type)),
+                        MaterialPageRoute(builder: (context) => DayTimePTP(type: widget.type,vehicle: widget.vehicle)),
                       );
                     }else{
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => DayTime(type: widget.type)),
+                        MaterialPageRoute(builder: (context) => DayTime(type: widget.type,vehicle: widget.vehicle)),
                       );
                     }
                   },

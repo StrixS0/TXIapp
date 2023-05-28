@@ -75,42 +75,42 @@ class SelectVehicle extends StatelessWidget {
                         // Navigate to the desired screen
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => PassengerSedan(type: type)),
+                          MaterialPageRoute(builder: (context) => PassengerSedan(type: type,vehicle: 'SEDAN')),
                         );
                       }),
                       _buildVehicleBox('LUXURY\nSEDAN', () {
                         // Navigate to the desired screen
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => PassengerSedan(type: type)),
+                          MaterialPageRoute(builder: (context) => PassengerSedan(type: type,vehicle: 'LUXURY SEDAN')),
                         );
                       }),
                       _buildVehicleBox('SUV', () {
                         // Navigate to the desired screen
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => PassengerSUV(type: type)),
+                          MaterialPageRoute(builder: (context) => PassengerSUV(type: type,vehicle: 'SUV')),
                         );
                       }),
                       _buildVehicleBox('LUXURY\nSUV', () {
                         // Navigate to the desired screen
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => PassengerSUV(type: type)),
+                          MaterialPageRoute(builder: (context) => PassengerSUV(type: type,vehicle: 'LUXURY SUV')),
                         );
                       }),
                       _buildVehicleBox('SPRINTER', () {
                         // Navigate to the desired screen
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => PassengerSprinter(type: type)),
+                          MaterialPageRoute(builder: (context) => PassengerSprinter(type: type,vehicle: 'SPRINTER')),
                         );
                       }),
                       _buildVehicleBox('EXECUTIVE\nSPRINTER', () {
                         // Navigate to the desired screen
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => PassengerExecSprinter(type: type)),
+                          MaterialPageRoute(builder: (context) => PassengerExecSprinter(type: type,vehicle: 'EXECUTIVE SPRINTER')),
                         );
                       }),
                     ],

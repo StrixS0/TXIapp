@@ -9,7 +9,8 @@ import 'package:txiapp/presentation/trip_confirmation/trip_confirmation.dart';
 //Components
 class PickUpOnly extends StatelessWidget {
   final String type;
-  const PickUpOnly({required this.type,Key? key}) : super(key: key);
+  final String vehicle;
+  const PickUpOnly({required this.type,required this.vehicle,Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -128,7 +129,7 @@ class PickUpOnly extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => TripConfirmation(type: type)),
+                      MaterialPageRoute(builder: (context) => TripConfirmation(type: type,vehicle: vehicle)),
                     );
                   },
                   text: 'Continue',

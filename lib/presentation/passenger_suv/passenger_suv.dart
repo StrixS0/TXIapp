@@ -10,7 +10,8 @@ import 'package:txiapp/presentation/select_vehicle/select_vehicle.dart';
 // Components
 class PassengerSUV extends StatefulWidget {
   final String type;
-  const PassengerSUV({required this.type,Key? key}) : super(key: key);
+  final String vehicle;
+  const PassengerSUV({required this.type,required this.vehicle,Key? key}) : super(key: key);
 
   @override
   _PassengerSUVState createState() => _PassengerSUVState();
@@ -185,17 +186,17 @@ class _PassengerSUVState extends State<PassengerSUV> {
                     if(widget.type == 'airport'){
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => DayTimeAirport(type: widget.type)),
+                        MaterialPageRoute(builder: (context) => DayTimeAirport(type: widget.type,vehicle: widget.vehicle)),
                       );
                     }else if(widget.type == 'ptp'){
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => DayTimePTP(type: widget.type)),
+                        MaterialPageRoute(builder: (context) => DayTimePTP(type: widget.type,vehicle: widget.vehicle)),
                       );
                     }else{
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => DayTime(type: widget.type)),
+                        MaterialPageRoute(builder: (context) => DayTime(type: widget.type,vehicle: widget.vehicle)),
                       );
                     }
                   },

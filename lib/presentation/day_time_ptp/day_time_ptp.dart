@@ -13,7 +13,8 @@ import '../components/time_month_dropdown.dart';
 // Components
 class DayTimePTP extends StatefulWidget {
   final String type;
-  const DayTimePTP({required this.type,Key? key}) : super(key: key);
+  final String vehicle;
+  const DayTimePTP({required this.type,required this.vehicle,Key? key}) : super(key: key);
 
   @override
   _DayTimePTPState createState() => _DayTimePTPState();
@@ -319,7 +320,7 @@ class _DayTimePTPState extends State<DayTimePTP> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => PickUpDropOff(type: widget.type)),
+                      MaterialPageRoute(builder: (context) => PickUpDropOff(type: widget.type,vehicle: widget.vehicle)),
                     );
                   },
                   text: 'Next',

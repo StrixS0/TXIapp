@@ -9,7 +9,8 @@ import 'package:txiapp/presentation/trip_confirmation/trip_confirmation.dart';
 //Components
 class PickUpDropOff extends StatelessWidget {
   final String type;
-  const PickUpDropOff({required this.type,Key? key}) : super(key: key);
+  final String vehicle;
+  const PickUpDropOff({required this.type,required this.vehicle,Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -200,12 +201,12 @@ class PickUpDropOff extends StatelessWidget {
                     if(type == 'airport'){
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => SelectAirport(type: type)),
+                        MaterialPageRoute(builder: (context) => SelectAirport(type: type,vehicle: vehicle)),
                       );
                     }else{
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => TripConfirmation(type: type)),
+                        MaterialPageRoute(builder: (context) => TripConfirmation(type: type,vehicle: vehicle)),
                       );
                     }
                   },
