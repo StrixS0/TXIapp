@@ -48,7 +48,9 @@ class MainViewmodel extends ChangeNotifier{
 
       await _navigate();
     }catch(e){
-      Router.navigateTo(Screen.welcomeScreen);
+      Router.navigateTo(Screen.welcomeScreen).then((_) {
+        Router.disableBackNavigation();
+      });
     }
   }
 
@@ -64,6 +66,7 @@ class MainViewmodel extends ChangeNotifier{
 
   Future<void> _navigate() async{
     Customer? customer = state.currentCustomer;
+    Router.disableBackNavigation();
 
     if(customer == null){
       Router.pushReplacementNamed(Screen.welcomeScreen);

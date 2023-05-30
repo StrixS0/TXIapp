@@ -11,6 +11,10 @@ class Router {
     return navigatorKey.currentState!.pushReplacementNamed(routeName.value, arguments: arguments);
   }
 
+  static void disableBackNavigation() {
+    navigatorKey.currentState!.popUntil((route) => route.isFirst);
+  }
+
 
   static void goBack() {
     navigatorKey.currentState!.pop();
