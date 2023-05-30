@@ -19,4 +19,9 @@ class TeamMemberServiceImpl implements ITeamMemberService{
 
     return teamMember;
   }
+  
+  @override
+  Future<List<TeamMember>> getTeamMemberByCustomerId({required CustomerId customerId}) async{
+    return await _teamMemberRepository.getByCustomerId(customerId);
+  }
 }

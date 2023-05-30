@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:txiapp/domain/models/customer/customer.dart';
 import 'package:txiapp/domain/models/customer/enums/status.dart';
+import 'package:txiapp/domain/models/customer/subtypes/corporate_customer.dart';
 import 'package:txiapp/domain/models/user/value_objects/user_id.dart';
 import 'package:txiapp/domain/services/i_customer_service.dart';
 import 'package:txiapp/presentation/main/events/customer_activated.dart';
@@ -9,6 +10,8 @@ import 'package:txiapp/presentation/main/events/new_user_added_payment_method.da
 import 'package:txiapp/presentation/main/events/user_logged_in.dart';
 import 'package:txiapp/presentation/main/main_state.dart';
 import 'package:txiapp/presentation/utils/destination.dart';
+import 'package:txiapp/presentation/utils/router.dart';
+import 'package:txiapp/presentation/utils/screen.dart';
 
 class MainViewmodel extends ChangeNotifier{
   MainState state = MainState();
@@ -43,39 +46,42 @@ class MainViewmodel extends ChangeNotifier{
       state.currentCustomer = customer;
       state.loggedIn = true;
 
-      state.navigate = await _getDestination();
-      notifyListeners();
+      await _navigate();
     }catch(e){
-      state.navigate = Destination.homeScreen;
-      notifyListeners();
+      Router.navigateTo(Screen.welcomeScreen);
     }
   }
 
   _newUserAddedPaymentMethod() async{
-    state.navigate = await _getDestination();
+    await _navigate();
     notifyListeners();
   }
 
   _customerActivated() async{
-    state.navigate = await _getDestination();
+    await _navigate();
     notifyListeners();
   }
 
-  Future<Destination> _getDestination() async{
+  Future<void> _navigate() async{
     Customer? customer = state.currentCustomer;
 
-    if(customer == null) return Destination.homeScreen;
+    if(customer == null){
+      Router.pushReplacementNamed(Screen.welcomeScreen);
+      return;
+    }
 
     bool hasPaymentDetails = await _customerService.hasPaymentDetails(customer);
     
     if(!hasPaymentDetails){
-      return Destination.addPaymentDetailsScreen;
+      Router.pushReplacementNamed(Screen.addPaymentMethodScreen);
+      return;
     }
 
     if(customer.status() == Status.inactive){
-      return Destination.verifyEmailScreen;
+      Router.pushReplacementNamed(Screen.confirmAccount);
+      return;
     }
 
-    return Destination.menuPersonal;
+    Router.pushReplacementNamed(Screen.home);
   }
 }
