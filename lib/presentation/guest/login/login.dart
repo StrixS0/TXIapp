@@ -1,7 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:txiapp/presentation/guest/login/events/form_submitted.dart';
 import 'package:txiapp/presentation/guest/login/events/login_event.dart';
@@ -14,7 +13,6 @@ import 'package:txiapp/presentation/registration/signup_account_type/signup_acco
 //Components
 import 'package:txiapp/presentation/components/textfields.dart';
 import 'package:txiapp/presentation/components/buttons.dart';
-import 'package:txiapp/presentation/signup_add_payment_method/signup_add_payment_method_wrapper.dart';
 
 class LoginPage extends StatelessWidget {
   final LoginState state;
@@ -24,16 +22,6 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      if(state.navigate != null){
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => const SignupAddPaymentMethodWrapper()),
-      );
-    }
-  });
-
     return Container(
       height: double.infinity, // Fill the screen height
       decoration: const BoxDecoration(

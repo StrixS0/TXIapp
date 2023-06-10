@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:txiapp/domain/models/customer/customer.dart';
 import 'package:txiapp/domain/models/customer/enums/status.dart';
-import 'package:txiapp/domain/models/customer/subtypes/corporate_customer.dart';
 import 'package:txiapp/domain/models/user/value_objects/user_id.dart';
 import 'package:txiapp/domain/services/i_customer_service.dart';
 import 'package:txiapp/presentation/main/events/customer_activated.dart';
@@ -9,7 +8,6 @@ import 'package:txiapp/presentation/main/events/main_event.dart';
 import 'package:txiapp/presentation/main/events/new_user_added_payment_method.dart';
 import 'package:txiapp/presentation/main/events/user_logged_in.dart';
 import 'package:txiapp/presentation/main/main_state.dart';
-import 'package:txiapp/presentation/utils/destination.dart';
 import 'package:txiapp/presentation/utils/router.dart';
 import 'package:txiapp/presentation/utils/screen.dart';
 
@@ -48,9 +46,8 @@ class MainViewmodel extends ChangeNotifier{
 
       await _navigate();
     }catch(e){
-      Router.navigateTo(Screen.welcomeScreen).then((_) {
-        Router.disableBackNavigation();
-      });
+      Router.disableBackNavigation();
+      Router.pushReplacementNamed(Screen.welcomeScreen);
     }
   }
 

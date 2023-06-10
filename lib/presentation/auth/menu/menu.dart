@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:txiapp/domain/models/customer/subtypes/corporate_customer.dart';
 import 'package:txiapp/presentation/book_trip/book_trip.dart';
+import 'package:txiapp/presentation/main/main_state.dart';
 
 //Components
-class MenuCorporate extends StatelessWidget {
-  const MenuCorporate({Key? key}) : super(key: key);
+class Menu extends StatelessWidget {
+  final MainState state;
+
+  const Menu({Key? key, required this.state}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -83,13 +87,16 @@ class MenuCorporate extends StatelessWidget {
                           MaterialPageRoute(builder: (context) => const BookTrip()),
                         );
                       }),
-                      buildCorporateMenu('ADD / MANAGE EXECUTIVES', () {
+                      Visibility(
+                        visible: state.currentCustomer is CorporateCustomer ? true : false,
+                        child: buildCorporateMenu('ADD / MANAGE EXECUTIVES', () {
                         // Navigate to the desired screen
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => const BookTrip()),
                         );
-                      }),
+                      })
+                      ),
                     ],
                   ),
                 ),
