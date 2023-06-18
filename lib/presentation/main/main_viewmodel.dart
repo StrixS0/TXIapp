@@ -3,6 +3,7 @@ import 'package:txiapp/domain/models/customer/customer.dart';
 import 'package:txiapp/domain/models/customer/enums/status.dart';
 import 'package:txiapp/domain/models/user/value_objects/user_id.dart';
 import 'package:txiapp/domain/services/i_customer_service.dart';
+import 'package:txiapp/domain/utils/exceptions/domain_exception.dart';
 import 'package:txiapp/presentation/main/events/customer_activated.dart';
 import 'package:txiapp/presentation/main/events/main_event.dart';
 import 'package:txiapp/presentation/main/events/new_user_added_payment_method.dart';
@@ -46,6 +47,8 @@ class MainViewmodel extends ChangeNotifier{
 
       await _navigate();
     }catch(e){
+      final exception = e as DomainException;
+      print(exception.cause());
       Router.disableBackNavigation();
       Router.pushReplacementNamed(Screen.welcomeScreen);
     }

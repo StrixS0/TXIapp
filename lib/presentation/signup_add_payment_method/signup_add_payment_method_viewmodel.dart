@@ -172,8 +172,9 @@ class SignupAddPaymentMethodViewmodel extends ChangeNotifier{
     }
 
     Result<IPaymentDetails> result = await _addPaymentMethodUsecase.execute(AddPaymentMethodRequest(cardNumber, cardholderName, expMonth, expYear, ccv, postalCode, customer));
-
+    print(result.isFailure);
     if(result.isFailure){
+      print(result.error);
       if(result.error is DomainException){
         final exception = result.error as DomainException;
 
@@ -186,6 +187,8 @@ class SignupAddPaymentMethodViewmodel extends ChangeNotifier{
         state.message = 'Something went wrong. Please try again later.';
         state.isLoading = false;
         notifyListeners();
+
+        return;
       }
     }
 

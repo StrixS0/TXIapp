@@ -71,6 +71,7 @@ class CustomerRepository extends ICustomerRepository{
         phoneNumber: _phoneNumberFactory.reconstitute(data['profile']['phoneNumber']), 
         yearOfBirth: data['profile']['yearOfBirth']
         ), 
+      company: data['company'],
       address: Address(address: data['address']['address'], postalCode: data['address']['postalCode'], state: data['address']['state']),
       userId: UserId(data['userId']), 
       status: Status.values.firstWhere((e) => e.toString() == data['status']),

@@ -47,6 +47,7 @@ dependencies:
   phone_number: ^1.0.0
   flutter_stripe: ^9.2.0
   credit_card_validator: ^2.0.1
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:

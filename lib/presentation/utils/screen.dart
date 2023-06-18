@@ -10,7 +10,15 @@ enum Screen {
   createPassword('/register/create-password'),
   confirmAccount('/register/verify'),
 
-  home('/home');
+  home('/home'),
+
+  bookingTypeMenu('/booking/type'),
+  selectVehicle('/booking/vehicle'),
+  selectPassengerCount('/booking/passenger'),
+  selectTimeAndDate('/booking/time-and-date'),
+  selectAirport('/booking/airport'),
+  address('/booking/address'),
+  reviewBooking('/booking/review');
 
   const Screen(this.value);
   final String value;

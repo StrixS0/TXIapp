@@ -1,9 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:txiapp/presentation/book_trip/book_trip.dart';
+import 'package:txiapp/presentation/auth/booking/book_trip/book_trip.dart';
 import 'package:txiapp/presentation/components/buttons.dart';
-import 'package:txiapp/presentation/trip_confirmation_review/trip_confirmation_review.dart';
+import 'package:txiapp/presentation/auth/booking/trip_confirmation_review/trip_confirmation_review.dart';
+import 'package:txiapp/presentation/utils/router.dart' as custom_router;
 
 //Components
 class TripConfirmation extends StatelessWidget {
@@ -228,10 +228,6 @@ class TripConfirmation extends StatelessWidget {
                 const SizedBox(height: 20),
                 PrimaryElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => TripConfirmationReview(type: type,vehicle: vehicle)),
-                    );
                   },
                   text: 'Next',
                   // text: signupPersonalState.loading ? 'Please wait...' : 'Continue',
@@ -239,11 +235,7 @@ class TripConfirmation extends StatelessWidget {
                 const SizedBox(height: 10),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const BookTrip()),
-                    );
+                    custom_router.Router.goBack();
                   },
                   child: const Text(
                     'Back',

@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:txiapp/domain/models/customer/subtypes/corporate_customer.dart';
-import 'package:txiapp/presentation/main/main_state.dart';
+import 'package:txiapp/domain/models/booking/enums/vehicle_type.dart';
+import 'package:txiapp/presentation/auth/booking/events/booking_event.dart';
+import 'package:txiapp/presentation/auth/booking/events/vehicle_type_selected.dart';
 import 'package:txiapp/presentation/utils/router.dart' as custom_router;
-import 'package:txiapp/presentation/utils/screen.dart';
 
 //Components
-class Menu extends StatelessWidget {
-  final MainState state;
-
-  const Menu({Key? key, required this.state}) : super(key: key);
+class SelectVehicle extends StatelessWidget {
+  final void Function(BookingEvent event) onEvent;
+  const SelectVehicle({required this.onEvent, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +50,17 @@ class Menu extends StatelessWidget {
                       ),
                     ],
                   ),
-                ), 
+                ),
+                const SizedBox(height: 10),
+                const Text(
+                  'SELECT A VEHICLE',
+                  style: TextStyle(
+                    fontSize: 27,
+                    fontFamily: 'Raleway',
+                    fontWeight: FontWeight.w100,
+                    color: Colors.white,
+                  ),
+                ),
                 const SizedBox(height: 10),
                 Container(
                   constraints: const BoxConstraints(maxWidth: 300),
@@ -60,35 +69,32 @@ class Menu extends StatelessWidget {
                     shrinkWrap: true,
                     crossAxisCount: 2,
                     children: [
-                      buildCorporateMenu('BOOK A TRIP', () {
-                        // Navigate to the desired screen
-                        custom_router.Router.navigateTo(Screen.bookingTypeMenu);
+                      _buildVehicleBox('SEDAN', () {
+                        onEvent(VehicleTypeSelected(VehicleType.sedan));
                       }),
-                      buildCorporateMenu('MODIFY A TRIP', () {
-                        // Navigate to the desired screen
-                        custom_router.Router.navigateTo(Screen.bookingTypeMenu);
+                      _buildVehicleBox('LUXURY\nSEDAN', () {
+                        onEvent(VehicleTypeSelected(VehicleType.luxurySedan));
                       }),
-                      buildCorporateMenu('REQUEST A QUOTE', () {
-                        // Navigate to the desired screen
-                        custom_router.Router.navigateTo(Screen.bookingTypeMenu);
+                      _buildVehicleBox('SUV', () {
+                        onEvent(VehicleTypeSelected(VehicleType.suv));
                       }),
-                      buildCorporateMenu('TRIP HISTORY', () {
-                        // Navigate to the desired screen
-                        custom_router.Router.navigateTo(Screen.bookingTypeMenu);
+                      _buildVehicleBox('LUXURY\nSUV', () {
+                        onEvent(VehicleTypeSelected(VehicleType.luxurySuv));
                       }),
-                      Visibility(
-                        visible: state.currentCustomer is CorporateCustomer ? true : false,
-                        child: buildCorporateMenu('ADD / MANAGE EXECUTIVES', () {
-                        // Navigate to the desired screen
-                        custom_router.Router.navigateTo(Screen.bookingTypeMenu);
-                      })
-                      ),
+                      _buildVehicleBox('SPRINTER', () {
+                        onEvent(VehicleTypeSelected(VehicleType.sprinter));
+                      }),
+                      _buildVehicleBox('EXECUTIVE\nSPRINTER', () {
+                        onEvent(VehicleTypeSelected(VehicleType.executiveSprinter));
+                      }),
                     ],
                   ),
                 ),
                 const SizedBox(height: 20),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    custom_router.Router.goBack();
+                  },
                   child: const Text(
                     'Back',
                     style: TextStyle(
@@ -109,7 +115,7 @@ class Menu extends StatelessWidget {
     );
   }
 
-  Widget buildCorporateMenu(String vehicleName, VoidCallback onTap) {
+  Widget _buildVehicleBox(String vehicleName, VoidCallback onTap) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
@@ -117,22 +123,22 @@ class Menu extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             border: Border.all(
-              color: const Color.fromRGBO(108, 89, 52, 0.9),
-              width: 0.5,
+              color: Colors.white,
+              width: 1,
             ),
           ),
           child: Container(
-            color: const Color.fromRGBO(219, 163, 51, 0.286),
+            color: const Color.fromRGBO(255, 255, 255, 0.3),
             height: 50,
             width: 50,
             child: Center(
               child: Padding(
-                padding: const EdgeInsets.all(13.0),
+                padding: const EdgeInsets.all(12.0),
                 child: Text(
                   vehicleName,
                   style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 15,
+                    fontSize: 18,
                   ),
                   textAlign: TextAlign.center,
                 ),
