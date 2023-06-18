@@ -187,6 +187,22 @@ class TripConfirmationReview extends StatelessWidget {
                   ),
                 ),
 
+                Visibility(
+                  visible: state.booking!.bookingType == BookingType.aiportTrip && state.booking!.locationType == LocationType.dropoff,
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 10),
+                      TripConfirmButton(
+                        onPressed: () {},
+                        fontColor: Colors.white,
+                        titleText: 'To:',
+                        text: state.booking!.airport != null ? state.booking!.airport!.displayName.toUpperCase() : '',
+                        iconData: CupertinoIcons.pencil_ellipsis_rectangle,
+                      ),
+                    ],
+                  ),
+                ),
+
                 const SizedBox(height: 30),
                 PrimaryElevatedButton(
                   onPressed: () {},
