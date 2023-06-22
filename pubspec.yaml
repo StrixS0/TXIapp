@@ -48,6 +48,7 @@ dependencies:
   flutter_stripe: ^9.2.0
   credit_card_validator: ^2.0.1
   intl: ^0.18.1
+  http: ^0.13.6
 
 dev_dependencies:
   flutter_test:

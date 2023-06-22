@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:txiapp/presentation/auth/booking/book_trip/book_trip.dart';
+import 'package:intl/intl.dart';
+import 'package:txiapp/domain/models/booking/enums/booking_type.dart';
+import 'package:txiapp/domain/models/booking/enums/location_type.dart';
+import 'package:txiapp/domain/models/booking/enums/trip_type.dart';
+import 'package:txiapp/domain/models/booking/enums/vehicle_type.dart';
+import 'package:txiapp/presentation/auth/booking/booking_state.dart';
+import 'package:txiapp/presentation/auth/booking/events/booking_event.dart';
 import 'package:txiapp/presentation/components/buttons.dart';
-import 'package:txiapp/presentation/auth/booking/trip_confirmation_review/trip_confirmation_review.dart';
 import 'package:txiapp/presentation/utils/router.dart' as custom_router;
 
 //Components
 class TripConfirmation extends StatelessWidget {
-  final String type;
-  final String vehicle;
-  const TripConfirmation({required this.type,required this.vehicle,Key? key}) : super(key: key);
+  final BookingState state;
+  final void Function(BookingEvent event) onEvent;
+  
+  const TripConfirmation({required this.state,required this.onEvent,Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +64,7 @@ class TripConfirmation extends StatelessWidget {
                         onPressed: () {
                           // Handle menu bar icon tap
                         },
-                        icon: Icon(Icons.menu),
+                        icon: const Icon(Icons.menu),
                         color: Colors.white,
                       ),
                     ],
@@ -88,7 +94,7 @@ class TripConfirmation extends StatelessWidget {
                   onPressed: null,
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(
-                        Color.fromARGB(17, 0, 0, 0)),
+                        const Color.fromARGB(17, 0, 0, 0)),
                     side: MaterialStateProperty.all<BorderSide>(
                       const BorderSide(color: Color(0xFFD6AD67)),
                     ),
@@ -113,65 +119,86 @@ class TripConfirmation extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'POINT TO POINT',
+                                state.booking!.bookingType.displayName.toUpperCase(),
                                 style: bodyFont,
                               ),
-                              LilSpacer(),
-                              Text(
+                              const LilSpacer(),
+                              const Text(
                                 'Schedule:',
                                 style: smallFont,
                               ),
-                              LilSpacer(),
+                              const LilSpacer(),
                               Text(
-                                'WED - JUN 6 - 2023 | 3:45PM',
+                                DateFormat('EEE - MMM d - yyy | h:mm a').format(state.booking!.dayAndTime),
                                 style: bodyFont,
                               ),
-                              LilSpacer(),
-                              Text(
-                                'ROUND TRIP',
-                                style: bodyFont,
+                              Visibility(
+                                visible: state.booking!.tripType != null,
+                                child: Column(
+                                  children: [
+                                    const LilSpacer(),
+                                    Text(
+                                      state.booking!.tripType != null ? state.booking!.tripType!.displayName.toUpperCase() : '',
+                                      style: bodyFont,
+                                    ),
+                                  ],
+                                )
                               ),
-                              LilSpacer(),
-                              Text(
+
+                              Visibility(
+                                visible: state.booking!.locationType != null,
+                                child: Column(
+                                  children: [
+                                    const LilSpacer(),
+                                    Text(
+                                      state.booking!.locationType != null ? state.booking!.locationType!.displayName.toUpperCase() : '',
+                                      style: bodyFont,
+                                    ),
+                                  ],
+                                )
+                              ),
+                              
+                              const LilSpacer(),
+                              const Text(
                                 'Vehicle:',
                                 style: smallFont,
                               ),
-                              LilSpacer(),
+                              const LilSpacer(),
                               Text(
-                                vehicle,
+                                state.booking!.vehicleType.displayName.toUpperCase(),
                                 style: bodyFont,
                               ),
-                              LilSpacer(),
-                              Text(
+                              const LilSpacer(),
+                              const Text(
                                 'Passenger(s):',
                                 style: smallFont,
                               ),
-                              LilSpacer(),
+                              const LilSpacer(),
                               Text(
-                                '4 PAX | No luggage',
+                                '${state.booking!.passenger.passengerCount.displayName()} PAX | ${state.booking!.passenger.withLuggage ? 'WITH' : 'NO'} LUGGAGE',
                                 style: bodyFont,
                               ),
-                              LilSpacer(),
-                              Text(
+                              const LilSpacer(),
+                              const Text(
                                 'From:',
                                 style: smallFont,
                               ),
-                              LilSpacer(),
+                              const LilSpacer(),
                               Text(
-                                '1234 WEST HEIMER DR #124 HOUSTON, TX 77063',
+                                state.displayFromAddress ?? '',
                                 style: bodyFont,
                               ),
-                              LilSpacer(),
-                              Text(
+                              const LilSpacer(),
+                              const Text(
                                 'To:',
                                 style: smallFont,
                               ),
-                              LilSpacer(),
+                              const LilSpacer(),
                               Text(
-                                '3331 WEST HEIMER DR #124 HOUSTON, TX 77063',
+                                state.displayToAddress ?? '',
                                 style: bodyFont,
                               ),
-                              LilSpacer(),
+                              const LilSpacer(),
                             ],
                           )),
                         ],
@@ -184,7 +211,7 @@ class TripConfirmation extends StatelessWidget {
                   onPressed: null,
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(
-                        Color.fromARGB(17, 0, 0, 0)),
+                        const Color.fromARGB(17, 0, 0, 0)),
                     side: MaterialStateProperty.all<BorderSide>(
                       const BorderSide(color: Color(0xFFD6AD67)),
                     ),
@@ -207,11 +234,11 @@ class TripConfirmation extends StatelessWidget {
                           Expanded(
                               child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
-                            children: const [
+                            children: [
                               Text(
-                                '\$160.00',
+                                state.booking!.price != null ? state.booking!.price!.display() : '',
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 26,
                                   fontFamily: 'NoirPro',
                                   fontWeight: FontWeight.w500,
@@ -229,8 +256,7 @@ class TripConfirmation extends StatelessWidget {
                 PrimaryElevatedButton(
                   onPressed: () {
                   },
-                  text: 'Next',
-                  // text: signupPersonalState.loading ? 'Please wait...' : 'Continue',
+                  text: state.loading ? 'Please wait...' : 'Next',
                 ),
                 const SizedBox(height: 10),
                 GestureDetector(
@@ -250,43 +276,6 @@ class TripConfirmation extends StatelessWidget {
                 ),
                 const SizedBox(height: 80),
               ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildVehicleBox(String vehicleName) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: GestureDetector(
-        onTap: () {
-          // Handle onTap for the vehicle box
-        },
-        child: Container(
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: Colors.white,
-              width: 1,
-            ),
-          ),
-          child: Container(
-            color: Color.fromRGBO(255, 255, 255, 0.3),
-            height: 50,
-            width: 50,
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Text(
-                  vehicleName,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
             ),
           ),
         ),

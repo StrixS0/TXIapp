@@ -1,6 +1,7 @@
 import 'package:txiapp/domain/models/booking/booking.dart';
 import 'package:txiapp/domain/models/booking/enums/airport.dart';
 import 'package:txiapp/domain/models/booking/enums/booking_type.dart';
+import 'package:txiapp/domain/models/booking/enums/private_airport.dart';
 import 'package:txiapp/domain/models/booking/enums/vehicle_type.dart';
 import 'package:txiapp/domain/models/booking/value_objects/passenger_count.dart';
 import 'package:txiapp/domain/models/common/value_objects/profile.dart';
@@ -23,6 +24,7 @@ class BookingState{
   int? locationType;
 
   Airport? airport;
+  PrivateAirport? privateAirport;
 
   String? address1;
   String? addtional1;
@@ -39,6 +41,9 @@ class BookingState{
   Profile? profile;
 
   Booking? booking;
+  String? displayFromAddress;
+  String? displayToAddress;
 
   String? errorMessage;
+  bool loading = false;
 }

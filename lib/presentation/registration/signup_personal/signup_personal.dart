@@ -1,21 +1,16 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:txiapp/domain/models/common/value_objects/profile.dart';
 
 //
-import 'package:txiapp/presentation/guest/login/login.dart';
 import 'package:txiapp/presentation/guest/login/login_wrapper.dart';
-import 'package:txiapp/presentation/registration/signup_confirm_password/signup_confirm_password.dart';
 import 'package:txiapp/presentation/components/textfields.dart'; 
 
 //Components
 import 'package:txiapp/presentation/components/buttons.dart'; 
 import 'package:txiapp/presentation/components/state_dropdown.dart';
 import 'package:txiapp/presentation/components/birthyear_dropdown.dart';
-import 'package:txiapp/presentation/registration/signup_confirm_password/signup_confirm_password_wrapper.dart';
 import 'package:txiapp/presentation/registration/signup_personal/events/address_changed.dart';
 import 'package:txiapp/presentation/registration/signup_personal/events/company_changed.dart';
 import 'package:txiapp/presentation/registration/signup_personal/events/email_changed.dart';

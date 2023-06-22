@@ -1,6 +1,7 @@
 import 'package:txiapp/domain/models/booking/enums/airport.dart';
 import 'package:txiapp/domain/models/booking/enums/booking_type.dart';
 import 'package:txiapp/domain/models/booking/enums/location_type.dart';
+import 'package:txiapp/domain/models/booking/enums/private_airport.dart';
 import 'package:txiapp/domain/models/booking/enums/trip_type.dart';
 import 'package:txiapp/domain/models/booking/enums/vehicle_type.dart';
 import 'package:txiapp/domain/models/booking/value_objects/passenger_count.dart';
@@ -13,6 +14,7 @@ class CreateBookingRequest{
   final bool _withLuggage;
   final DateTime _dayAndTime;
   final Airport? _airport;
+  final PrivateAirport? _privateAirport;
   final TripType? _tripType;
   final LocationType? _locationType;
   final Profile _profile;
@@ -27,7 +29,7 @@ class CreateBookingRequest{
   final String? _dropoffPostalCode;
   final String? _dropoffState;
 
-  CreateBookingRequest(this._bookingType, this._vehicleType, this._passengerCount, this._withLuggage, this._dayAndTime, this._airport, this._tripType, this._locationType, this._profile, this._pickupAddress, this._pickupAdditional, this._pickupCity, this._pickupPostalCode, this._pickupState, this._dropoffAddress, this._dropoffAdditional, this._dropoffCity, this._dropoffPostalCode, this._dropoffState);
+  CreateBookingRequest(this._bookingType, this._vehicleType, this._passengerCount, this._withLuggage, this._dayAndTime, this._airport, this._privateAirport, this._tripType, this._locationType, this._profile, this._pickupAddress, this._pickupAdditional, this._pickupCity, this._pickupPostalCode, this._pickupState, this._dropoffAddress, this._dropoffAdditional, this._dropoffCity, this._dropoffPostalCode, this._dropoffState);
 
   BookingType get bookingType{
     return _bookingType;
@@ -51,6 +53,10 @@ class CreateBookingRequest{
 
   Airport? get airport{
     return _airport;
+  }
+
+  PrivateAirport? get privateAirport{
+    return _privateAirport;
   }
 
   TripType? get tripType{

@@ -51,4 +51,19 @@ extension BookingTypeExtension on BookingType{
         return true;
     }
   }
+
+  String get address{
+    switch(this){
+      case BookingType.lakeCharles:
+        return 'Lake Charles, Louisiana';
+      case BookingType.sanAntonio:
+        return 'San Antonio, Texas';
+      case BookingType.austin:
+        return 'Austin, Texas';
+      case BookingType.dallas:
+        return 'Dallas, Texas';
+      default:
+        return '';
+    }
+  }
 }

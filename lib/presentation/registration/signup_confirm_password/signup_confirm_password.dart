@@ -1,7 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 //
@@ -14,7 +13,6 @@ import 'package:txiapp/presentation/registration/signup_confirm_password/events/
 import 'package:txiapp/presentation/registration/signup_confirm_password/events/password_changed.dart';
 import 'package:txiapp/presentation/registration/signup_confirm_password/events/signup_confirm_password_event.dart';
 import 'package:txiapp/presentation/registration/signup_confirm_password/signup_confirm_password_state.dart';
-import 'package:txiapp/presentation/registration/signup_confirmation/signup_confirmation_wrapper.dart';
 
 class SignupConfirmPassword extends StatelessWidget {
   final SignupConfirmPasswordState state;
@@ -61,7 +59,7 @@ class SignupConfirmPassword extends StatelessWidget {
                       fontSize: 20,
                       fontFamily: 'Raleway',
                       fontWeight: FontWeight.w400,
-                      color: const Color(0xFFD6AD67),
+                      color: Color(0xFFD6AD67),
                     ),
                   ),
                 ),
@@ -123,7 +121,7 @@ class SignupConfirmPassword extends StatelessWidget {
                     //       builder: (context) => const SignupAddPaymentMethod()),
                     // );
                   },
-                  text: 'Continue',
+                  text: state.loading ? 'Please wait...' : 'Continue',
                 ),
                 const SizedBox(height: 80),
               ],

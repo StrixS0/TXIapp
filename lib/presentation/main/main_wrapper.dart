@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:txiapp/di/app_module.dart';
 import 'package:txiapp/domain/services/i_booking_service.dart';
 import 'package:txiapp/domain/services/i_customer_service.dart';
+import 'package:txiapp/domain/usecases/common/calculate_price_usecase/calculate_price_usecase.dart';
 import 'package:txiapp/domain/usecases/common/create_booking/create_booking_usecase.dart';
 import 'package:txiapp/main.dart';
 import 'package:txiapp/presentation/auth/booking/book_trip/book_trip_wrapper.dart';
@@ -11,10 +12,11 @@ import 'package:txiapp/presentation/auth/booking/day_time/day_time_wrapper.dart'
 import 'package:txiapp/presentation/auth/booking/passenger/passenger_wrapper.dart';
 import 'package:txiapp/presentation/auth/booking/pickup_dropoff/pickup_dropoff_wrapper.dart';
 import 'package:txiapp/presentation/auth/booking/select_airport/select_airport_wrapper.dart';
+import 'package:txiapp/presentation/auth/booking/select_private_airport/select_private_airport_wrapper.dart';
 import 'package:txiapp/presentation/auth/booking/select_vehicle/select_vehicle_wrapper.dart';
+import 'package:txiapp/presentation/auth/booking/trip_confirmation/trip_confirmation_wrapper.dart';
 import 'package:txiapp/presentation/auth/booking/trip_confirmation_review/trip_confirmation_review_wrapper.dart';
 import 'package:txiapp/presentation/auth/menu/menu_wrapper.dart';
-import 'package:txiapp/presentation/auth/booking/day_time/day_time.dart';
 import 'package:txiapp/presentation/guest/welcome/welcome.dart';
 import 'package:txiapp/presentation/guest/login/login_wrapper.dart';
 import 'package:txiapp/presentation/guest/login_forgot_password/login_forgot_password_wrapper.dart';
@@ -34,7 +36,7 @@ class MainWrapper extends StatelessWidget {
     return MultiProvider(
     providers: [
       ChangeNotifierProvider<MainViewmodel>(create: (_) => MainViewmodel(getIt<ICustomerService>())),
-      ListenableProxyProvider<MainViewmodel, BookingViewmodel>(update: (context, mainViewmodel, bookingViewmodel) => BookingViewmodel(mainViewmodel, getIt<IBookingService>(), getIt<CreateBookingUsecase>())),
+      ListenableProxyProvider<MainViewmodel, BookingViewmodel>(update: (context, mainViewmodel, bookingViewmodel) => BookingViewmodel(mainViewmodel, getIt<IBookingService>(), getIt<CreateBookingUsecase>(), getIt<CalculatePriceUsecase>())),
     ],
     child: Consumer<MainViewmodel>(
           builder: (context, viewmodel, child) {
@@ -61,8 +63,10 @@ class MainWrapper extends StatelessWidget {
                 Screen.selectPassengerCount.value:(context) => const PassengerWrapper(),
                 Screen.selectTimeAndDate.value:(context) => const DayTimeWrapper(),
                 Screen.selectAirport.value:(context) => const SelectAirportWrapper(),
+                Screen.selectPrivateAirport.value:(context) => const SelectPrivateAirportWrapper(),
                 Screen.address.value:(context) => const PickupDropoffWrapper(),
-                Screen.reviewBooking.value:(context) => const TripConfirmationReviewWrapper()
+                Screen.reviewBooking.value:(context) => const TripConfirmationReviewWrapper(),
+                Screen.confirmation.value:(context) => const TripConfirmationWrapper()
               },
             );
           },

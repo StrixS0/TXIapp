@@ -21,4 +21,10 @@ class Passenger{
   bool get withLuggage{
     return _withLuggage;
   }
+
+  int get additionalPassengerPrice{
+    if(_withLuggage) return 1000;
+
+    return 500;
+  }
 }

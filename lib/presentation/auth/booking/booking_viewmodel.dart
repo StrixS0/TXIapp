@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:txiapp/domain/models/booking/enums/airport.dart';
 import 'package:txiapp/domain/models/booking/enums/booking_type.dart';
 import 'package:txiapp/domain/models/booking/enums/location_type.dart';
 import 'package:txiapp/domain/models/booking/enums/trip_type.dart';
 import 'package:txiapp/domain/models/booking/value_objects/passenger_count.dart';
 import 'package:txiapp/domain/services/i_booking_service.dart';
+import 'package:txiapp/domain/usecases/common/calculate_price_usecase/calculate_price_usecase.dart';
 import 'package:txiapp/domain/usecases/common/create_booking/create_booking_request.dart';
 import 'package:txiapp/domain/usecases/common/create_booking/create_booking_usecase.dart';
 import 'package:txiapp/domain/utils/exceptions/domain_exception.dart';
@@ -16,6 +18,7 @@ import 'package:txiapp/presentation/auth/booking/events/clear_error_message.dart
 import 'package:txiapp/presentation/auth/booking/events/form_submitted.dart';
 import 'package:txiapp/presentation/auth/booking/events/input_changed.dart';
 import 'package:txiapp/presentation/auth/booking/events/passenger_count_selected.dart';
+import 'package:txiapp/presentation/auth/booking/events/private_airport_selected.dart';
 import 'package:txiapp/presentation/auth/booking/events/vehicle_type_selected.dart';
 import 'package:txiapp/presentation/auth/booking/events/with_luggage_selected.dart';
 import 'package:txiapp/presentation/auth/booking/utils/form_type.dart';
@@ -33,9 +36,10 @@ class BookingViewmodel extends ChangeNotifier {
   final MainViewmodel _mainViewmodel;
   final IBookingService _bookingService;
   final CreateBookingUsecase _createBookingUsecase;
+  final CalculatePriceUsecase _calculatePriceUsecase;
 
   BookingViewmodel(
-      this._mainViewmodel, this._bookingService, this._createBookingUsecase);
+      this._mainViewmodel, this._bookingService, this._createBookingUsecase, this._calculatePriceUsecase);
 
   void onEvent(BookingEvent event) {
     switch (event.runtimeType) {
@@ -70,6 +74,10 @@ class BookingViewmodel extends ChangeNotifier {
 
       case AirportSelected:
         _airportSelected(event as AirportSelected);
+        break;
+
+      case PrivateAirportSelected:
+        _privateAirportSelected(event as PrivateAirportSelected);
         break;
     }
   }
@@ -116,6 +124,9 @@ class BookingViewmodel extends ChangeNotifier {
         break;
       case FormType.address:
         _addressSubmitted();
+        break;
+      case FormType.review:
+        _reviewSubmitted();
         break;
     }
   }
@@ -281,6 +292,18 @@ class BookingViewmodel extends ChangeNotifier {
   _airportSelected(AirportSelected event) {
     bookingState.airport = event.data();
 
+    if(event.data() == Airport.privateAirport){
+      custom_router.Router.navigateTo(Screen.selectPrivateAirport);
+
+      return;
+    }
+
+    custom_router.Router.navigateTo(Screen.address);
+  }
+
+  _privateAirportSelected(PrivateAirportSelected event){
+    bookingState.privateAirport = event.data();
+
     custom_router.Router.navigateTo(Screen.address);
   }
 
@@ -350,6 +373,7 @@ class BookingViewmodel extends ChangeNotifier {
         bookingState.withLuggage! == 1 ? true : false,
         _convertDayAndTime(),
         bookingState.airport,
+        bookingState.privateAirport,
         bookingState.tripType == null
             ? null
             : TripType.values[bookingState.tripType!],
@@ -390,6 +414,9 @@ class BookingViewmodel extends ChangeNotifier {
 
     bookingState.booking = result.value;
 
+    bookingState.displayFromAddress = bookingState.booking!.getPickupAddress();
+    bookingState.displayToAddress = bookingState.booking!.getDropoffAddress();
+
     custom_router.Router.navigateTo(Screen.reviewBooking);
   }
 
@@ -398,5 +425,37 @@ class BookingViewmodel extends ChangeNotifier {
         '${bookingState.day}/${months.indexOf(bookingState.month!) + 1}/${bookingState.year} ${bookingState.hour}:${bookingState.min} ${bookingState.period}',
         true // Use strict parsing
         );
+  }
+
+  _reviewSubmitted() async{
+    bookingState.loading = true;
+    bookingState.errorMessage = null;
+    notifyListeners();
+
+    final result = await _calculatePriceUsecase.execute(bookingState.booking!);
+    if(result.isFailure){
+      if(result.error is DomainException){
+        final exception = result.error as DomainException;
+
+        bookingState.errorMessage = exception.cause().values.first;
+        bookingState.loading = false;
+        notifyListeners();
+
+        return;
+      }else{
+        print(result.error.runtimeType);
+        bookingState.errorMessage = 'Something went wrong. Please try again later.';
+        bookingState.loading = false;
+        notifyListeners();
+
+        return;
+      }
+    }
+    
+    bookingState.loading = false;
+    bookingState.errorMessage = null;
+    notifyListeners();
+    
+    custom_router.Router.navigateTo(Screen.confirmation);
   }
 }

@@ -1,5 +1,6 @@
 enum FormType{
   passengerCount,
   dayTime,
-  address
+  address,
+  review
 }

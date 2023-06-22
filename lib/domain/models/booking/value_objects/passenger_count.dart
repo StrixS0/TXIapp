@@ -27,7 +27,9 @@ class PassengerCount{
         ];
       case VehicleType.sprinter:
         return [
-          PassengerCount._('1-4', 1, 4),
+          PassengerCount._('1-2', 1, 2),
+          PassengerCount._('3', 3, 3),
+          PassengerCount._('4', 4, 4),
           PassengerCount._('5', 5, 5),
           PassengerCount._('6', 6, 6),
           PassengerCount._('7', 7, 7),
@@ -38,7 +40,9 @@ class PassengerCount{
         ];
       case VehicleType.executiveSprinter:
         return [
-          PassengerCount._('1-4', 1, 4),
+          PassengerCount._('1-2', 1, 2),
+          PassengerCount._('3', 3, 3),
+          PassengerCount._('4', 4, 4),
           PassengerCount._('5', 5, 5),
           PassengerCount._('6', 6, 6),
           PassengerCount._('7', 7, 7),

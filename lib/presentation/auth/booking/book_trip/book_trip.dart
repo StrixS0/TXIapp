@@ -50,7 +50,7 @@ class BookTrip extends StatelessWidget {
                         onPressed: () {
                           // Handle menu bar icon tap
                         },
-                        icon: Icon(Icons.menu),
+                        icon: const Icon(Icons.menu),
                         color: Colors.white,
                       ),
                     ],

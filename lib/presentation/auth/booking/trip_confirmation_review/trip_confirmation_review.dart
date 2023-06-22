@@ -10,8 +10,11 @@ import 'package:txiapp/domain/models/booking/enums/vehicle_type.dart';
 import 'package:txiapp/presentation/auth/booking/booking_state.dart';
 import 'package:txiapp/presentation/auth/booking/events/booking_event.dart';
 import 'package:txiapp/presentation/auth/booking/events/clear_error_message.dart';
+import 'package:txiapp/presentation/auth/booking/events/form_submitted.dart';
+import 'package:txiapp/presentation/auth/booking/utils/form_type.dart';
 import 'package:txiapp/presentation/components/buttons.dart';
 import 'package:txiapp/presentation/utils/router.dart' as custom_router;
+import 'package:txiapp/presentation/utils/screen.dart';
 
 //Components
 class TripConfirmationReview extends StatelessWidget {
@@ -94,7 +97,9 @@ class TripConfirmationReview extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 TripConfirmButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    custom_router.Router.navigateTo(Screen.selectVehicle);
+                  },
                   fontColor: Colors.white,
                   titleText: 'Vehicle type:',
                   text: state.booking!.vehicleType.displayName.toUpperCase(),
@@ -102,7 +107,9 @@ class TripConfirmationReview extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 TripConfirmButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    custom_router.Router.navigateTo(Screen.selectPassengerCount);
+                  },
                   fontColor: Colors.white,
                   titleText: 'Passengers:',
                   text:
@@ -111,7 +118,9 @@ class TripConfirmationReview extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 TripConfirmButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    custom_router.Router.navigateTo(Screen.selectTimeAndDate);
+                  },
                   fontColor: Colors.white,
                   titleText: 'Schedule:',
                   text:
@@ -130,25 +139,30 @@ class TripConfirmationReview extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 TripConfirmButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    (state.booking!.bookingType == BookingType.aiportTrip &&
+                          state.booking!.locationType == LocationType.dropoff)
+                      ? custom_router.Router.navigateTo(Screen.address)
+                      : state.booking!.airportInfo != null ? custom_router.Router.navigateTo(Screen.selectAirport) : custom_router.Router.navigateTo(Screen.address);
+                  },
                   fontColor: Colors.white,
                   titleText: 'From:',
-                  text: (state.booking!.bookingType == BookingType.aiportTrip &&
-                          state.booking!.locationType == LocationType.dropoff)
-                      ? state.booking!.pickupOrDropoffAddress!.getAddress().toUpperCase()
-                      : state.booking!.airport != null ? state.booking!.airport!.displayName.toUpperCase() : state.booking!.pickupOrDropoffAddress!.getAddress().toUpperCase(),
+                  text: state.booking!.getPickupAddress(),
                   iconData: CupertinoIcons.pencil_ellipsis_rectangle,
                 ),
+
                 Visibility(
-                  visible: state.booking!.bookingType == BookingType.aiportTrip && state.booking!.locationType == LocationType.pickup,
+                  visible: state.booking!.getDropoffAddress() != null,
                   child: Column(
                     children: [
                       const SizedBox(height: 10),
                       TripConfirmButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          custom_router.Router.navigateTo(Screen.selectAirport);
+                        },
                         fontColor: Colors.white,
                         titleText: 'To:',
-                        text: state.booking!.pickupOrDropoffAddress!.getAddress().toUpperCase(),
+                        text: state.booking!.getDropoffAddress() != null ? state.booking!.getDropoffAddress()! : '',
                         iconData: CupertinoIcons.pencil_ellipsis_rectangle,
                       ),
                     ],
@@ -156,58 +170,33 @@ class TripConfirmationReview extends StatelessWidget {
                 ),
 
                 Visibility(
-                  visible: state.booking!.dropoffAddress != null,
+                  visible: state.errorMessage == null ? false : true,
                   child: Column(
                     children: [
-                      const SizedBox(height: 10),
-                      TripConfirmButton(
-                        onPressed: () {},
-                        fontColor: Colors.white,
-                        titleText: 'To:',
-                        text: state.booking!.dropoffAddress != null ? state.booking!.dropoffAddress!.getAddress().toUpperCase() : '',
-                        iconData: CupertinoIcons.pencil_ellipsis_rectangle,
-                      ),
+                      const SizedBox(height: 30),
+                      Container(
+                        constraints: const BoxConstraints(maxWidth: 300),
+                        child: Text(
+                          '⚠️ ${state.errorMessage}',
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontFamily: 'Raleway',
+                            fontWeight: FontWeight.w100,
+                            color: Color.fromARGB(255, 251, 137, 137),
+                          ),
+                        ),
+                      )
                     ],
                   ),
-                ),
-
-                Visibility(
-                  visible: state.booking!.bookingType.isDestination,
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 10),
-                      TripConfirmButton(
-                        onPressed: () {},
-                        fontColor: Colors.white,
-                        titleText: 'To:',
-                        text: state.booking!.bookingType.displayName.toUpperCase(),
-                        iconData: CupertinoIcons.pencil_ellipsis_rectangle,
-                      ),
-                    ],
-                  ),
-                ),
-
-                Visibility(
-                  visible: state.booking!.bookingType == BookingType.aiportTrip && state.booking!.locationType == LocationType.dropoff,
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 10),
-                      TripConfirmButton(
-                        onPressed: () {},
-                        fontColor: Colors.white,
-                        titleText: 'To:',
-                        text: state.booking!.airport != null ? state.booking!.airport!.displayName.toUpperCase() : '',
-                        iconData: CupertinoIcons.pencil_ellipsis_rectangle,
-                      ),
-                    ],
-                  ),
-                ),
+                ), 
 
                 const SizedBox(height: 30),
                 PrimaryElevatedButton(
-                  onPressed: () {},
-                  text: 'Next',
-                  // text: signupPersonalState.loading ? 'Please wait...' : 'Continue',
+                  onPressed: () {
+                    onEvent(FormSubmitted(FormType.review));
+                  },
+                  text: state.loading ? 'Please wait...' : 'Next',
                 ),
                 const SizedBox(height: 10),
                 GestureDetector(
