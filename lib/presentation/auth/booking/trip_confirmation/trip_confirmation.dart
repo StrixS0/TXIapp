@@ -253,6 +253,52 @@ class TripConfirmation extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 20),
+                OutlinedButton(
+                  onPressed: null,
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                        const Color.fromARGB(17, 0, 0, 0)),
+                    side: MaterialStateProperty.all<BorderSide>(
+                      const BorderSide(color: Color(0xFFD6AD67)),
+                    ),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(0),
+                      ),
+                    ),
+                  ),
+                  child: SizedBox(
+                    width: 270,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 15,
+                        horizontal: 0,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                              child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const Text(
+                                'Additional Fees',
+                                style: smallFont,
+                              ),
+                              const LilSpacer(),
+                              Text(
+                                '\$10.55',
+                                style: bodyFont,
+                              ),
+                              const LilSpacer(),
+                            ],
+                          )),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
                 PrimaryElevatedButton(
                   onPressed: () {
                   },
