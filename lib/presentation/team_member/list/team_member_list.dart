@@ -4,20 +4,13 @@ import 'package:txiapp/presentation/components/birthyear_dropdown.dart';
 import 'package:txiapp/presentation/components/buttons.dart';
 import 'package:txiapp/presentation/components/state_dropdown.dart';
 import 'package:txiapp/presentation/components/textfields.dart';
-import 'package:txiapp/presentation/team_member_add/events/email_changed.dart';
-import 'package:txiapp/presentation/team_member_add/events/form_submitted.dart';
-import 'package:txiapp/presentation/team_member_add/events/name_changed.dart';
-import 'package:txiapp/presentation/team_member_add/events/phone_number_changed.dart';
-import 'package:txiapp/presentation/team_member_add/events/team_member_add_event.dart';
-import 'package:txiapp/presentation/team_member_add/events/year_of_birth_changed.dart';
-import 'package:txiapp/presentation/team_member_add/team_member_add_state.dart';
+import 'package:txiapp/presentation/team_member/add/team_member_add.dart';
+import 'package:txiapp/presentation/utils/router.dart' as custom_router;
+import 'package:txiapp/presentation/utils/screen.dart';
 
 //Components
-class TeamMemberAdd extends StatelessWidget {
-  final TeamMemberAddState state;
-  final void Function(TeamMemberAddEvent event) onEvent;
-
-  const TeamMemberAdd({Key? key,required this.state,required this.onEvent}) : super(key: key);
+class TeamMemberEdit extends StatelessWidget {
+  const TeamMemberEdit({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +54,21 @@ class TeamMemberAdd extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 40),
- 
+                Container(
+                    constraints: const BoxConstraints(maxWidth: 300),
+                    child: const Center(
+                      child: Text(
+                        'MANAGE YOUR\nTEAM MEMBERS',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontFamily: 'Raleway',
+                          fontWeight: FontWeight.w100,
+                          color: Color(0xFFD6AD67),
+                        ),
+                      ),
+                    )),
+                const SizedBox(height: 10),
                 Container(
                     constraints: const BoxConstraints(maxWidth: 300),
                     child: const Center(
@@ -69,14 +76,14 @@ class TeamMemberAdd extends StatelessWidget {
                         'Add a Team Member',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontSize: 24,
+                          fontSize: 17,
                           fontFamily: 'Raleway',
                           fontWeight: FontWeight.w100,
                           color: Colors.white,
                         ),
                       ),
                     )),
-                const SizedBox(height: 20),
+                const SizedBox(height: 10),
                 Container(
                   margin: const EdgeInsets.only(bottom: 0.0),
                   child: SvgPicture.asset(
@@ -86,62 +93,50 @@ class TeamMemberAdd extends StatelessWidget {
                     color: const Color(0xFFD6AD67),
                   ),
                 ),
+                const SizedBox(height: 10),
+                PrimaryOutlinedSmallButton(
+                  onPressed: () {},
+                  text: 'Name LastName',
+                ),
+                const SizedBox(height: 10),
+                PrimaryOutlinedSmallButton(
+                  onPressed: () {},
+                  text: 'Name LastName',
+                ),
+                const SizedBox(height: 10),
+                PrimaryOutlinedSmallButton(
+                  onPressed: () {},
+                  text: 'Name LastName',
+                ),
+                const SizedBox(height: 10),
+                PrimaryOutlinedSmallButton(
+                  onPressed: () {},
+                  text: 'Name LastName',
+                ),
                 const SizedBox(height: 20),
-                PrimaryTextField(
-                  defaultValue: state.name,
-                  hintText: "Full Name",
-                  inputType: TextInputType.name,
-                  onChanged: (value) {
-                    onEvent(NameChanged(value));
-                  },
-                ),
-                const SizedBox(height: 10),
-                PrimaryTextField(
-                  defaultValue: state.email,
-                  hintText: "Email",
-                  inputType: TextInputType.emailAddress,
-                  onChanged: (value) { 
-                    onEvent(EmailChanged(value));
-                  },
-                ),
-                const SizedBox(height: 10),
-                PrimaryTextField(
-                  defaultValue: state.phoneNumber,
-                  hintText: "Phone Number",
-                  inputType: TextInputType.phone,
-                  onChanged: (value) { 
-                    onEvent(PhoneNumberChanged(value));
-                  },
-                ),
-                const SizedBox(height: 10),
-                buildYearOfBirthDropdown(state.yearOfBirth, (value){ onEvent(YearOfBirthChanged(value!)); }),
-                const SizedBox(height: 30),
-                Visibility(visible: state.errors != null ? true : false, child: Container(
-                  constraints: const BoxConstraints(maxWidth: 280),
-                  child: Text(
-                    state.errors ?? '',
-                    textAlign: TextAlign.start,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontFamily: 'Raleway',
-                      fontWeight: FontWeight.w100,
-                      color: Color.fromARGB(255, 251, 137, 137),
-                    ),
-                  ),
-                ), ),
+                Container(
+                    constraints: const BoxConstraints(maxWidth: 300),
+                    child: const Center(
+                      child: Text(
+                        'You don\'t have any\n team members yet.',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 17,
+                          fontFamily: 'Raleway',
+                          fontWeight: FontWeight.w100,
+                          color: Colors.white,
+                        ),
+                      ),
+                    )),
                 const SizedBox(height: 30),
                 PrimaryElevatedButton(
                   onPressed: () {
-                    onEvent(FormSubmitted());
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //       builder: (context) => const AddPaymentMethod()),
-                    // );
+                    custom_router.Router.navigateTo(Screen.teamMemberAdd);
                   },
-                  text: state.loading ? 'Please wait...' : 'Add',
+                  text: 'Add Team Member',
+                  // text: signupPersonalState.loading ? 'Please wait...' : 'Continue',
                 ),
-                const SizedBox( height: 30),
+                const SizedBox(height: 30),
                 Container(
                   margin: const EdgeInsets.only(bottom: 0.0),
                   child: SvgPicture.asset(

@@ -80,7 +80,7 @@ class Menu extends StatelessWidget {
                         visible: state.currentCustomer is CorporateCustomer ? true : false,
                         child: buildCorporateMenu('ADD / MANAGE EXECUTIVES', () {
                         // Navigate to the desired screen
-                        custom_router.Router.navigateTo(Screen.bookingTypeMenu);
+                        custom_router.Router.navigateTo(Screen.teamMemberList);
                       })
                       ),
                     ],

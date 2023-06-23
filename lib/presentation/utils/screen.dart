@@ -20,7 +20,10 @@ enum Screen {
   selectPrivateAirport('/booking/private-airport'),
   address('/booking/address'),
   reviewBooking('/booking/review'),
-  confirmation('/booking/confirm');
+  confirmation('/booking/confirm'),
+
+  teamMemberList('/teammember/list'),
+  teamMemberAdd('/teammember/add');
 
   const Screen(this.value);
   final String value;

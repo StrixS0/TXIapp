@@ -1,4 +1,4 @@
-class TeamMemberAddState{
+class TeamMemberState{
   String? name;
   String? email;
   String? phoneNumber;
@@ -7,5 +7,5 @@ class TeamMemberAddState{
   String? errors;
   
 
-  TeamMemberAddState({this.name, this.email, this.phoneNumber, this.yearOfBirth});
+  TeamMemberState({this.name, this.email, this.phoneNumber, this.yearOfBirth});
 }

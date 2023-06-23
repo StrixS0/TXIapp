@@ -26,6 +26,9 @@ import 'package:txiapp/presentation/signup_add_payment_method/signup_add_payment
 import 'package:txiapp/presentation/registration/signup_confirm_password/signup_confirm_password_wrapper.dart';
 import 'package:txiapp/presentation/registration/signup_confirmation/signup_confirmation_wrapper.dart';
 import 'package:txiapp/presentation/registration/signup_personal/signup_personal_wrapper.dart';
+import 'package:txiapp/presentation/team_member/add/team_member_add.dart';
+import 'package:txiapp/presentation/team_member/add/team_member_add_wrapper.dart';
+import 'package:txiapp/presentation/team_member/list/team_member_list.dart';
 import 'package:txiapp/presentation/utils/screen.dart';
 
 class MainWrapper extends StatelessWidget {
@@ -66,7 +69,9 @@ class MainWrapper extends StatelessWidget {
                 Screen.selectPrivateAirport.value:(context) => const SelectPrivateAirportWrapper(),
                 Screen.address.value:(context) => const PickupDropoffWrapper(),
                 Screen.reviewBooking.value:(context) => const TripConfirmationReviewWrapper(),
-                Screen.confirmation.value:(context) => const TripConfirmationWrapper()
+                Screen.confirmation.value:(context) => const TripConfirmationWrapper(),
+                Screen.teamMemberAdd.value:(context) => const TeamMemberAddWrapper(),
+                Screen.teamMemberList.value:(context) => const TeamMemberEdit()
               },
             );
           },

@@ -32,8 +32,8 @@ class TeamMemberRepositoryImpl implements ITeamMemberRepository{
       'id': teamMember.id().id(),
       'profile': {
         'name': teamMember.profile().name(),
-        'email': teamMember.profile().email(),
-        'phoneNumber': teamMember.profile().phoneNumber(),
+        'email': teamMember.profile().email().value(),
+        'phoneNumber': teamMember.profile().phoneNumber().value(),
         'yearOfBirth': teamMember.profile().yearOfBirth()
       },
       'customerId': teamMember.customerId().id(),
