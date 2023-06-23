@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:txiapp/domain/models/customer/subtypes/corporate_customer.dart';
+import 'package:txiapp/presentation/auth/partials/base_layout.dart';
 import 'package:txiapp/presentation/main/main_state.dart';
 import 'package:txiapp/presentation/utils/router.dart' as custom_router;
 import 'package:txiapp/presentation/utils/screen.dart';
@@ -13,46 +14,7 @@ class Menu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: double.infinity, // Fill the screen height
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('assets/images/BGImage.png'),
-          fit: BoxFit.cover,
-        ),
-      ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: SingleChildScrollView(
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const SizedBox(height: 10),
-                Container(
-                  constraints: const BoxConstraints(maxWidth: 320),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(
-                        width: 150,
-                        height: 150,
-                        child: SvgPicture.asset(
-                          'assets/images/LogoTXI.svg',
-                          color: const Color(0xFFD6AD67),
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          // Handle menu bar icon tap
-                        },
-                        icon: const Icon(Icons.menu),
-                        color: Colors.white,
-                      ),
-                    ],
-                  ),
-                ), 
-                const SizedBox(height: 10),
+    return BaseLayout(content: [ 
                 Container(
                   constraints: const BoxConstraints(maxWidth: 300),
                   child: GridView.count(
@@ -100,13 +62,7 @@ class Menu extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 80),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
+    ]);
   }
 
   Widget buildCorporateMenu(String vehicleName, VoidCallback onTap) {
