@@ -75,6 +75,9 @@ class TeamMemberViewModel extends ChangeNotifier{
   }
 
   void _getEvent() async{
+    state.loading = true;
+    notifyListeners();
+
     final request = GetTeamMemberRequest(_mainViewmodel.state.currentCustomer!.id());
     final result = await _getTeamMemberUsecase.execute(request);
 
@@ -83,16 +86,18 @@ class TeamMemberViewModel extends ChangeNotifier{
         final exception = result.error as DomainException;
 
         _resolveErrors(exception.cause());
-        notifyListeners();
 
         return;
       }else{
         _resolveErrors({'error' : 'Something went wrong. Please try again later'});
-        notifyListeners();
 
         return;
       }
     }
+
+    state.teamMembers = result.value;
+    state.loading = false;
+    notifyListeners();
   }
 
   void _formSubmitted() async{
