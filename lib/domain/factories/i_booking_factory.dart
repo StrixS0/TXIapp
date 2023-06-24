@@ -15,6 +15,7 @@ abstract class IBookingFactory{
     required DateTime dayAndTime,
     required Profile profile,
     required TripType tripType,
+    required int? waitingTime,
     required Address pickupOrDropoffAddress,
     required Address dropoffAddress
   });
@@ -33,13 +34,24 @@ abstract class IBookingFactory{
     required VehicleType vehicleType,
     required Passenger passenger,
     required DateTime dayAndTime,
+    required int byHourDuration,
     required Profile profile,
     required Address pickupOrDropoffAddress,
     required Address dropoffAddress
   });
 
-  Booking createBooking({
+  Booking createDirectCityBooking({
     required BookingType bookingType,
+    required VehicleType vehicleType,
+    required Passenger passenger,
+    required DateTime dayAndTime,
+    required Profile profile,
+    required TripType tripType,
+    required int? waitingTime,
+    required Address pickupOrDropoffAddress
+  });
+
+  Booking createByDayBooking({
     required VehicleType vehicleType,
     required Passenger passenger,
     required DateTime dayAndTime,

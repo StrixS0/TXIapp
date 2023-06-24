@@ -23,6 +23,10 @@ class BookingState{
   int? tripType;
   int? locationType;
 
+  int? waitingTime;
+  String? byHourDuration;
+  List<String> byHourDurationOptions = ['3 hours', '4 hours', '5 hours', '6 hours', '7 hours', '8 hours', '9 hours'];
+
   Airport? airport;
   PrivateAirport? privateAirport;
 

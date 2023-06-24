@@ -1,3 +1,4 @@
+import 'package:txiapp/domain/models/booking/enums/booking_type.dart';
 import 'package:txiapp/domain/models/booking/value_objects/passenger_count.dart';
 
 class Passenger{
@@ -22,9 +23,20 @@ class Passenger{
     return _withLuggage;
   }
 
-  int get additionalPassengerPrice{
-    if(_withLuggage) return 1000;
-
-    return 500;
+  int additionalPassengerPrice(BookingType bookingType){
+    switch(bookingType){
+      case BookingType.aiportTrip:
+        return _withLuggage ? 1000 : 500;
+      case BookingType.lakeCharles:
+        return _withLuggage ? 2500 : 2000;
+      case BookingType.sanAntonio:
+        return _withLuggage ? 2500 : 2000;
+      case BookingType.austin:
+        return _withLuggage ? 2500 : 2000;
+      case BookingType.dallas:
+        return _withLuggage ? 5000 : 4000;
+      default:
+        return 0;
+    }
   }
 }

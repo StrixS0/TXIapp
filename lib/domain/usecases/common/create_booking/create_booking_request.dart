@@ -16,6 +16,8 @@ class CreateBookingRequest{
   final Airport? _airport;
   final PrivateAirport? _privateAirport;
   final TripType? _tripType;
+  final int? _waitingTime;
+  final int? _byHourDuration;
   final LocationType? _locationType;
   final Profile _profile;
   final String _pickupAddress;
@@ -29,7 +31,7 @@ class CreateBookingRequest{
   final String? _dropoffPostalCode;
   final String? _dropoffState;
 
-  CreateBookingRequest(this._bookingType, this._vehicleType, this._passengerCount, this._withLuggage, this._dayAndTime, this._airport, this._privateAirport, this._tripType, this._locationType, this._profile, this._pickupAddress, this._pickupAdditional, this._pickupCity, this._pickupPostalCode, this._pickupState, this._dropoffAddress, this._dropoffAdditional, this._dropoffCity, this._dropoffPostalCode, this._dropoffState);
+  CreateBookingRequest(this._bookingType, this._vehicleType, this._passengerCount, this._withLuggage, this._dayAndTime, this._airport, this._privateAirport, this._tripType, this._waitingTime, this._byHourDuration, this._locationType, this._profile, this._pickupAddress, this._pickupAdditional, this._pickupCity, this._pickupPostalCode, this._pickupState, this._dropoffAddress, this._dropoffAdditional, this._dropoffCity, this._dropoffPostalCode, this._dropoffState);
 
   BookingType get bookingType{
     return _bookingType;
@@ -61,6 +63,14 @@ class CreateBookingRequest{
 
   TripType? get tripType{
     return _tripType;
+  }
+
+  int? get waitingTime{
+    return _waitingTime;
+  }
+
+  int? get byHourDuration{
+    return _byHourDuration;
   }
 
   LocationType? get locationType{

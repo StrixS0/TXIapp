@@ -1,3 +1,5 @@
+import 'package:txiapp/domain/models/booking/enums/booking_type.dart';
+
 enum VehicleType{
   sedan,
   luxurySedan,
@@ -141,6 +143,178 @@ extension VehicleTypeExtension on VehicleType{
         return 2;
       case VehicleType.executiveSprinter:
         return 2;
+    }
+  }
+
+  int get byHourBasePrice{
+    switch(this){
+      case VehicleType.sedan:
+        return 16500;
+      case VehicleType.luxurySedan:
+        return 19500;
+      case VehicleType.suv:
+        return 22500;
+      case VehicleType.luxurySuv:
+        return 27000;
+      case VehicleType.sprinter:
+        return 40500;
+      case VehicleType.executiveSprinter:
+        return 54000;
+    }
+  }
+
+  int get byHourAdditionalPrice{
+    switch(this){
+      case VehicleType.sedan:
+        return 5500;
+      case VehicleType.luxurySedan:
+        return 6500;
+      case VehicleType.suv:
+        return 7500;
+      case VehicleType.luxurySuv:
+        return 9000;
+      case VehicleType.sprinter:
+        return 13500;
+      case VehicleType.executiveSprinter:
+        return 18000;
+    }
+  }
+
+  int get byDayBasePrice{
+    switch(this){
+      case VehicleType.sedan:
+        return 165000;
+      case VehicleType.luxurySedan:
+        return 195000;
+      case VehicleType.suv:
+        return 225000;
+      case VehicleType.luxurySuv:
+        return 270000;
+      case VehicleType.sprinter:
+        return 405000;
+      case VehicleType.executiveSprinter:
+        return 540000;
+    }
+  }
+
+  int directCitiesBasePrice(BookingType bookingType){
+    switch(this){
+      case VehicleType.sedan:
+        switch(bookingType){
+          case BookingType.lakeCharles:
+            return 40000;
+          case BookingType.sanAntonio:
+            return 45000;
+          case BookingType.austin:
+            return 45000;
+          case BookingType.dallas:
+            return 90000;
+          default:
+            return 0;
+        }
+      case VehicleType.luxurySedan:
+        switch(bookingType){
+          case BookingType.lakeCharles:
+            return 45000;
+          case BookingType.sanAntonio:
+            return 50000;
+          case BookingType.austin:
+            return 50000;
+          case BookingType.dallas:
+            return 100000;
+          default:
+            return 0;
+        }
+      case VehicleType.suv:
+        switch(bookingType){
+          case BookingType.lakeCharles:
+            return 45000;
+          case BookingType.sanAntonio:
+            return 50000;
+          case BookingType.austin:
+            return 50000;
+          case BookingType.dallas:
+            return 100000;
+          default:
+            return 0;
+        }
+      case VehicleType.luxurySuv:
+        switch(bookingType){
+          case BookingType.lakeCharles:
+            return 50000;
+          case BookingType.sanAntonio:
+            return 55000;
+          case BookingType.austin:
+            return 55000;
+          case BookingType.dallas:
+            return 110000;
+          default:
+            return 0;
+        }
+      case VehicleType.sprinter:
+        switch(bookingType){
+          case BookingType.lakeCharles:
+            return 60000;
+          case BookingType.sanAntonio:
+            return 65000;
+          case BookingType.austin:
+            return 65000;
+          case BookingType.dallas:
+            return 130000;
+          default:
+            return 0;
+        }
+      case VehicleType.executiveSprinter:
+        switch(bookingType){
+          case BookingType.lakeCharles:
+            return 65000;
+          case BookingType.sanAntonio:
+            return 70000;
+          case BookingType.austin:
+            return 70000;
+          case BookingType.dallas:
+            return 140000;
+          default:
+            return 0;
+        }
+    }
+  }
+
+  int waitingTimePricePerHour(BookingType bookingType){
+    switch(bookingType){
+      case BookingType.pointToPoint:
+        return 5000;
+      case BookingType.lakeCharles:
+        switch(this){
+          case VehicleType.sprinter:
+            return 10000;
+          default:
+            return 5000;
+        }
+      case BookingType.sanAntonio:
+        switch(this){
+          case VehicleType.sprinter:
+            return 10000;
+          default:
+            return 5000;
+        }
+      case BookingType.austin:
+        switch(this){
+          case VehicleType.sprinter:
+            return 10000;
+          default:
+            return 5000;
+        }
+      case BookingType.dallas:
+        switch(this){
+          case VehicleType.sprinter:
+            return 10000;
+          default:
+            return 5000;
+        }
+        
+      default:
+        return 0;
     }
   }
 }

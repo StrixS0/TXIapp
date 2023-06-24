@@ -18,12 +18,14 @@ class Booking {
   final VehicleType _vehicleType;
   final Passenger _passenger;
   final DateTime _dayAndTime;
-  AirportInfo? _airportInfo;
-  TripType? _tripType;
-  LocationType? _locationType;
+  final AirportInfo? _airportInfo;
+  final TripType? _tripType;
+  final int? _waitingTime;
+  final int? _byHourDuration;
+  final LocationType? _locationType;
   final Profile _profile;
-  Address? _pickupOrDropoffAddress;
-  Address? _dropoffAddress;
+  final Address? _pickupOrDropoffAddress;
+  final Address? _dropoffAddress;
   BookingStatus _status = BookingStatus.draft;
   Price? _price;
 
@@ -35,6 +37,8 @@ class Booking {
       this._dayAndTime,
       this._airportInfo,
       this._tripType,
+      this._waitingTime,
+      this._byHourDuration,
       this._locationType,
       this._profile,
       this._pickupOrDropoffAddress,
@@ -68,6 +72,14 @@ class Booking {
 
   TripType? get tripType {
     return _tripType;
+  }
+
+  int? get waitingTime{
+    return _waitingTime;
+  }
+
+  int? get byHourDuration{
+    return _byHourDuration;
   }
 
   LocationType? get locationType {

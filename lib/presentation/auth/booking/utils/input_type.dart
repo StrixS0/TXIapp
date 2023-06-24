@@ -7,6 +7,8 @@ enum InputType{
   period,
   
   tripType,
+  waitingTime,
+  byHourDuration,
   locationType,
 
   address1,

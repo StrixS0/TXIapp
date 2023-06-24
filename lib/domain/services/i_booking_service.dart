@@ -18,6 +18,8 @@ abstract class IBookingService{
     required Profile profile,
     AirportInfo? airportInfo,
     TripType? tripType,
+    int? waitingTime,
+    int? byHourDuration,
     LocationType? locationType,
     Address? pickupOrDropoffAddress,
     Address? dropoffAddress

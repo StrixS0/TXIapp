@@ -48,11 +48,12 @@ class LocationServiceImpl implements ILocationService {
     if (response.statusCode == 200) {
       final Map<String, dynamic> data = json.decode(response.body);
 
-      if (!data.containsKey('routes'))
+      if (!data.containsKey('routes') || !data['routes'][0].containsKey('distanceMeters')){
         throw DomainException({
           'location':
               'Could not calculate price for the given pickup and dropoff addresses'
         });
+      }
 
       final distanceInMeters = data['routes'][0]['distanceMeters'];
       final distanceInMiles = distanceInMeters * 0.000621371;

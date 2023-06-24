@@ -124,7 +124,7 @@ class TripConfirmationReview extends StatelessWidget {
                   fontColor: Colors.white,
                   titleText: 'Schedule:',
                   text:
-                      '${DateFormat('EEE - MMM d - yyyy').format(state.booking!.dayAndTime)}\n${DateFormat('h:mm a').format(state.booking!.dayAndTime)}${state.booking!.tripType != null ? '\n${state.booking!.tripType!.displayName.toUpperCase()}' : ''}',
+                      '${DateFormat('EEE - MMM d - yyyy').format(state.booking!.dayAndTime)}\n${DateFormat('h:mm a').format(state.booking!.dayAndTime)}${state.booking!.tripType != null ? '\n${state.booking!.tripType!.displayName.toUpperCase()}' : ''}${state.booking!.waitingTime != null ? '\n${state.booking!.waitingTime} HOURS WAITING TIME' : ''}${state.booking!.byHourDuration != null ? '\n${state.booking!.byHourDuration} HOURS DURATION' : ''}',
                   iconData: CupertinoIcons.pencil_ellipsis_rectangle,
                 ),
                 const SizedBox(height: 20),

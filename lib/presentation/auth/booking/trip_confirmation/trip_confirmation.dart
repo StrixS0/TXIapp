@@ -5,6 +5,8 @@ import 'package:txiapp/domain/models/booking/enums/booking_type.dart';
 import 'package:txiapp/domain/models/booking/enums/location_type.dart';
 import 'package:txiapp/domain/models/booking/enums/trip_type.dart';
 import 'package:txiapp/domain/models/booking/enums/vehicle_type.dart';
+import 'package:txiapp/domain/models/common/value_objects/currency.dart';
+import 'package:txiapp/domain/models/common/value_objects/price.dart';
 import 'package:txiapp/presentation/auth/booking/booking_state.dart';
 import 'package:txiapp/presentation/auth/booking/events/booking_event.dart';
 import 'package:txiapp/presentation/components/buttons.dart';
@@ -178,6 +180,33 @@ class TripConfirmation extends StatelessWidget {
                                 '${state.booking!.passenger.passengerCount.displayName()} PAX | ${state.booking!.passenger.withLuggage ? 'WITH' : 'NO'} LUGGAGE',
                                 style: bodyFont,
                               ),
+
+                              Visibility(
+                                visible: state.booking!.waitingTime != null,
+                                child: Column(
+                                  children: [
+                                    const LilSpacer(),
+                                    Text(
+                                      state.booking!.waitingTime != null ? '${state.booking!.waitingTime} HOURS WAITING TIME' : '',
+                                      style: bodyFont,
+                                    ),
+                                  ],
+                                )
+                              ),
+
+                              Visibility(
+                                visible: state.booking!.byHourDuration != null,
+                                child: Column(
+                                  children: [
+                                    const LilSpacer(),
+                                    Text(
+                                      state.booking!.byHourDuration != null ? '${state.booking!.byHourDuration} HOURS DURATION' : '',
+                                      style: bodyFont,
+                                    ),
+                                  ],
+                                )
+                              ),
+
                               const LilSpacer(),
                               const Text(
                                 'From:',
@@ -188,15 +217,22 @@ class TripConfirmation extends StatelessWidget {
                                 state.displayFromAddress ?? '',
                                 style: bodyFont,
                               ),
-                              const LilSpacer(),
-                              const Text(
-                                'To:',
-                                style: smallFont,
-                              ),
-                              const LilSpacer(),
-                              Text(
-                                state.displayToAddress ?? '',
-                                style: bodyFont,
+                              Visibility(
+                                visible: state.displayToAddress != null,
+                                child: Column(
+                                  children: [
+                                    const LilSpacer(),
+                                    const Text(
+                                      'To:',
+                                      style: smallFont,
+                                    ),
+                                    const LilSpacer(),
+                                    Text(
+                                      state.displayToAddress ?? '',
+                                      style: bodyFont,
+                                    ),
+                                  ],
+                                ),
                               ),
                               const LilSpacer(),
                             ],
@@ -245,52 +281,6 @@ class TripConfirmation extends StatelessWidget {
                                   color: Colors.white,
                                 ),
                               ),
-                            ],
-                          )),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                OutlinedButton(
-                  onPressed: null,
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                        const Color.fromARGB(17, 0, 0, 0)),
-                    side: MaterialStateProperty.all<BorderSide>(
-                      const BorderSide(color: Color(0xFFD6AD67)),
-                    ),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(0),
-                      ),
-                    ),
-                  ),
-                  child: SizedBox(
-                    width: 270,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 15,
-                        horizontal: 0,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                              child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              const Text(
-                                'Additional Fees',
-                                style: smallFont,
-                              ),
-                              const LilSpacer(),
-                              Text(
-                                '\$10.55',
-                                style: bodyFont,
-                              ),
-                              const LilSpacer(),
                             ],
                           )),
                         ],

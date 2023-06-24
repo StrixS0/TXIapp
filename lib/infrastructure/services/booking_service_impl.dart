@@ -20,7 +20,7 @@ class BookingServiceImpl implements IBookingService{
   BookingServiceImpl(this._bookingFactory, this._priceCalculationStrategyFactoryInterface);
 
   @override
-  Booking createBooking({required BookingType bookingType, required VehicleType vehicleType, required Passenger passenger, required DateTime dayAndTime, required Profile profile, AirportInfo? airportInfo, TripType? tripType, LocationType? locationType, Address? pickupOrDropoffAddress, Address? dropoffAddress}) {
+  Booking createBooking({required BookingType bookingType, required VehicleType vehicleType, required Passenger passenger, required DateTime dayAndTime, required Profile profile, AirportInfo? airportInfo, TripType? tripType, int? waitingTime, int? byHourDuration,LocationType? locationType, Address? pickupOrDropoffAddress, Address? dropoffAddress}) {
     if(pickupOrDropoffAddress == null) throw DomainException({'pickupOrDropoff': 'Pickup or Dropoff address is required.'});
 
     switch(bookingType){
@@ -28,7 +28,7 @@ class BookingServiceImpl implements IBookingService{
         if(dropoffAddress == null) throw DomainException({'dropoffAddress': 'Dropoff address is required.'});
         if(tripType == null) throw DomainException({'tripType': 'Trip type is required.'});
 
-        return _bookingFactory.createPointToPointBooking(vehicleType: vehicleType, passenger: passenger, dayAndTime: dayAndTime, profile: profile, tripType: tripType, pickupOrDropoffAddress: pickupOrDropoffAddress, dropoffAddress: dropoffAddress);
+        return _bookingFactory.createPointToPointBooking(vehicleType: vehicleType, passenger: passenger, dayAndTime: dayAndTime, profile: profile, tripType: tripType, waitingTime: waitingTime, pickupOrDropoffAddress: pickupOrDropoffAddress, dropoffAddress: dropoffAddress);
       
       case BookingType.aiportTrip:
         if(airportInfo == null) throw DomainException({'airport': 'Airport is required.'});
@@ -38,11 +38,17 @@ class BookingServiceImpl implements IBookingService{
 
       case BookingType.byHour:
         if(dropoffAddress == null) throw DomainException({'dropoffAddress': 'Dropoff address is required.'});
+        if(byHourDuration == null) throw DomainException({'byHourDuration': 'Duration is required.'});
 
-        return _bookingFactory.createByHourBooking(vehicleType: vehicleType, passenger: passenger, dayAndTime: dayAndTime, profile: profile, pickupOrDropoffAddress: pickupOrDropoffAddress, dropoffAddress: dropoffAddress);
+        return _bookingFactory.createByHourBooking(vehicleType: vehicleType, passenger: passenger, dayAndTime: dayAndTime, profile: profile, pickupOrDropoffAddress: pickupOrDropoffAddress, dropoffAddress: dropoffAddress, byHourDuration: byHourDuration);
+      
+      case BookingType.byDay:
+        return _bookingFactory.createByDayBooking(vehicleType: vehicleType, passenger: passenger, dayAndTime: dayAndTime, profile: profile, pickupOrDropoffAddress: pickupOrDropoffAddress);
       
       default:
-        return _bookingFactory.createBooking(bookingType: bookingType, vehicleType: vehicleType, passenger: passenger, dayAndTime: dayAndTime, profile: profile, pickupOrDropoffAddress: pickupOrDropoffAddress);
+        if(tripType == null) throw DomainException({'tripType': 'Trip type is required.'});
+
+        return _bookingFactory.createDirectCityBooking(bookingType: bookingType, vehicleType: vehicleType, passenger: passenger, dayAndTime: dayAndTime, profile: profile, tripType: tripType, waitingTime: waitingTime, pickupOrDropoffAddress: pickupOrDropoffAddress);
     }
   }
 
@@ -56,7 +62,7 @@ class BookingServiceImpl implements IBookingService{
     final strategy = _priceCalculationStrategyFactoryInterface.createStrategy(booking);
 
     final price = await strategy.calculate(booking);
-    return await booking.setPrice(price);
+    return booking.setPrice(price);
   }
 
 }

@@ -79,7 +79,9 @@ class SelectAirport extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: Airport.values.map((e) {
-                        return Column(
+                        return Visibility(
+                          visible: e != Airport.privateAirport,
+                          child: Column(
                           children: [
                             PrimaryOutlinedButton(
                               onPressed: () {
@@ -90,7 +92,7 @@ class SelectAirport extends StatelessWidget {
                             ),
                             const SizedBox(height: 20),
                           ],
-                        );
+                        ));
                       }).toList(),
                     )),
                 const SizedBox(height: 20),

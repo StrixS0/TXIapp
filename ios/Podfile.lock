@@ -690,6 +690,9 @@ PODS:
     - leveldb-library (~> 1.22)
     - nanopb (< 2.30910.0, >= 2.30908.0)
   - Flutter (1.0.0)
+  - fluttertoast (0.0.2):
+    - Flutter
+    - Toast
   - GoogleUtilities/AppDelegateSwizzler (7.11.1):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
@@ -814,6 +817,7 @@ PODS:
     - StripeUICore (= 23.7.1)
   - StripeUICore (23.7.1):
     - StripeCore (= 23.7.1)
+  - Toast (4.0.0)
 
 DEPENDENCIES:
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
@@ -821,6 +825,7 @@ DEPENDENCIES:
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - Flutter (from `Flutter`)
+  - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - phone_number (from `.symlinks/plugins/phone_number/ios`)
   - stripe_ios (from `.symlinks/plugins/stripe_ios/ios`)
 
@@ -851,6 +856,7 @@ SPEC REPOS:
     - StripePaymentSheet
     - StripePaymentsUI
     - StripeUICore
+    - Toast
 
 EXTERNAL SOURCES:
   cloud_firestore:
@@ -863,6 +869,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_core/ios"
   Flutter:
     :path: Flutter
+  fluttertoast:
+    :path: ".symlinks/plugins/fluttertoast/ios"
   phone_number:
     :path: ".symlinks/plugins/phone_number/ios"
   stripe_ios:
@@ -883,6 +891,7 @@ SPEC CHECKSUMS:
   FirebaseCoreInternal: 9e46c82a14a3b3a25be4e1e151ce6d21536b89c0
   FirebaseFirestore: b3bb12a497c9d13e80ec3158dbb75ded03592e8d
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  fluttertoast: fafc4fa4d01a6a9e4f772ecd190ffa525e9e2d9c
   GoogleUtilities: 9aa0ad5a7bc171f8bae016300bfcfa3fb8425749
   "gRPC-C++": 0968bace703459fd3e5dcb0b2bed4c573dbff046
   gRPC-Core: 17108291d84332196d3c8466b48f016fc17d816d
@@ -901,6 +910,7 @@ SPEC CHECKSUMS:
   StripePaymentSheet: 016fd1c6053efff1f348fc6f44babecacda9d0af
   StripePaymentsUI: cb06c01d3c9efde91ebce218f9e4e94e902dd676
   StripeUICore: a9db3f2a82c932d5ca58dd8fc4ac0a6b72f1ccee
+  Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
 
 PODFILE CHECKSUM: cc1f88378b4bfcf93a6ce00d2c587857c6008d3b
 

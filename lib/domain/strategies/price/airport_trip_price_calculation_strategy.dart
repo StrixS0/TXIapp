@@ -5,10 +5,10 @@ import 'package:txiapp/domain/models/booking/booking.dart';
 import 'package:txiapp/domain/services/i_location_service.dart';
 import 'package:txiapp/domain/strategies/price/i_price_calculation_strategy_interface.dart';
 
-class AirportTripPriceCalculationStrategyy implements IPriceCalculationStrategyInterface{
+class AirportTripPriceCalculationStrategy implements IPriceCalculationStrategyInterface{
   final ILocationService _locationService;
 
-  AirportTripPriceCalculationStrategyy(this._locationService);
+  AirportTripPriceCalculationStrategy(this._locationService);
 
   @override
   Future<Price> calculate(Booking booking) async{
@@ -20,7 +20,7 @@ class AirportTripPriceCalculationStrategyy implements IPriceCalculationStrategyI
 
     int additionalPassengers = booking.passenger.passengerCount.max() - booking.vehicleType.maxBeforeAdditional;
 
-    final additionalPrice = additionalPassengers * booking.passenger.additionalPassengerPrice;
+    final additionalPrice = additionalPassengers * booking.passenger.additionalPassengerPrice(booking.bookingType);
 
     final finalPrice = basePrice + additionalPrice + tollFees;
     return Price(Currency('USD', '\$'), finalPrice);

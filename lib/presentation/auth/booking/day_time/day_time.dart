@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:txiapp/domain/models/booking/enums/booking_type.dart';
+import 'package:txiapp/domain/models/booking/enums/trip_type.dart';
 import 'package:txiapp/presentation/auth/booking/booking_state.dart';
 import 'package:txiapp/presentation/auth/booking/events/booking_event.dart';
 import 'package:txiapp/presentation/auth/booking/events/clear_error_message.dart';
@@ -9,6 +10,8 @@ import 'package:txiapp/presentation/auth/booking/events/input_changed.dart';
 import 'package:txiapp/presentation/auth/booking/utils/form_type.dart';
 import 'package:txiapp/presentation/auth/booking/utils/input_type.dart';
 import 'package:txiapp/presentation/components/buttons.dart';
+import 'package:txiapp/presentation/components/dropdown.dart';
+import 'package:txiapp/presentation/components/textfields.dart';
 import 'package:txiapp/presentation/components/time_day_dropdown.dart';
 import 'package:txiapp/presentation/utils/router.dart' as custom_router;
 
@@ -342,7 +345,7 @@ class DayTimeState extends State<DayTime> {
                     )),
 
                 Visibility(
-                    visible: widget.state.bookingType == BookingType.pointToPoint,
+                    visible: widget.state.bookingType == BookingType.pointToPoint || widget.state.bookingType!.isDestination,
                     child: Column(
                       children: [
                         const SizedBox(height: 30),
@@ -404,6 +407,65 @@ class DayTimeState extends State<DayTime> {
                         ),
                       ],
                     )),
+
+                    Visibility(
+                      visible: widget.state.tripType == TripType.roundTrip.index,
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 30),
+                          PrimaryTextField(
+                            defaultValue: widget.state.waitingTime?.toString(),
+                            hintText: "Waiting Time (hours)",
+                            inputType: TextInputType.number,
+                            onChanged: (value) {
+                              widget.onEvent(InputChanged(
+                                  {'type': InputType.waitingTime, 'value': value}));
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    Visibility(
+                      visible: widget.state.bookingType == BookingType.byHour,
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 30),
+                          const Center(
+                            child: Text(
+                              'Duration',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontFamily: 'Raleway',
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          Container(
+                            constraints: const BoxConstraints(maxWidth: 300),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const SizedBox(width: 25),
+                                Expanded(
+                                  child: buildDropdown(
+                                        onChanged: (value) {
+                                          widget.onEvent(InputChanged({'type': InputType.byHourDuration, 'value': value}));
+                                        },
+                                        values: widget.state.byHourDurationOptions,
+                                        defaultValue: widget.state.byHourDuration
+                                      ),
+                                ), 
+                                const SizedBox(width: 25),
+                              ],
+                            ),
+                          ),
+                        ],
+                      )
+                    ),
 
                     Visibility(
                       visible: widget.state.errorMessage == null ? false : true,

@@ -208,11 +208,22 @@ class BookingViewmodel extends ChangeNotifier {
       case InputType.state2:
         bookingState.state2 = event.data()['value'];
         break;
+      case InputType.waitingTime:
+        bookingState.waitingTime = int.parse(event.data()['value']);
+        break;
+
+      case InputType.byHourDuration:
+        bookingState.byHourDuration = event.data()['value'];
+        break;
     }
   }
 
   _dayTimeSubmitted() {
     bookingState.errorMessage = null;
+    notifyListeners();
+
+    print(bookingState.bookingType);
+    print(bookingState.byHourDuration);
 
     if (bookingState.day == null) {
       bookingState.errorMessage = 'Day is required.';
@@ -264,10 +275,17 @@ class BookingViewmodel extends ChangeNotifier {
       return;
     }
 
-    if (bookingState.bookingType == BookingType.pointToPoint) {
+    if (bookingState.bookingType == BookingType.pointToPoint || bookingState.bookingType!.isDestination) {
       if (bookingState.tripType == null) {
         bookingState.errorMessage =
             'Please select if trip is one way or round trip.';
+        notifyListeners();
+        return;
+      }
+
+      if(bookingState.tripType == TripType.roundTrip.index && bookingState.waitingTime == null){
+        bookingState.errorMessage =
+            'Please select waiting time.';
         notifyListeners();
         return;
       }
@@ -279,6 +297,13 @@ class BookingViewmodel extends ChangeNotifier {
         notifyListeners();
         return;
       }
+    }
+
+    if(bookingState.bookingType == BookingType.byHour && bookingState.byHourDuration == null){
+      bookingState.errorMessage =
+          'Please select duration.';
+      notifyListeners();
+      return;
     }
 
     if (bookingState.bookingType == BookingType.aiportTrip) {
@@ -377,6 +402,8 @@ class BookingViewmodel extends ChangeNotifier {
         bookingState.tripType == null
             ? null
             : TripType.values[bookingState.tripType!],
+        bookingState.waitingTime,
+        bookingState.byHourDuration != null ? bookingState.byHourDurationOptions.indexOf(bookingState.byHourDuration!) + 3 : null,
         bookingState.locationType == null
             ? null
             : LocationType.values[bookingState.locationType!],
