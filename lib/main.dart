@@ -14,6 +14,7 @@ import 'firebase_options.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+final RouteObserver<ModalRoute> routeObserver = RouteObserver<ModalRoute>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

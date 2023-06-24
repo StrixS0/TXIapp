@@ -24,7 +24,11 @@ class Menu extends StatelessWidget {
                     children: [
                       buildCorporateMenu('BOOK A TRIP', () {
                         // Navigate to the desired screen
-                        custom_router.Router.navigateTo(Screen.bookingTypeMenu);
+                        if(state.currentCustomer!.runtimeType == CorporateCustomer){
+                          custom_router.Router.navigateTo(Screen.selectTeamMember);
+                        }else{
+                          custom_router.Router.navigateTo(Screen.bookingTypeMenu);
+                        }
                       }),
                       buildCorporateMenu('MODIFY A TRIP', () {
                         // Navigate to the desired screen

@@ -5,6 +5,7 @@ import 'package:txiapp/domain/services/i_booking_service.dart';
 import 'package:txiapp/domain/services/i_customer_service.dart';
 import 'package:txiapp/domain/usecases/common/calculate_price_usecase/calculate_price_usecase.dart';
 import 'package:txiapp/domain/usecases/common/create_booking/create_booking_usecase.dart';
+import 'package:txiapp/domain/usecases/customer/get_team_members/get_team_member_usecase.dart';
 import 'package:txiapp/main.dart';
 import 'package:txiapp/presentation/auth/booking/book_trip/book_trip_wrapper.dart';
 import 'package:txiapp/presentation/auth/booking/booking_viewmodel.dart';
@@ -13,6 +14,7 @@ import 'package:txiapp/presentation/auth/booking/passenger/passenger_wrapper.dar
 import 'package:txiapp/presentation/auth/booking/pickup_dropoff/pickup_dropoff_wrapper.dart';
 import 'package:txiapp/presentation/auth/booking/select_airport/select_airport_wrapper.dart';
 import 'package:txiapp/presentation/auth/booking/select_private_airport/select_private_airport_wrapper.dart';
+import 'package:txiapp/presentation/auth/booking/select_team_member/select_team_member_wrapper.dart';
 import 'package:txiapp/presentation/auth/booking/select_vehicle/select_vehicle_wrapper.dart';
 import 'package:txiapp/presentation/auth/booking/trip_confirmation/trip_confirmation_wrapper.dart';
 import 'package:txiapp/presentation/auth/booking/trip_confirmation_review/trip_confirmation_review_wrapper.dart';
@@ -26,7 +28,6 @@ import 'package:txiapp/presentation/signup_add_payment_method/signup_add_payment
 import 'package:txiapp/presentation/registration/signup_confirm_password/signup_confirm_password_wrapper.dart';
 import 'package:txiapp/presentation/registration/signup_confirmation/signup_confirmation_wrapper.dart';
 import 'package:txiapp/presentation/registration/signup_personal/signup_personal_wrapper.dart';
-import 'package:txiapp/presentation/team_member/add/team_member_add.dart';
 import 'package:txiapp/presentation/team_member/add/team_member_add_wrapper.dart';
 import 'package:txiapp/presentation/team_member/list/team_member_list.dart';
 import 'package:txiapp/presentation/utils/screen.dart';
@@ -39,13 +40,14 @@ class MainWrapper extends StatelessWidget {
     return MultiProvider(
     providers: [
       ChangeNotifierProvider<MainViewmodel>(create: (_) => MainViewmodel(getIt<ICustomerService>())),
-      ListenableProxyProvider<MainViewmodel, BookingViewmodel>(update: (context, mainViewmodel, bookingViewmodel) => BookingViewmodel(mainViewmodel, getIt<IBookingService>(), getIt<CreateBookingUsecase>(), getIt<CalculatePriceUsecase>())),
+      ListenableProxyProvider<MainViewmodel, BookingViewmodel>(update: (context, mainViewmodel, bookingViewmodel) => BookingViewmodel(mainViewmodel, getIt<IBookingService>(), getIt<CreateBookingUsecase>(), getIt<CalculatePriceUsecase>(), getIt<GetTeamMemberUsecase>())),
     ],
     child: Consumer<MainViewmodel>(
           builder: (context, viewmodel, child) {
 
             return MaterialApp(
               navigatorKey: navigatorKey,
+              navigatorObservers: [routeObserver],
               initialRoute: '/',
               routes: {
                 Screen.welcomeScreen.value: (context) => const Welcome(),
@@ -61,6 +63,7 @@ class MainWrapper extends StatelessWidget {
 
                 Screen.home.value:(context) => const MenuWrapper(),
 
+                Screen.selectTeamMember.value:(context) => const SelectTeamMemberWrapper(),
                 Screen.bookingTypeMenu.value:(context) => const BookTripWrapper(),
                 Screen.selectVehicle.value:(context) => const SelectVehicleWrapper(),
                 Screen.selectPassengerCount.value:(context) => const PassengerWrapper(),

@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:txiapp/domain/factories/i_email_factory.dart';
+import 'package:txiapp/domain/factories/i_phone_number_factory.dart';
 import 'package:txiapp/domain/factories/i_team_member_factory.dart';
 import 'package:txiapp/domain/models/common/value_objects/profile.dart';
 import 'package:txiapp/domain/models/team_member/team_member.dart';
@@ -8,8 +10,10 @@ import 'package:txiapp/domain/repositories/i_team_member_repository.dart';
 
 class TeamMemberRepositoryImpl implements ITeamMemberRepository{
   final ITeamMemberFactory _teamMemberFactory;
+  final IEmailFactory _emailFactory;
+  final IPhoneNumberFactory _phoneNumberFactory;
 
-  TeamMemberRepositoryImpl(this._teamMemberFactory);
+  TeamMemberRepositoryImpl(this._teamMemberFactory, this._emailFactory, this._phoneNumberFactory);
 
   @override
   Future<List<TeamMember>> getByCustomerId(CustomerId customerId) async{
@@ -47,11 +51,11 @@ class TeamMemberRepositoryImpl implements ITeamMemberRepository{
       id: TeamMemberId(snapShot.id),
       profile: Profile.reconstitute(
         name: snapShot.data()['profile']['name'],
-        email: snapShot.data()['profile']['email'],
-        phoneNumber: snapShot.data()['profile']['phoneNumber'],
+        email: _emailFactory.reconstitute(snapShot.data()['profile']['email']),
+        phoneNumber: _phoneNumberFactory.reconstitute(snapShot.data()['profile']['phoneNumber']),
         yearOfBirth: snapShot.data()['profile']['yearOfBirth']
       ),
-      customerId: snapShot.data()['customerId'],
+      customerId: CustomerId(snapShot.data()['customerId']),
       created: DateTime.parse(snapShot.data()['created']),
       modified: DateTime.parse(snapShot.data()['modified'])
     );

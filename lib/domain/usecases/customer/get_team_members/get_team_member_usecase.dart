@@ -14,7 +14,7 @@ class GetTeamMemberUsecase{
 
       return Result.success(teamMembers);
     }catch(e){
-      return Result.failure(e as Exception);
+      rethrow;
     }
   }
 }

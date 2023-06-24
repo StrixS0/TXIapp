@@ -12,6 +12,7 @@ enum Screen {
 
   home('/home'),
 
+  selectTeamMember('/booking/select-team-member'),
   bookingTypeMenu('/booking/type'),
   selectVehicle('/booking/vehicle'),
   selectPassengerCount('/booking/passenger'),

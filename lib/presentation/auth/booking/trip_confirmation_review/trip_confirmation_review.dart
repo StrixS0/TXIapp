@@ -95,7 +95,24 @@ class TripConfirmationReview extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-                const SizedBox(height: 20),
+                Visibility(
+                  visible: state.profile != null,
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 20),
+                      TripConfirmButton(
+                        onPressed: () {
+                          custom_router.Router.navigateTo(Screen.selectTeamMember);
+                        },
+                        fontColor: Colors.white,
+                        titleText: 'Team member:',
+                        text: state.profile?.name().toUpperCase() ?? '',
+                        iconData: CupertinoIcons.pencil_ellipsis_rectangle,
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 10),
                 TripConfirmButton(
                   onPressed: () {
                     custom_router.Router.navigateTo(Screen.selectVehicle);

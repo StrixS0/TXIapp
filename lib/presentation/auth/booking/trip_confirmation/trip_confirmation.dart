@@ -124,6 +124,23 @@ class TripConfirmation extends StatelessWidget {
                                 state.booking!.bookingType.displayName.toUpperCase(),
                                 style: bodyFont,
                               ),
+                              Visibility(
+                                visible: state.profile != null,
+                                child: Column(
+                                  children: [
+                                    const LilSpacer(),
+                                    const Text(
+                                      'Team Member:',
+                                      style: smallFont,
+                                    ),
+                                    const LilSpacer(),
+                                    Text(
+                                      state.booking!.profile.name().toUpperCase(),
+                                      style: bodyFont,
+                                    ),
+                                  ],
+                                ),
+                              ),
                               const LilSpacer(),
                               const Text(
                                 'Schedule:',

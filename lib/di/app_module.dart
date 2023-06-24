@@ -27,6 +27,7 @@ import 'package:txiapp/domain/usecases/common/forgot_password_usecase/forgot_pas
 import 'package:txiapp/domain/usecases/common/register_usecase/registration_usecase.dart';
 import 'package:txiapp/domain/usecases/common/signup_usecase/signup_usecase.dart';
 import 'package:txiapp/domain/usecases/customer/add_team_member/add_team_member_usecase.dart';
+import 'package:txiapp/domain/usecases/customer/get_team_members/get_team_member_usecase.dart';
 import 'package:txiapp/infrastructure/factories/booking_factory_impl.dart';
 import 'package:txiapp/infrastructure/factories/customer_factory_impl.dart';
 import 'package:txiapp/infrastructure/factories/email_factory_impl.dart';
@@ -60,28 +61,56 @@ void setup() {
   getIt.registerSingleton<IPhoneNumberFactory>(PhoneNumberFactoryImpl());
   getIt.registerSingleton<ITeamMemberFactory>(TeamMemberFactoryImpl());
   getIt.registerSingleton<IBookingFactory>(BookingFactoryImpl());
-  getIt.registerSingleton<IPriceCalculationStrategyFactoryInterface>(PriceCalculationStrategyFactoryImpl(getIt<ILocationService>()));
+  getIt.registerSingleton<IPriceCalculationStrategyFactoryInterface>(
+      PriceCalculationStrategyFactoryImpl(getIt<ILocationService>()));
 
-  getIt.registerSingleton<IUserRepository>(UserRepositoryImpl(getIt<FirebaseAuth>(), getIt<IUserFactory>(), getIt<IEmailFactory>()));
-  getIt.registerSingleton<ICustomerRepository>(CustomerRepository(getIt<FirebaseFirestore>(), getIt<ICustomerFactory>(), getIt<IEmailFactory>(), getIt<IPhoneNumberFactory>()));
-  getIt.registerSingleton<IPaymentDetailsRepository>(PaymentDetailsRepositoryImpl());
-  getIt.registerSingleton<ITeamMemberRepository>(TeamMemberRepositoryImpl(getIt<ITeamMemberFactory>()));
+  getIt.registerSingleton<IUserRepository>(UserRepositoryImpl(
+      getIt<FirebaseAuth>(), getIt<IUserFactory>(), getIt<IEmailFactory>()));
+  getIt.registerSingleton<ICustomerRepository>(CustomerRepository(
+      getIt<FirebaseFirestore>(),
+      getIt<ICustomerFactory>(),
+      getIt<IEmailFactory>(),
+      getIt<IPhoneNumberFactory>()));
+  getIt.registerSingleton<IPaymentDetailsRepository>(
+      PaymentDetailsRepositoryImpl());
+  getIt.registerSingleton<ITeamMemberRepository>(TeamMemberRepositoryImpl(
+      getIt<ITeamMemberFactory>(),
+      getIt<IEmailFactory>(),
+      getIt<IPhoneNumberFactory>()));
 
-  getIt.registerSingleton<IRegistrationService>(RegistrationServiceImpl(getIt<IUserRepository>(), getIt<ICustomerFactory>(), getIt<ICustomerRepository>()));
-  getIt.registerSingleton<ICustomerService>(CustomerServiceImpl(getIt<ICustomerRepository>(), getIt<IPaymentDetailsRepository>()));
-  getIt.registerSingleton<IPaymentService>(StripeCardService(getIt<IPaymentDetailsRepository>()));
+  getIt.registerSingleton<IRegistrationService>(RegistrationServiceImpl(
+      getIt<IUserRepository>(),
+      getIt<ICustomerFactory>(),
+      getIt<ICustomerRepository>()));
+  getIt.registerSingleton<ICustomerService>(CustomerServiceImpl(
+      getIt<ICustomerRepository>(), getIt<IPaymentDetailsRepository>()));
+  getIt.registerSingleton<IPaymentService>(
+      StripeCardService(getIt<IPaymentDetailsRepository>()));
   getIt.registerSingleton<INotificationService>(NotificationServiceImpl());
-  getIt.registerSingleton<ITeamMemberService>(TeamMemberServiceImpl(getIt<ITeamMemberFactory>(), getIt<ITeamMemberRepository>()));
-  getIt.registerSingleton<IBookingService>(BookingServiceImpl(getIt<IBookingFactory>(), getIt<IPriceCalculationStrategyFactoryInterface>()));
+  getIt.registerSingleton<ITeamMemberService>(TeamMemberServiceImpl(
+      getIt<ITeamMemberFactory>(), getIt<ITeamMemberRepository>()));
+  getIt.registerSingleton<IBookingService>(BookingServiceImpl(
+      getIt<IBookingFactory>(),
+      getIt<IPriceCalculationStrategyFactoryInterface>()));
 
-  getIt.registerSingleton<SignupUsecase>(SignupUsecase(getIt<IEmailFactory>(), getIt<IPhoneNumberFactory>(), getIt<IUserRepository>()));
-  getIt.registerSingleton<RegistrationUsecase>(RegistrationUsecase(getIt<IRegistrationService>(), getIt<IUserFactory>()));
-  getIt.registerSingleton<AddPaymentMethodUsecase>(AddPaymentMethodUsecase(getIt<IPaymentService>()));
-  getIt.registerSingleton<ActivateCustomerUsecase>(ActivateCustomerUsecase(getIt<ICustomerService>()));
-  getIt.registerSingleton<ForgotPasswordUsecase>(ForgotPasswordUsecase(getIt<INotificationService>(), getIt<IEmailFactory>()));
-  getIt.registerSingleton<AddTeamMemberUsecase>(AddTeamMemberUsecase(getIt<IEmailFactory>(), getIt<IPhoneNumberFactory>(), getIt<ITeamMemberService>()));
-  getIt.registerSingleton<CreateBookingUsecase>(CreateBookingUsecase(getIt<IBookingService>()));
-  getIt.registerSingleton<CalculatePriceUsecase>(CalculatePriceUsecase(getIt<IBookingService>()));
-
-  
+  getIt.registerSingleton<SignupUsecase>(SignupUsecase(getIt<IEmailFactory>(),
+      getIt<IPhoneNumberFactory>(), getIt<IUserRepository>()));
+  getIt.registerSingleton<RegistrationUsecase>(RegistrationUsecase(
+      getIt<IRegistrationService>(), getIt<IUserFactory>()));
+  getIt.registerSingleton<AddPaymentMethodUsecase>(
+      AddPaymentMethodUsecase(getIt<IPaymentService>()));
+  getIt.registerSingleton<ActivateCustomerUsecase>(
+      ActivateCustomerUsecase(getIt<ICustomerService>()));
+  getIt.registerSingleton<ForgotPasswordUsecase>(ForgotPasswordUsecase(
+      getIt<INotificationService>(), getIt<IEmailFactory>()));
+  getIt.registerSingleton<AddTeamMemberUsecase>(AddTeamMemberUsecase(
+      getIt<IEmailFactory>(),
+      getIt<IPhoneNumberFactory>(),
+      getIt<ITeamMemberService>()));
+  getIt.registerSingleton<GetTeamMemberUsecase>(
+      GetTeamMemberUsecase(getIt<ITeamMemberService>()));
+  getIt.registerSingleton<CreateBookingUsecase>(
+      CreateBookingUsecase(getIt<IBookingService>()));
+  getIt.registerSingleton<CalculatePriceUsecase>(
+      CalculatePriceUsecase(getIt<IBookingService>()));
 }

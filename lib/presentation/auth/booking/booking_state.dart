@@ -5,6 +5,7 @@ import 'package:txiapp/domain/models/booking/enums/private_airport.dart';
 import 'package:txiapp/domain/models/booking/enums/vehicle_type.dart';
 import 'package:txiapp/domain/models/booking/value_objects/passenger_count.dart';
 import 'package:txiapp/domain/models/common/value_objects/profile.dart';
+import 'package:txiapp/domain/models/team_member/team_member.dart';
 
 class BookingState{
   BookingType? bookingType;
@@ -50,4 +51,6 @@ class BookingState{
 
   String? errorMessage;
   bool loading = false;
+
+  List<TeamMember> teamMembers = [];
 }

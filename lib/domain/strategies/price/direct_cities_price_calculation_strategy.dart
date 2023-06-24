@@ -18,7 +18,6 @@ class DirectCitiesPriceCalculationStrategy implements IPriceCalculationStrategyI
     int finalPrice = basePrice + additionalPrice;
 
     if(booking.tripType == TripType.roundTrip){
-      finalPrice = finalPrice * 2;
       int waitingPrice = booking.waitingTime! * booking.vehicleType.waitingTimePricePerHour(booking.bookingType);
       finalPrice = finalPrice + waitingPrice;
     }

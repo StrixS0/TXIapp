@@ -9,6 +9,8 @@ import 'package:txiapp/domain/services/i_booking_service.dart';
 import 'package:txiapp/domain/usecases/common/calculate_price_usecase/calculate_price_usecase.dart';
 import 'package:txiapp/domain/usecases/common/create_booking/create_booking_request.dart';
 import 'package:txiapp/domain/usecases/common/create_booking/create_booking_usecase.dart';
+import 'package:txiapp/domain/usecases/customer/get_team_members/get_team_member_request.dart';
+import 'package:txiapp/domain/usecases/customer/get_team_members/get_team_member_usecase.dart';
 import 'package:txiapp/domain/utils/exceptions/domain_exception.dart';
 import 'package:txiapp/presentation/auth/booking/booking_state.dart';
 import 'package:txiapp/presentation/auth/booking/events/airport_selected.dart';
@@ -17,8 +19,10 @@ import 'package:txiapp/presentation/auth/booking/events/booking_type_selected.da
 import 'package:txiapp/presentation/auth/booking/events/clear_error_message.dart';
 import 'package:txiapp/presentation/auth/booking/events/form_submitted.dart';
 import 'package:txiapp/presentation/auth/booking/events/input_changed.dart';
+import 'package:txiapp/presentation/auth/booking/events/load_team_members.dart';
 import 'package:txiapp/presentation/auth/booking/events/passenger_count_selected.dart';
 import 'package:txiapp/presentation/auth/booking/events/private_airport_selected.dart';
+import 'package:txiapp/presentation/auth/booking/events/team_member_selected.dart';
 import 'package:txiapp/presentation/auth/booking/events/vehicle_type_selected.dart';
 import 'package:txiapp/presentation/auth/booking/events/with_luggage_selected.dart';
 import 'package:txiapp/presentation/auth/booking/utils/form_type.dart';
@@ -37,9 +41,10 @@ class BookingViewmodel extends ChangeNotifier {
   final IBookingService _bookingService;
   final CreateBookingUsecase _createBookingUsecase;
   final CalculatePriceUsecase _calculatePriceUsecase;
+  final GetTeamMemberUsecase _getTeamMemberUsecase;
 
   BookingViewmodel(
-      this._mainViewmodel, this._bookingService, this._createBookingUsecase, this._calculatePriceUsecase);
+      this._mainViewmodel, this._bookingService, this._createBookingUsecase, this._calculatePriceUsecase, this._getTeamMemberUsecase);
 
   void onEvent(BookingEvent event) {
     switch (event.runtimeType) {
@@ -79,7 +84,51 @@ class BookingViewmodel extends ChangeNotifier {
       case PrivateAirportSelected:
         _privateAirportSelected(event as PrivateAirportSelected);
         break;
+
+      case LoadTeamMembers:
+        _loadTeamMembers();
+        break;
+      
+      case TeamMemberSelected:
+        _teamMemberSelected(event as TeamMemberSelected);
+        break;
     }
+  }
+
+  _teamMemberSelected(TeamMemberSelected event){
+    bookingState.profile = event.data().profile();
+
+    custom_router.Router.navigateTo(Screen.bookingTypeMenu);
+  }
+
+  _loadTeamMembers() async{
+    bookingState.loading = true;
+    notifyListeners();
+
+    final request = GetTeamMemberRequest(_mainViewmodel.state.currentCustomer!.id());
+    final result = await _getTeamMemberUsecase.execute(request);
+
+    if(result.isFailure){
+      if(result.error is DomainException){
+        final exception = result.error as DomainException;
+
+        bookingState.errorMessage = exception.cause().values.first;
+        bookingState.loading = false;
+        notifyListeners();
+
+        return;
+      }else{
+        bookingState.errorMessage = 'Something went wrong. Please try again later.';
+        bookingState.loading = false;
+        notifyListeners();
+
+        return;
+      }
+    }
+
+    bookingState.teamMembers = result.value;
+    bookingState.loading = false;
+    notifyListeners();
   }
 
   _bookTypeSelected(BookingTypeSelected event) {
