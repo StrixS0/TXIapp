@@ -1,6 +1,6 @@
-import 'package:txiapp/presentation/team_member/events/team_member_add_event.dart';
+import 'package:txiapp/presentation/team_member/events/team_member_event.dart';
 
-class YearOfBirthChanged implements TeamMemberAddEvent{
+class YearOfBirthChanged implements TeamMemberEvent{
   final int _value;
 
   YearOfBirthChanged(this._value);

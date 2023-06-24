@@ -8,14 +8,14 @@ import 'package:txiapp/presentation/team_member/events/email_changed.dart';
 import 'package:txiapp/presentation/team_member/events/form_submitted.dart';
 import 'package:txiapp/presentation/team_member/events/name_changed.dart';
 import 'package:txiapp/presentation/team_member/events/phone_number_changed.dart';
-import 'package:txiapp/presentation/team_member/events/team_member_add_event.dart';
+import 'package:txiapp/presentation/team_member/events/team_member_event.dart';
 import 'package:txiapp/presentation/team_member/events/year_of_birth_changed.dart';
 import 'package:txiapp/presentation/team_member/team_member_state.dart';
 
 //Components
 class TeamMemberAdd extends StatelessWidget {
   final TeamMemberState state;
-  final void Function(TeamMemberAddEvent event) onEvent;
+  final void Function(TeamMemberEvent event) onEvent;
 
   const TeamMemberAdd({Key? key,required this.state,required this.onEvent}) : super(key: key);
 

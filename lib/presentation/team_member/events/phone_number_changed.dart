@@ -1,6 +1,6 @@
-import 'package:txiapp/presentation/team_member/events/team_member_add_event.dart';
+import 'package:txiapp/presentation/team_member/events/team_member_event.dart';
 
-class PhoneNumberChanged implements TeamMemberAddEvent{
+class PhoneNumberChanged implements TeamMemberEvent{
   final String _value;
 
   PhoneNumberChanged(this._value);

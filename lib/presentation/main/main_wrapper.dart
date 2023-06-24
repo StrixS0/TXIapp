@@ -5,6 +5,7 @@ import 'package:txiapp/domain/services/i_booking_service.dart';
 import 'package:txiapp/domain/services/i_customer_service.dart';
 import 'package:txiapp/domain/usecases/common/calculate_price_usecase/calculate_price_usecase.dart';
 import 'package:txiapp/domain/usecases/common/create_booking/create_booking_usecase.dart';
+import 'package:txiapp/domain/usecases/customer/add_team_member/add_team_member_usecase.dart';
 import 'package:txiapp/domain/usecases/customer/get_team_members/get_team_member_usecase.dart';
 import 'package:txiapp/main.dart';
 import 'package:txiapp/presentation/auth/booking/book_trip/book_trip_wrapper.dart';
@@ -30,6 +31,8 @@ import 'package:txiapp/presentation/registration/signup_confirmation/signup_conf
 import 'package:txiapp/presentation/registration/signup_personal/signup_personal_wrapper.dart';
 import 'package:txiapp/presentation/team_member/add/team_member_add_wrapper.dart';
 import 'package:txiapp/presentation/team_member/list/team_member_list.dart';
+import 'package:txiapp/presentation/team_member/list/team_member_list_wrapper.dart';
+import 'package:txiapp/presentation/team_member/team_member_view_model.dart';
 import 'package:txiapp/presentation/utils/screen.dart';
 
 class MainWrapper extends StatelessWidget {
@@ -41,6 +44,7 @@ class MainWrapper extends StatelessWidget {
     providers: [
       ChangeNotifierProvider<MainViewmodel>(create: (_) => MainViewmodel(getIt<ICustomerService>())),
       ListenableProxyProvider<MainViewmodel, BookingViewmodel>(update: (context, mainViewmodel, bookingViewmodel) => BookingViewmodel(mainViewmodel, getIt<IBookingService>(), getIt<CreateBookingUsecase>(), getIt<CalculatePriceUsecase>(), getIt<GetTeamMemberUsecase>())),
+      ListenableProxyProvider<MainViewmodel, TeamMemberViewModel>(update: (context, mainViewmodel, bookingViewmodel) => TeamMemberViewModel(mainViewmodel, getIt<AddTeamMemberUsecase>(), getIt<GetTeamMemberUsecase>())),
     ],
     child: Consumer<MainViewmodel>(
           builder: (context, viewmodel, child) {
@@ -74,7 +78,7 @@ class MainWrapper extends StatelessWidget {
                 Screen.reviewBooking.value:(context) => const TripConfirmationReviewWrapper(),
                 Screen.confirmation.value:(context) => const TripConfirmationWrapper(),
                 Screen.teamMemberAdd.value:(context) => const TeamMemberAddWrapper(),
-                Screen.teamMemberList.value:(context) => const TeamMemberEdit()
+                Screen.teamMemberList.value:(context) => const TeamMemberListWrapper()
               },
             );
           },

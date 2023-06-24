@@ -3,13 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:txiapp/domain/usecases/customer/add_team_member/add_team_member_request.dart';
 import 'package:txiapp/domain/usecases/customer/add_team_member/add_team_member_usecase.dart';
+import 'package:txiapp/domain/usecases/customer/get_team_members/get_team_member_request.dart';
+import 'package:txiapp/domain/usecases/customer/get_team_members/get_team_member_usecase.dart';
 import 'package:txiapp/domain/utils/exceptions/domain_exception.dart';
 import 'package:txiapp/presentation/main/main_viewmodel.dart';
 import 'package:txiapp/presentation/team_member/events/email_changed.dart';
 import 'package:txiapp/presentation/team_member/events/form_submitted.dart';
+import 'package:txiapp/presentation/team_member/events/get_event.dart';
 import 'package:txiapp/presentation/team_member/events/name_changed.dart';
 import 'package:txiapp/presentation/team_member/events/phone_number_changed.dart';
-import 'package:txiapp/presentation/team_member/events/team_member_add_event.dart';
+import 'package:txiapp/presentation/team_member/events/team_member_event.dart';
 import 'package:txiapp/presentation/team_member/events/year_of_birth_changed.dart';
 import 'package:txiapp/presentation/team_member/team_member_state.dart';
 import 'package:txiapp/presentation/utils/router.dart' as custom_router;
@@ -21,10 +24,11 @@ class TeamMemberViewModel extends ChangeNotifier{
 
   final MainViewmodel _mainViewmodel;
   final AddTeamMemberUsecase _addTeamMemberUsecase;
+  final GetTeamMemberUsecase _getTeamMemberUsecase;
 
-  TeamMemberViewModel(this._mainViewmodel,this._addTeamMemberUsecase);
+  TeamMemberViewModel(this._mainViewmodel,this._addTeamMemberUsecase,this._getTeamMemberUsecase);
 
-  void onEvent(TeamMemberAddEvent event){
+  void onEvent(TeamMemberEvent event){
     switch(event.runtimeType){
       case NameChanged:
         final nameChanged = event as NameChanged;
@@ -43,6 +47,10 @@ class TeamMemberViewModel extends ChangeNotifier{
       case YearOfBirthChanged:
         final onChange = event as YearOfBirthChanged;
         _yearOfBirthChanged(onChange);
+        break;
+
+      case GetEvent:
+        _getEvent();
         break;
 
       case FormSubmitted:
@@ -65,7 +73,28 @@ class TeamMemberViewModel extends ChangeNotifier{
   void _yearOfBirthChanged(YearOfBirthChanged event){
     state.yearOfBirth = event.data();
   }
-  
+
+  void _getEvent() async{
+    final request = GetTeamMemberRequest(_mainViewmodel.state.currentCustomer!.id());
+    final result = await _getTeamMemberUsecase.execute(request);
+
+    if(result.isFailure){
+      if(result.error is DomainException){
+        final exception = result.error as DomainException;
+
+        _resolveErrors(exception.cause());
+        notifyListeners();
+
+        return;
+      }else{
+        _resolveErrors({'error' : 'Something went wrong. Please try again later'});
+        notifyListeners();
+
+        return;
+      }
+    }
+  }
+
   void _formSubmitted() async{
     state.loading = true;
     state.errors = null;

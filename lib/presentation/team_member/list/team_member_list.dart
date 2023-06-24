@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:txiapp/presentation/components/birthyear_dropdown.dart';
 import 'package:txiapp/presentation/components/buttons.dart';
-import 'package:txiapp/presentation/components/state_dropdown.dart';
-import 'package:txiapp/presentation/components/textfields.dart';
-import 'package:txiapp/presentation/team_member/add/team_member_add.dart';
+import 'package:txiapp/presentation/team_member/events/team_member_event.dart';
+import 'package:txiapp/presentation/team_member/team_member_state.dart';
 import 'package:txiapp/presentation/utils/router.dart' as custom_router;
 import 'package:txiapp/presentation/utils/screen.dart';
 
 //Components
-class TeamMemberEdit extends StatelessWidget {
-  const TeamMemberEdit({Key? key}) : super(key: key);
+class TeamMemberList extends StatelessWidget {
+  final TeamMemberState state;
+  final void Function(TeamMemberEvent event) onEvent;
+  const TeamMemberList({Key? key,required this.state,required this.onEvent}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
