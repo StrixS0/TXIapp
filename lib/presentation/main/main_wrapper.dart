@@ -29,10 +29,10 @@ import 'package:txiapp/presentation/signup_add_payment_method/signup_add_payment
 import 'package:txiapp/presentation/registration/signup_confirm_password/signup_confirm_password_wrapper.dart';
 import 'package:txiapp/presentation/registration/signup_confirmation/signup_confirmation_wrapper.dart';
 import 'package:txiapp/presentation/registration/signup_personal/signup_personal_wrapper.dart';
-import 'package:txiapp/presentation/team_member/add/team_member_add_wrapper.dart';
-import 'package:txiapp/presentation/team_member/list/team_member_list.dart';
-import 'package:txiapp/presentation/team_member/list/team_member_list_wrapper.dart';
-import 'package:txiapp/presentation/team_member/team_member_view_model.dart';
+import 'package:txiapp/presentation/auth/team_member/add/team_member_add_wrapper.dart';
+import 'package:txiapp/presentation/auth/team_member/list/team_member_list.dart';
+import 'package:txiapp/presentation/auth/team_member/list/team_member_list_wrapper.dart';
+import 'package:txiapp/presentation/auth/team_member/team_member_view_model.dart';
 import 'package:txiapp/presentation/utils/screen.dart';
 
 class MainWrapper extends StatelessWidget {

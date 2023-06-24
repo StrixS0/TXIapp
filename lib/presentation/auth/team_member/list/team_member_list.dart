@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:txiapp/main.dart';
 import 'package:txiapp/presentation/components/buttons.dart';
-import 'package:txiapp/presentation/team_member/events/get_event.dart';
-import 'package:txiapp/presentation/team_member/events/team_member_event.dart';
-import 'package:txiapp/presentation/team_member/team_member_state.dart';
+import 'package:txiapp/presentation/auth/team_member/events/get_event.dart';
+import 'package:txiapp/presentation/auth/team_member/events/team_member_event.dart';
+import 'package:txiapp/presentation/auth/team_member/team_member_state.dart';
 import 'package:txiapp/presentation/utils/router.dart' as custom_router;
 import 'package:txiapp/presentation/utils/screen.dart';
 

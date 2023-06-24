@@ -4,13 +4,13 @@ import 'package:txiapp/presentation/components/birthyear_dropdown.dart';
 import 'package:txiapp/presentation/components/buttons.dart';
 import 'package:txiapp/presentation/components/state_dropdown.dart';
 import 'package:txiapp/presentation/components/textfields.dart';
-import 'package:txiapp/presentation/team_member/events/email_changed.dart';
-import 'package:txiapp/presentation/team_member/events/form_submitted.dart';
-import 'package:txiapp/presentation/team_member/events/name_changed.dart';
-import 'package:txiapp/presentation/team_member/events/phone_number_changed.dart';
-import 'package:txiapp/presentation/team_member/events/team_member_event.dart';
-import 'package:txiapp/presentation/team_member/events/year_of_birth_changed.dart';
-import 'package:txiapp/presentation/team_member/team_member_state.dart';
+import 'package:txiapp/presentation/auth/team_member/events/email_changed.dart';
+import 'package:txiapp/presentation/auth/team_member/events/form_submitted.dart';
+import 'package:txiapp/presentation/auth/team_member/events/name_changed.dart';
+import 'package:txiapp/presentation/auth/team_member/events/phone_number_changed.dart';
+import 'package:txiapp/presentation/auth/team_member/events/team_member_event.dart';
+import 'package:txiapp/presentation/auth/team_member/events/year_of_birth_changed.dart';
+import 'package:txiapp/presentation/auth/team_member/team_member_state.dart';
 
 //Components
 class TeamMemberAdd extends StatelessWidget {

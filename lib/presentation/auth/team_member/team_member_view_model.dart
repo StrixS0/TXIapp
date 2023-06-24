@@ -7,14 +7,14 @@ import 'package:txiapp/domain/usecases/customer/get_team_members/get_team_member
 import 'package:txiapp/domain/usecases/customer/get_team_members/get_team_member_usecase.dart';
 import 'package:txiapp/domain/utils/exceptions/domain_exception.dart';
 import 'package:txiapp/presentation/main/main_viewmodel.dart';
-import 'package:txiapp/presentation/team_member/events/email_changed.dart';
-import 'package:txiapp/presentation/team_member/events/form_submitted.dart';
-import 'package:txiapp/presentation/team_member/events/get_event.dart';
-import 'package:txiapp/presentation/team_member/events/name_changed.dart';
-import 'package:txiapp/presentation/team_member/events/phone_number_changed.dart';
-import 'package:txiapp/presentation/team_member/events/team_member_event.dart';
-import 'package:txiapp/presentation/team_member/events/year_of_birth_changed.dart';
-import 'package:txiapp/presentation/team_member/team_member_state.dart';
+import 'package:txiapp/presentation/auth/team_member/events/email_changed.dart';
+import 'package:txiapp/presentation/auth/team_member/events/form_submitted.dart';
+import 'package:txiapp/presentation/auth/team_member/events/get_event.dart';
+import 'package:txiapp/presentation/auth/team_member/events/name_changed.dart';
+import 'package:txiapp/presentation/auth/team_member/events/phone_number_changed.dart';
+import 'package:txiapp/presentation/auth/team_member/events/team_member_event.dart';
+import 'package:txiapp/presentation/auth/team_member/events/year_of_birth_changed.dart';
+import 'package:txiapp/presentation/auth/team_member/team_member_state.dart';
 import 'package:txiapp/presentation/utils/router.dart' as custom_router;
 import 'package:txiapp/presentation/utils/screen.dart';
 
