@@ -14,7 +14,9 @@ class Menu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BaseLayout(content: [ 
+    
+    final GlobalKey<ScaffoldState> menuScaffoldKey = GlobalKey<ScaffoldState>();
+    return BaseLayout(scaffoldKey: menuScaffoldKey,content: [ 
                 Container(
                   constraints: const BoxConstraints(maxWidth: 300),
                   child: GridView.count(

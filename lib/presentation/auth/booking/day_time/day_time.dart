@@ -9,6 +9,7 @@ import 'package:txiapp/presentation/auth/booking/events/form_submitted.dart';
 import 'package:txiapp/presentation/auth/booking/events/input_changed.dart';
 import 'package:txiapp/presentation/auth/booking/utils/form_type.dart';
 import 'package:txiapp/presentation/auth/booking/utils/input_type.dart';
+import 'package:txiapp/presentation/auth/partials/base_layout.dart';
 import 'package:txiapp/presentation/components/buttons.dart';
 import 'package:txiapp/presentation/components/dropdown.dart';
 import 'package:txiapp/presentation/components/textfields.dart';
@@ -37,45 +38,8 @@ class DayTimeState extends State<DayTime> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: double.infinity, // Fill the screen height
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('assets/images/BGImage.png'),
-          fit: BoxFit.cover,
-        ),
-      ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: SingleChildScrollView(
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const SizedBox(height: 10),
-                Container(
-                  constraints: const BoxConstraints(maxWidth: 320),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(
-                        width: 150,
-                        height: 150,
-                        child: SvgPicture.asset(
-                          'assets/images/LogoTXI.svg',
-                          color: const Color(0xFFD6AD67),
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          // Handle menu bar icon tap
-                        },
-                        icon: const Icon(Icons.menu),
-                        color: Colors.white,
-                      ),
-                    ],
-                  ),
-                ),
+    final GlobalKey<ScaffoldState> dayTimeScaffoldKey = GlobalKey<ScaffoldState>();
+    return BaseLayout(scaffoldKey: dayTimeScaffoldKey,content: [ 
                 const SizedBox(height: 40),
 
                 // PICKUP
@@ -515,14 +479,7 @@ class DayTimeState extends State<DayTime> {
                     ),
                   ),
                 ),
-
-                const SizedBox(height: 80),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
+              ]);
   }
 }
 

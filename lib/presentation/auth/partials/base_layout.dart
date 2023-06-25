@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:txiapp/main.dart';
 import 'package:txiapp/presentation/components/app_drawer.dart';
 
 class BaseLayout extends StatelessWidget {
+  final GlobalKey<ScaffoldState> scaffoldKey;
   final List<Widget> content;
-  const BaseLayout({super.key,required this.content});
+  const BaseLayout({super.key,required this.scaffoldKey,required this.content});
 
   @override
   Widget build(BuildContext context) {

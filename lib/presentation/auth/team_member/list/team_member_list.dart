@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:txiapp/main.dart';
+import 'package:txiapp/presentation/auth/partials/base_layout.dart';
 import 'package:txiapp/presentation/components/buttons.dart';
 import 'package:txiapp/presentation/auth/team_member/events/get_event.dart';
 import 'package:txiapp/presentation/auth/team_member/events/team_member_event.dart';
@@ -49,45 +50,8 @@ class _TeamMemberListState extends State<TeamMemberList> with RouteAware{
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: double.infinity, // Fill the screen height
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('assets/images/BGImage.png'),
-          fit: BoxFit.cover,
-        ),
-      ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: SingleChildScrollView(
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const SizedBox(height: 10),
-                Container(
-                  constraints: const BoxConstraints(maxWidth: 320),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(
-                        width: 150,
-                        height: 150,
-                        child: SvgPicture.asset(
-                          'assets/images/LogoTXI.svg',
-                          color: const Color(0xFFD6AD67),
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          // Handle menu bar icon tap
-                        },
-                        icon: const Icon(Icons.menu),
-                        color: Colors.white,
-                      ),
-                    ],
-                  ),
-                ),
+    final GlobalKey<ScaffoldState> teamMemberListScaffoldKey = GlobalKey<ScaffoldState>();
+    return BaseLayout(scaffoldKey: teamMemberListScaffoldKey,content: [ 
                 const SizedBox(height: 40),
                 Container(
                     constraints: const BoxConstraints(maxWidth: 300),
@@ -205,12 +169,6 @@ class _TeamMemberListState extends State<TeamMemberList> with RouteAware{
                     ),
                   ),
                 ),
-                const SizedBox(height: 80),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
+    ]);
   }
 }
