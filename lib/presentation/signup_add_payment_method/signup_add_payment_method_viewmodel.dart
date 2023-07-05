@@ -111,6 +111,14 @@ class SignupAddPaymentMethodViewmodel extends ChangeNotifier{
       return;
     }
 
+    if (cardNumber.length != 16) {
+      state.message = 'Card Number should contain 16 numbers';
+      state.isLoading = false;
+      notifyListeners();
+      return;
+    }
+
+
     if(cardholderName == null || cardholderName.isEmpty){
       state.message = 'Cardholder Name is required';
       state.isLoading = false;
@@ -118,7 +126,7 @@ class SignupAddPaymentMethodViewmodel extends ChangeNotifier{
       return;
     }
 
-    if(expirationMonth == null || expirationMonth.isEmpty){
+    if (expirationMonth == null || expirationMonth.isEmpty) {
       state.message = 'Expiration Month is required';
       state.isLoading = false;
       notifyListeners();
@@ -127,14 +135,14 @@ class SignupAddPaymentMethodViewmodel extends ChangeNotifier{
 
     int expMonth = int.tryParse(expirationMonth) ?? 0;
 
-    if(expMonth == 0){
+    if (expMonth < 1 || expMonth > 12) {
       state.message = 'Expiration Month is invalid';
       state.isLoading = false;
       notifyListeners();
       return;
     }
 
-    if(expirationYear == null || expirationYear.isEmpty){
+    if (expirationYear == null || expirationYear.isEmpty) {
       state.message = 'Expiration Year is required';
       state.isLoading = false;
       notifyListeners();
@@ -143,22 +151,36 @@ class SignupAddPaymentMethodViewmodel extends ChangeNotifier{
 
     int expYear = int.tryParse(expirationYear) ?? 0;
 
-    if(expYear == 0){
-      state.message = 'Expiration year is invalid';
+    if (expYear < 1000 || expYear > 9999) {
+      state.message = 'Expiration Year is invalid';
       state.isLoading = false;
       notifyListeners();
       return;
     }
 
-    if(ccv == null || ccv.isEmpty){
+    if (ccv == null || ccv.isEmpty) {
       state.message = 'CCV is required';
       state.isLoading = false;
       notifyListeners();
       return;
     }
 
-    if(postalCode == null || postalCode.isEmpty){
-      state.message = 'Zip Code is required';
+    if (ccv.length != 3) {
+      state.message = 'CCV should have exactly 3 numbers';
+      state.isLoading = false;
+      notifyListeners();
+      return;
+    }
+
+    if (postalCode == null || postalCode.isEmpty) {
+      state.message = 'Postal Code is required';
+      state.isLoading = false;
+      notifyListeners();
+      return;
+    }
+
+    if (postalCode.length != 5) {
+      state.message = 'Postal Code should have exactly 5 numbers';
       state.isLoading = false;
       notifyListeners();
       return;
