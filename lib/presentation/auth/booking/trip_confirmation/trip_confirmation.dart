@@ -5,10 +5,10 @@ import 'package:txiapp/domain/models/booking/enums/booking_type.dart';
 import 'package:txiapp/domain/models/booking/enums/location_type.dart';
 import 'package:txiapp/domain/models/booking/enums/trip_type.dart';
 import 'package:txiapp/domain/models/booking/enums/vehicle_type.dart';
-import 'package:txiapp/domain/models/common/value_objects/currency.dart';
-import 'package:txiapp/domain/models/common/value_objects/price.dart';
 import 'package:txiapp/presentation/auth/booking/booking_state.dart';
 import 'package:txiapp/presentation/auth/booking/events/booking_event.dart';
+import 'package:txiapp/presentation/auth/booking/events/form_submitted.dart';
+import 'package:txiapp/presentation/auth/booking/utils/form_type.dart';
 import 'package:txiapp/presentation/auth/partials/base_layout.dart';
 import 'package:txiapp/presentation/components/buttons.dart';
 import 'package:txiapp/presentation/utils/router.dart' as custom_router;
@@ -272,8 +272,9 @@ class TripConfirmation extends StatelessWidget {
                 const SizedBox(height: 20),
                 PrimaryElevatedButton(
                   onPressed: () {
+                    onEvent(FormSubmitted(FormType.confirm));
                   },
-                  text: state.loading ? 'Please wait...' : 'Next',
+                  text: state.loading ? 'Please wait...' : state.requestQuote ? 'Save Trip' : state.modifying != null ? 'Save Changes' : 'Book Your Trip',
                 ),
                 const SizedBox(height: 10),
                 GestureDetector(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:txiapp/domain/models/booking/enums/vehicle_type.dart';
 import 'package:txiapp/presentation/auth/booking/events/booking_event.dart';
 import 'package:txiapp/presentation/auth/booking/events/vehicle_type_selected.dart';

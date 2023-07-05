@@ -7,44 +7,58 @@ import 'package:txiapp/domain/models/booking/enums/trip_type.dart';
 import 'package:txiapp/domain/models/booking/enums/vehicle_type.dart';
 import 'package:txiapp/domain/models/booking/value_objects/airport_info.dart';
 import 'package:txiapp/domain/models/booking/value_objects/booking_id.dart';
+import 'package:txiapp/domain/models/booking/value_objects/confirmation_code.dart';
 import 'package:txiapp/domain/models/booking/value_objects/passenger.dart';
 import 'package:txiapp/domain/models/common/value_objects/address.dart';
 import 'package:txiapp/domain/models/common/value_objects/price.dart';
 import 'package:txiapp/domain/models/common/value_objects/profile.dart';
+import 'package:txiapp/domain/models/customer/value_objects/customer_id.dart';
 
 class Booking {
   final BookingId _id;
-  final BookingType _bookingType;
-  final VehicleType _vehicleType;
-  final Passenger _passenger;
-  final DateTime _dayAndTime;
-  final AirportInfo? _airportInfo;
-  final TripType? _tripType;
-  final int? _waitingTime;
-  final int? _byHourDuration;
-  final LocationType? _locationType;
-  final Profile _profile;
-  final Address? _pickupOrDropoffAddress;
-  final Address? _dropoffAddress;
+  BookingType _bookingType;
+  VehicleType _vehicleType;
+  Passenger _passenger;
+  DateTime _dayAndTime;
+  AirportInfo? _airportInfo;
+  TripType? _tripType;
+  int? _waitingTime;
+  int? _byHourDuration;
+  LocationType? _locationType;
+  Profile _profile;
+  Address? _pickupOrDropoffAddress;
+  Address? _dropoffAddress;
   BookingStatus _status = BookingStatus.draft;
   Price? _price;
 
+  ConfirmationCode? _code;
+  DateTime _created;
+  DateTime _updated;
+  DateTime? _bookedAt;
+  CustomerId _customerId;
+
   Booking(
-      this._id,
-      this._bookingType,
-      this._vehicleType,
-      this._passenger,
-      this._dayAndTime,
-      this._airportInfo,
-      this._tripType,
-      this._waitingTime,
-      this._byHourDuration,
-      this._locationType,
-      this._profile,
-      this._pickupOrDropoffAddress,
-      this._dropoffAddress,
-      this._status,
-      this._price);
+    this._id,
+    this._bookingType,
+    this._vehicleType,
+    this._passenger,
+    this._dayAndTime,
+    this._airportInfo,
+    this._tripType,
+    this._waitingTime,
+    this._byHourDuration,
+    this._locationType,
+    this._profile,
+    this._pickupOrDropoffAddress,
+    this._dropoffAddress,
+    this._status,
+    this._price,
+    this._code,
+    this._created,
+    this._updated,
+    this._bookedAt,
+    this._customerId
+  );
 
   BookingId get id {
     return _id;
@@ -106,6 +120,26 @@ class Booking {
     return _price;
   }
 
+  ConfirmationCode? get code{
+    return _code;
+  }
+
+  DateTime get created{
+    return _created;
+  }
+
+  DateTime get updated{
+    return _updated;
+  }
+
+  DateTime? get bookedAt{
+    return _bookedAt;
+  }
+
+  CustomerId get customerId{
+    return _customerId;
+  }
+
   String getPickupAddress({bool showFullAddress = false}) {
     return (_bookingType == BookingType.aiportTrip &&
             _locationType == LocationType.dropoff)
@@ -147,6 +181,35 @@ class Booking {
 
   Booking setPrice(Price price) {
     _price = price;
+    _updated = DateTime.now();
+
+    return this;
+  }
+
+  Booking confirm(ConfirmationCode code){
+    _code = code;
+    _status = BookingStatus.booked;
+    _bookedAt = DateTime.now();
+    _updated = DateTime.now();
+
+    return this;
+  }
+
+  Booking modifyTrip(Booking updatedBooking){
+    _bookingType = updatedBooking.bookingType;
+    _vehicleType = updatedBooking.vehicleType;
+    _passenger = updatedBooking.passenger;
+    _dayAndTime = updatedBooking.dayAndTime;
+    _airportInfo = updatedBooking.airportInfo;
+    _tripType = updatedBooking.tripType;
+    _waitingTime = updatedBooking.waitingTime;
+    _byHourDuration = updatedBooking.byHourDuration;
+    _locationType = updatedBooking.locationType;
+    _profile = updatedBooking.profile;
+    _pickupOrDropoffAddress = updatedBooking.pickupOrDropoffAddress;
+    _dropoffAddress = updatedBooking.dropoffAddress;
+    _price = updatedBooking.price;
+    _updated = DateTime.now();
 
     return this;
   }

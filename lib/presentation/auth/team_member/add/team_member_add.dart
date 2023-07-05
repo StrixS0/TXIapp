@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:txiapp/presentation/auth/partials/base_layout.dart';
 import 'package:txiapp/presentation/components/birthyear_dropdown.dart';
 import 'package:txiapp/presentation/components/buttons.dart';
-import 'package:txiapp/presentation/components/state_dropdown.dart';
 import 'package:txiapp/presentation/components/textfields.dart';
 import 'package:txiapp/presentation/auth/team_member/events/email_changed.dart';
 import 'package:txiapp/presentation/auth/team_member/events/form_submitted.dart';

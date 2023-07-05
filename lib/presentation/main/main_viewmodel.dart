@@ -66,9 +66,9 @@ class MainViewmodel extends ChangeNotifier{
 
   Future<void> _navigate() async{
     Customer? customer = state.currentCustomer;
-    Router.disableBackNavigation();
 
     if(customer == null){
+      Router.disableBackNavigation();
       Router.pushReplacementNamed(Screen.welcomeScreen);
       return;
     }
@@ -76,15 +76,18 @@ class MainViewmodel extends ChangeNotifier{
     bool hasPaymentDetails = await _customerService.hasPaymentDetails(customer);
     
     if(!hasPaymentDetails){
+      Router.disableBackNavigation();
       Router.pushReplacementNamed(Screen.addPaymentMethodScreen);
       return;
     }
 
     if(customer.status() == Status.inactive){
+      Router.disableBackNavigation();
       Router.pushReplacementNamed(Screen.confirmAccount);
       return;
     }
 
+    Router.disableBackNavigation();
     Router.pushReplacementNamed(Screen.home);
   }
 }

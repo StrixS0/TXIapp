@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
-import 'package:txiapp/domain/models/booking/enums/airport.dart';
 import 'package:txiapp/domain/models/booking/enums/booking_type.dart';
 import 'package:txiapp/domain/models/booking/enums/location_type.dart';
 import 'package:txiapp/domain/models/booking/enums/trip_type.dart';

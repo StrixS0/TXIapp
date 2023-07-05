@@ -6,11 +6,14 @@ import 'package:txiapp/domain/factories/i_customer_factory.dart';
 import 'package:txiapp/domain/factories/i_email_factory.dart';
 import 'package:txiapp/domain/factories/i_phone_number_factory.dart';
 import 'package:txiapp/domain/factories/i_team_member_factory.dart';
+import 'package:txiapp/domain/factories/i_transaction_factory.dart';
 import 'package:txiapp/domain/factories/i_user_factory.dart';
 import 'package:txiapp/domain/factories/strategy/i_price_calculation_strategy_factory_interface.dart';
+import 'package:txiapp/domain/repositories/i_booking_repository.dart';
 import 'package:txiapp/domain/repositories/i_customer_repository.dart';
 import 'package:txiapp/domain/repositories/i_payment_details_repository.dart';
 import 'package:txiapp/domain/repositories/i_team_member_repository.dart';
+import 'package:txiapp/domain/repositories/i_transaction_repository.dart';
 import 'package:txiapp/domain/repositories/i_user_repository.dart';
 import 'package:txiapp/domain/services/i_booking_service.dart';
 import 'package:txiapp/domain/services/i_customer_service.dart';
@@ -22,9 +25,13 @@ import 'package:txiapp/domain/services/i_team_member_service.dart';
 import 'package:txiapp/domain/usecases/common/activate_customer_usecase/activate_customer_usecase.dart';
 import 'package:txiapp/domain/usecases/common/add_payment_method_usecase/add_payment_method_usecase.dart';
 import 'package:txiapp/domain/usecases/common/calculate_price_usecase/calculate_price_usecase.dart';
+import 'package:txiapp/domain/usecases/common/confirm_booking_usecase/confirm_booking_usecase.dart';
 import 'package:txiapp/domain/usecases/common/create_booking/create_booking_usecase.dart';
 import 'package:txiapp/domain/usecases/common/forgot_password_usecase/forgot_password_usecase.dart';
+import 'package:txiapp/domain/usecases/common/get_bookings_usecase/get_bookings_usecase.dart';
+import 'package:txiapp/domain/usecases/common/modify_trip_usecase/modify_trip_usecase.dart';
 import 'package:txiapp/domain/usecases/common/register_usecase/registration_usecase.dart';
+import 'package:txiapp/domain/usecases/common/save_booking_usecase/save_booking_usecase.dart';
 import 'package:txiapp/domain/usecases/common/signup_usecase/signup_usecase.dart';
 import 'package:txiapp/domain/usecases/customer/add_team_member/add_team_member_usecase.dart';
 import 'package:txiapp/domain/usecases/customer/get_team_members/get_team_member_usecase.dart';
@@ -34,10 +41,13 @@ import 'package:txiapp/infrastructure/factories/email_factory_impl.dart';
 import 'package:txiapp/infrastructure/factories/phone_number_factory_impl.dart';
 import 'package:txiapp/infrastructure/factories/strategy/price_calculation_strategy_impl.dart';
 import 'package:txiapp/infrastructure/factories/team_member_factory_impl.dart';
+import 'package:txiapp/infrastructure/factories/transaction_factory_impl.dart';
 import 'package:txiapp/infrastructure/factories/user_factory_impl.dart';
+import 'package:txiapp/infrastructure/repositories/booking_repository_impl.dart';
 import 'package:txiapp/infrastructure/repositories/customer_repository_impl.dart';
 import 'package:txiapp/infrastructure/repositories/payment_details_repository_impl.dart';
 import 'package:txiapp/infrastructure/repositories/team_member_repository_impl.dart';
+import 'package:txiapp/infrastructure/repositories/transaction_repository_impl.dart';
 import 'package:txiapp/infrastructure/repositories/user_repository_impl.dart';
 import 'package:txiapp/infrastructure/services/booking_service_impl.dart';
 import 'package:txiapp/infrastructure/services/customer_service_impl.dart';
@@ -61,6 +71,8 @@ void setup() {
   getIt.registerSingleton<IPhoneNumberFactory>(PhoneNumberFactoryImpl());
   getIt.registerSingleton<ITeamMemberFactory>(TeamMemberFactoryImpl());
   getIt.registerSingleton<IBookingFactory>(BookingFactoryImpl());
+  getIt.registerSingleton<ITransactionFactory>(TransactionFactoryImpl());
+
   getIt.registerSingleton<IPriceCalculationStrategyFactoryInterface>(
       PriceCalculationStrategyFactoryImpl(getIt<ILocationService>()));
 
@@ -77,6 +89,8 @@ void setup() {
       getIt<ITeamMemberFactory>(),
       getIt<IEmailFactory>(),
       getIt<IPhoneNumberFactory>()));
+  getIt.registerSingleton<ITransactionRepository>(TransactionRepositoryImpl());
+  getIt.registerSingleton<IBookingRepository>(BookingRepositoryImpl(getIt<IBookingFactory>()));
 
   getIt.registerSingleton<IRegistrationService>(RegistrationServiceImpl(
       getIt<IUserRepository>(),
@@ -85,13 +99,13 @@ void setup() {
   getIt.registerSingleton<ICustomerService>(CustomerServiceImpl(
       getIt<ICustomerRepository>(), getIt<IPaymentDetailsRepository>()));
   getIt.registerSingleton<IPaymentService>(
-      StripeCardService(getIt<IPaymentDetailsRepository>()));
+      StripeCardService(getIt<IPaymentDetailsRepository>(), getIt<ITransactionFactory>(), getIt<ITransactionRepository>()));
   getIt.registerSingleton<INotificationService>(NotificationServiceImpl());
   getIt.registerSingleton<ITeamMemberService>(TeamMemberServiceImpl(
       getIt<ITeamMemberFactory>(), getIt<ITeamMemberRepository>()));
   getIt.registerSingleton<IBookingService>(BookingServiceImpl(
       getIt<IBookingFactory>(),
-      getIt<IPriceCalculationStrategyFactoryInterface>()));
+      getIt<IPriceCalculationStrategyFactoryInterface>(), getIt<IBookingRepository>()));
 
   getIt.registerSingleton<SignupUsecase>(SignupUsecase(getIt<IEmailFactory>(),
       getIt<IPhoneNumberFactory>(), getIt<IUserRepository>()));
@@ -113,4 +127,8 @@ void setup() {
       CreateBookingUsecase(getIt<IBookingService>()));
   getIt.registerSingleton<CalculatePriceUsecase>(
       CalculatePriceUsecase(getIt<IBookingService>()));
+  getIt.registerSingleton<ConfirmBookingUsecase>(ConfirmBookingUsecase(getIt<IPaymentService>(), getIt<IBookingService>()));
+  getIt.registerSingleton<SaveBookingUsecase>(SaveBookingUsecase(getIt<IBookingService>()));
+  getIt.registerSingleton<GetBookingsUsecase>(GetBookingsUsecase(getIt<IBookingService>()));
+  getIt.registerSingleton<ModifyTripUsecase>(ModifyTripUsecase(getIt<IBookingService>()));
 }

@@ -53,4 +53,6 @@ class BookingState{
   bool loading = false;
 
   List<TeamMember> teamMembers = [];
+  bool requestQuote = false;
+  Booking? modifying;
 }

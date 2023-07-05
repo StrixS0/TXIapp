@@ -165,8 +165,8 @@ class DayTimeState extends State<DayTime> {
                         ),
                       ),
                       const SizedBox(width: 10),
-                      Column(
-                        children: const [
+                      const Column(
+                        children: [
                           SizedBox(height: 30),
                           Text(
                             ':',

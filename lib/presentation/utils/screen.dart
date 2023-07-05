@@ -22,9 +22,12 @@ enum Screen {
   address('/booking/address'),
   reviewBooking('/booking/review'),
   confirmation('/booking/confirm'),
+  bookingConfirmed('/booking/success'),
 
   teamMemberList('/teammember/list'),
-  teamMemberAdd('/teammember/add');
+  teamMemberAdd('/teammember/add'),
+
+  bookingList('/modify-trip');
 
   const Screen(this.value);
   final String value;

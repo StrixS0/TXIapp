@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:txiapp/domain/models/booking/booking.dart';
 import 'package:txiapp/domain/services/i_location_service.dart';
 import 'package:http/http.dart' as http;

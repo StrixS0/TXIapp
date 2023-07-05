@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:txiapp/domain/models/booking/enums/airport.dart';
 import 'package:txiapp/domain/models/booking/enums/booking_type.dart';
@@ -7,8 +8,14 @@ import 'package:txiapp/domain/models/booking/enums/trip_type.dart';
 import 'package:txiapp/domain/models/booking/value_objects/passenger_count.dart';
 import 'package:txiapp/domain/services/i_booking_service.dart';
 import 'package:txiapp/domain/usecases/common/calculate_price_usecase/calculate_price_usecase.dart';
+import 'package:txiapp/domain/usecases/common/confirm_booking_usecase/confirm_booking_request.dart';
+import 'package:txiapp/domain/usecases/common/confirm_booking_usecase/confirm_booking_usecase.dart';
 import 'package:txiapp/domain/usecases/common/create_booking/create_booking_request.dart';
 import 'package:txiapp/domain/usecases/common/create_booking/create_booking_usecase.dart';
+import 'package:txiapp/domain/usecases/common/modify_trip_usecase/modify_trip_request.dart';
+import 'package:txiapp/domain/usecases/common/modify_trip_usecase/modify_trip_usecase.dart';
+import 'package:txiapp/domain/usecases/common/save_booking_usecase/save_booking_request.dart';
+import 'package:txiapp/domain/usecases/common/save_booking_usecase/save_booking_usecase.dart';
 import 'package:txiapp/domain/usecases/customer/get_team_members/get_team_member_request.dart';
 import 'package:txiapp/domain/usecases/customer/get_team_members/get_team_member_usecase.dart';
 import 'package:txiapp/domain/utils/exceptions/domain_exception.dart';
@@ -18,8 +25,10 @@ import 'package:txiapp/presentation/auth/booking/events/booking_event.dart';
 import 'package:txiapp/presentation/auth/booking/events/booking_type_selected.dart';
 import 'package:txiapp/presentation/auth/booking/events/clear_error_message.dart';
 import 'package:txiapp/presentation/auth/booking/events/form_submitted.dart';
+import 'package:txiapp/presentation/auth/booking/events/initialized.dart';
 import 'package:txiapp/presentation/auth/booking/events/input_changed.dart';
 import 'package:txiapp/presentation/auth/booking/events/load_team_members.dart';
+import 'package:txiapp/presentation/auth/booking/events/modify_booking.dart';
 import 'package:txiapp/presentation/auth/booking/events/passenger_count_selected.dart';
 import 'package:txiapp/presentation/auth/booking/events/private_airport_selected.dart';
 import 'package:txiapp/presentation/auth/booking/events/team_member_selected.dart';
@@ -42,12 +51,20 @@ class BookingViewmodel extends ChangeNotifier {
   final CreateBookingUsecase _createBookingUsecase;
   final CalculatePriceUsecase _calculatePriceUsecase;
   final GetTeamMemberUsecase _getTeamMemberUsecase;
+  final ConfirmBookingUsecase _confirmBookingUsecase;
+  final SaveBookingUsecase _saveBookingUsecase;
+  final ModifyTripUsecase _modifyTripUsecase;
 
   BookingViewmodel(
-      this._mainViewmodel, this._bookingService, this._createBookingUsecase, this._calculatePriceUsecase, this._getTeamMemberUsecase);
+      this._mainViewmodel, this._bookingService, this._createBookingUsecase, this._calculatePriceUsecase, this._getTeamMemberUsecase, this._confirmBookingUsecase, this._saveBookingUsecase, this._modifyTripUsecase);
 
   void onEvent(BookingEvent event) {
+    print(event.runtimeType);
     switch (event.runtimeType) {
+      case Initialized:
+        _initialized(event as Initialized);
+        break;
+
       case BookingTypeSelected:
         _bookTypeSelected(event as BookingTypeSelected);
         break;
@@ -92,7 +109,16 @@ class BookingViewmodel extends ChangeNotifier {
       case TeamMemberSelected:
         _teamMemberSelected(event as TeamMemberSelected);
         break;
+      
+      case ModifyBooking:
+        _modifyBooking(event as ModifyBooking);
+        break;
     }
+  }
+
+  _initialized(Initialized event){
+    bookingState.requestQuote = event.data();
+    print(bookingState.requestQuote);
   }
 
   _teamMemberSelected(TeamMemberSelected event){
@@ -138,6 +164,7 @@ class BookingViewmodel extends ChangeNotifier {
   }
 
   _vehicleTypeSelected(VehicleTypeSelected event) {
+    print(event.data());
     if (bookingState.vehicleType != event.data()) {
       bookingState.passengerCount = null;
       bookingState.withLuggage = null;
@@ -147,6 +174,8 @@ class BookingViewmodel extends ChangeNotifier {
     _passengerCount = _bookingService.getPassengerCountOptions(event.data());
     bookingState.passengerCountOptions =
         _passengerCount.map((e) => e.displayName()).toList();
+
+    print(bookingState.vehicleType);
 
     custom_router.Router.navigateTo(Screen.selectPassengerCount);
   }
@@ -159,6 +188,8 @@ class BookingViewmodel extends ChangeNotifier {
 
   _withLuggageSelected(WithLuggageSelected event) {
     bookingState.withLuggage = event.data();
+    print(bookingState.vehicleType);
+    print(bookingState.withLuggage);
 
     notifyListeners();
   }
@@ -176,6 +207,15 @@ class BookingViewmodel extends ChangeNotifier {
         break;
       case FormType.review:
         _reviewSubmitted();
+        break;
+      case FormType.confirm:
+        if(bookingState.requestQuote){
+          _saveSubmitted();
+        }else if(bookingState.modifying != null){
+          _modifyTrip();
+        }else{
+          _confirmSubmitted();
+        }
         break;
     }
   }
@@ -466,7 +506,9 @@ class BookingViewmodel extends ChangeNotifier {
         bookingState.addtional2,
         bookingState.city2,
         bookingState.postalCode2,
-        bookingState.state2);
+        bookingState.state2,
+        _mainViewmodel.state.currentCustomer!.id()
+      );
 
     final result = _createBookingUsecase.execute(request);
     if(result.isFailure){
@@ -533,5 +575,163 @@ class BookingViewmodel extends ChangeNotifier {
     notifyListeners();
     
     custom_router.Router.navigateTo(Screen.confirmation);
+  }
+
+  _confirmSubmitted() async{
+    bookingState.loading = true;
+    bookingState.errorMessage = null;
+    notifyListeners();
+
+    final request = ConfirmBookingRequest(bookingState.booking!, _mainViewmodel.state.currentCustomer!, null);
+    final result = await _confirmBookingUsecase.execute(request);
+    if(result.isFailure){
+      if(result.error is DomainException){
+        final exception = result.error as DomainException;
+
+        bookingState.errorMessage = exception.cause().values.first;
+        bookingState.loading = false;
+        notifyListeners();
+
+        return;
+      }else{
+        print(result.error.runtimeType);
+        bookingState.errorMessage = 'Something went wrong. Please try again later.';
+        bookingState.loading = false;
+        notifyListeners();
+
+        return;
+      }
+    }
+
+    bookingState.loading = false;
+    bookingState.errorMessage = null;
+    bookingState.booking = result.value.booking;
+    notifyListeners();
+
+    custom_router.Router.popUntil(Screen.home);
+    custom_router.Router.navigateTo(Screen.bookingConfirmed);
+  }
+
+  _saveSubmitted() async{
+    bookingState.loading = true;
+    bookingState.errorMessage = null;
+    notifyListeners();
+
+    final request = SaveBookingRequest(bookingState.booking!);
+    final result = await _saveBookingUsecase.execute(request);
+    if(result.isFailure){
+      if(result.error is DomainException){
+        final exception = result.error as DomainException;
+
+        bookingState.errorMessage = exception.cause().values.first;
+        bookingState.loading = false;
+        notifyListeners();
+
+        return;
+      }else{
+        print(result.error.runtimeType);
+        bookingState.errorMessage = 'Something went wrong. Please try again later.';
+        bookingState.loading = false;
+        notifyListeners();
+
+        return;
+      }
+    }
+
+    custom_router.Router.popUntil(Screen.home);
+
+    bookingState = BookingState();
+
+    Fluttertoast.showToast(
+        msg: "Booking saved",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.SNACKBAR,
+        timeInSecForIosWeb: 3,
+        fontSize: 16.0
+    );
+
+    custom_router.Router.navigateTo(Screen.bookingList);
+  }
+
+  _modifyTrip() async{
+    bookingState.loading = true;
+    bookingState.errorMessage = null;
+    notifyListeners();
+
+    final request = ModifyTripRequest(bookingState.modifying!, bookingState.booking!);
+    final result = await _modifyTripUsecase.execute(request);
+    if(result.isFailure){
+      if(result.error is DomainException){
+        final exception = result.error as DomainException;
+
+        bookingState.errorMessage = exception.cause().values.first;
+        bookingState.loading = false;
+        notifyListeners();
+
+        return;
+      }else{
+        print(result.error.runtimeType);
+        bookingState.errorMessage = 'Something went wrong. Please try again later.';
+        bookingState.loading = false;
+        notifyListeners();
+
+        return;
+      }
+    }
+
+    custom_router.Router.popUntil(Screen.home);
+
+    bookingState = BookingState();
+
+    Fluttertoast.showToast(
+        msg: "Booking has been modified",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.SNACKBAR,
+        timeInSecForIosWeb: 3,
+        fontSize: 16.0
+    );
+
+    custom_router.Router.navigateTo(Screen.bookingList);
+  }
+
+  _modifyBooking(ModifyBooking event){
+    if(bookingState.modifying != null) return;
+
+    bookingState.bookingType = event.data().bookingType;
+    bookingState.vehicleType = event.data().vehicleType;
+    bookingState.passengerCount = event.data().passenger.passengerCount;
+    bookingState.withLuggage = event.data().passenger.withLuggage ? 1 : 0;
+    bookingState.day = event.data().dayAndTime.day.toString().padLeft(2, '0');
+    bookingState.month = DateFormat('MMM').format(event.data().dayAndTime).toUpperCase();
+    bookingState.year = event.data().dayAndTime.year.toString();
+    bookingState.hour = event.data().dayAndTime.hour.toString().padLeft(2, '0');
+    bookingState.min = event.data().dayAndTime.minute.toString().padLeft(2, '0');
+    bookingState.period = event.data().dayAndTime.hour >= 12 ? 'PM' : 'AM';
+    bookingState.tripType = event.data().tripType?.index;
+    bookingState.locationType = event.data().locationType?.index;
+    bookingState.waitingTime = event.data().waitingTime;
+    bookingState.byHourDuration = event.data().byHourDuration == null ? null : '${event.data().byHourDuration} hours';
+    bookingState.airport = event.data().airportInfo?.airport;
+    bookingState.privateAirport = event.data().airportInfo?.privateAirport;
+
+    bookingState.address1 = event.data().pickupOrDropoffAddress?.address();
+    bookingState.addtional1 = event.data().pickupOrDropoffAddress?.additional();
+    bookingState.city1 = event.data().pickupOrDropoffAddress?.city();
+    bookingState.postalCode1 = event.data().pickupOrDropoffAddress?.postalCode();
+    bookingState.state1 = event.data().pickupOrDropoffAddress?.state();
+
+    bookingState.address2 = event.data().dropoffAddress?.address();
+    bookingState.addtional2 = event.data().dropoffAddress?.additional();
+    bookingState.city2 = event.data().dropoffAddress?.city();
+    bookingState.postalCode2 = event.data().dropoffAddress?.postalCode();
+    bookingState.state2 = event.data().dropoffAddress?.state();
+
+    bookingState.profile = event.data().profile;
+
+    bookingState.booking = event.data();
+    bookingState.displayFromAddress = bookingState.booking!.getPickupAddress();
+    bookingState.displayToAddress = bookingState.booking!.getDropoffAddress();
+
+    bookingState.modifying = event.data();
   }
 }

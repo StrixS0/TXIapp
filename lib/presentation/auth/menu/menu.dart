@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:txiapp/domain/models/customer/subtypes/corporate_customer.dart';
 import 'package:txiapp/presentation/auth/partials/base_layout.dart';
 import 'package:txiapp/presentation/main/main_state.dart';
@@ -34,11 +33,15 @@ class Menu extends StatelessWidget {
                       }),
                       buildCorporateMenu('MODIFY A TRIP', () {
                         // Navigate to the desired screen
-                        custom_router.Router.navigateTo(Screen.bookingTypeMenu);
+                        custom_router.Router.navigateTo(Screen.bookingList);
                       }),
                       buildCorporateMenu('REQUEST A QUOTE', () {
                         // Navigate to the desired screen
-                        custom_router.Router.navigateTo(Screen.bookingTypeMenu);
+                        if(state.currentCustomer!.runtimeType == CorporateCustomer){
+                          custom_router.Router.navigateTo(Screen.selectTeamMember, arguments: {'requestQuote': true});
+                        }else{
+                          custom_router.Router.navigateTo(Screen.bookingTypeMenu, arguments: {'requestQuote': true});
+                        }
                       }),
                       buildCorporateMenu('TRIP HISTORY', () {
                         // Navigate to the desired screen
@@ -52,20 +55,6 @@ class Menu extends StatelessWidget {
                       })
                       ),
                     ],
-                  ),
-                ),
-                const SizedBox(height: 20),
-                GestureDetector(
-                  onTap: () {},
-                  child: const Text(
-                    'Back',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontFamily: 'Raleway',
-                      fontWeight: FontWeight.w100,
-                      color: Color(0xFFD6AD67),
-                      decoration: TextDecoration.underline,
-                    ),
                   ),
                 ),
     ]);

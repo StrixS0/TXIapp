@@ -15,6 +15,10 @@ class Router {
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 
+  static void popUntil(Screen routeName){
+    navigatorKey.currentState!.popUntil((route) => route.settings.name == routeName.value);
+  }
+
 
   static void goBack() {
     navigatorKey.currentState!.pop();

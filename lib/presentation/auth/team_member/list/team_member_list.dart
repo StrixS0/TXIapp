@@ -80,11 +80,11 @@ class _TeamMemberListState extends State<TeamMemberList> with RouteAware{
 
                 Visibility(
                   visible: widget.state.loading,
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
+                  child: const Padding(
+                    padding: EdgeInsets.all(20.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: const [
+                      children: [
                         CircularProgressIndicator(
                           color: Color(0xFFD6AD67),
                         ),

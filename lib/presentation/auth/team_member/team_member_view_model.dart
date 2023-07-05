@@ -16,7 +16,6 @@ import 'package:txiapp/presentation/auth/team_member/events/team_member_event.da
 import 'package:txiapp/presentation/auth/team_member/events/year_of_birth_changed.dart';
 import 'package:txiapp/presentation/auth/team_member/team_member_state.dart';
 import 'package:txiapp/presentation/utils/router.dart' as custom_router;
-import 'package:txiapp/presentation/utils/screen.dart';
 
 class TeamMemberViewModel extends ChangeNotifier{
     

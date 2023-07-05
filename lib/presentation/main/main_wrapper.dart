@@ -4,7 +4,10 @@ import 'package:txiapp/di/app_module.dart';
 import 'package:txiapp/domain/services/i_booking_service.dart';
 import 'package:txiapp/domain/services/i_customer_service.dart';
 import 'package:txiapp/domain/usecases/common/calculate_price_usecase/calculate_price_usecase.dart';
+import 'package:txiapp/domain/usecases/common/confirm_booking_usecase/confirm_booking_usecase.dart';
 import 'package:txiapp/domain/usecases/common/create_booking/create_booking_usecase.dart';
+import 'package:txiapp/domain/usecases/common/modify_trip_usecase/modify_trip_usecase.dart';
+import 'package:txiapp/domain/usecases/common/save_booking_usecase/save_booking_usecase.dart';
 import 'package:txiapp/domain/usecases/customer/add_team_member/add_team_member_usecase.dart';
 import 'package:txiapp/domain/usecases/customer/get_team_members/get_team_member_usecase.dart';
 import 'package:txiapp/main.dart';
@@ -18,8 +21,10 @@ import 'package:txiapp/presentation/auth/booking/select_private_airport/select_p
 import 'package:txiapp/presentation/auth/booking/select_team_member/select_team_member_wrapper.dart';
 import 'package:txiapp/presentation/auth/booking/select_vehicle/select_vehicle_wrapper.dart';
 import 'package:txiapp/presentation/auth/booking/trip_confirmation/trip_confirmation_wrapper.dart';
+import 'package:txiapp/presentation/auth/booking/trip_confirmation_number/trip_confirmation_number_wrapper.dart';
 import 'package:txiapp/presentation/auth/booking/trip_confirmation_review/trip_confirmation_review_wrapper.dart';
 import 'package:txiapp/presentation/auth/menu/menu_wrapper.dart';
+import 'package:txiapp/presentation/auth/modify_trip/modify_trip_wrapper.dart';
 import 'package:txiapp/presentation/guest/welcome/welcome.dart';
 import 'package:txiapp/presentation/guest/login/login_wrapper.dart';
 import 'package:txiapp/presentation/guest/login_forgot_password/login_forgot_password_wrapper.dart';
@@ -30,7 +35,6 @@ import 'package:txiapp/presentation/registration/signup_confirm_password/signup_
 import 'package:txiapp/presentation/registration/signup_confirmation/signup_confirmation_wrapper.dart';
 import 'package:txiapp/presentation/registration/signup_personal/signup_personal_wrapper.dart';
 import 'package:txiapp/presentation/auth/team_member/add/team_member_add_wrapper.dart';
-import 'package:txiapp/presentation/auth/team_member/list/team_member_list.dart';
 import 'package:txiapp/presentation/auth/team_member/list/team_member_list_wrapper.dart';
 import 'package:txiapp/presentation/auth/team_member/team_member_view_model.dart';
 import 'package:txiapp/presentation/utils/screen.dart';
@@ -43,7 +47,7 @@ class MainWrapper extends StatelessWidget {
     return MultiProvider(
     providers: [
       ChangeNotifierProvider<MainViewmodel>(create: (_) => MainViewmodel(getIt<ICustomerService>())),
-      ListenableProxyProvider<MainViewmodel, BookingViewmodel>(update: (context, mainViewmodel, bookingViewmodel) => BookingViewmodel(mainViewmodel, getIt<IBookingService>(), getIt<CreateBookingUsecase>(), getIt<CalculatePriceUsecase>(), getIt<GetTeamMemberUsecase>())),
+      ListenableProxyProvider<MainViewmodel, BookingViewmodel>(update: (context, mainViewmodel, bookingViewmodel) => BookingViewmodel(mainViewmodel, getIt<IBookingService>(), getIt<CreateBookingUsecase>(), getIt<CalculatePriceUsecase>(), getIt<GetTeamMemberUsecase>(), getIt<ConfirmBookingUsecase>(), getIt<SaveBookingUsecase>(), getIt<ModifyTripUsecase>())),
       ListenableProxyProvider<MainViewmodel, TeamMemberViewModel>(update: (context, mainViewmodel, bookingViewmodel) => TeamMemberViewModel(mainViewmodel, getIt<AddTeamMemberUsecase>(), getIt<GetTeamMemberUsecase>())),
     ],
     child: Consumer<MainViewmodel>(
@@ -77,8 +81,12 @@ class MainWrapper extends StatelessWidget {
                 Screen.address.value:(context) => const PickupDropoffWrapper(),
                 Screen.reviewBooking.value:(context) => const TripConfirmationReviewWrapper(),
                 Screen.confirmation.value:(context) => const TripConfirmationWrapper(),
+                Screen.bookingConfirmed.value:(context) => const TripConfirmationNumberWrapper(),
+
                 Screen.teamMemberAdd.value:(context) => const TeamMemberAddWrapper(),
-                Screen.teamMemberList.value:(context) => const TeamMemberListWrapper()
+                Screen.teamMemberList.value:(context) => const TeamMemberListWrapper(),
+
+                Screen.bookingList.value:(context) => const ModifyTripWrapper()
               },
             );
           },
